@@ -9,6 +9,6 @@ class DQLController extends Controller
         $this->validate($request, [
             'statement' => 'required',
         ]);
-        return "Response";
+        return "Success";
     }
 }
