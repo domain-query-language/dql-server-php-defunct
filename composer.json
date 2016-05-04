@@ -15,7 +15,7 @@
     "php": ">=5.5.27"
   },
   "require-dev": {
-    
+    "laravel/homestead": "^3.0"
   },
   "autoload": {
     
