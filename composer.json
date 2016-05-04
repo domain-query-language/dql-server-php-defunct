@@ -1,0 +1,32 @@
+{
+  "name": "domain-query-language/dql-server",
+  "description": "DQL Server.",
+  "keywords": ["DQL", "Server", "Event Sourced", "Domain", "Query", "Language"],
+  "license": "MIT",
+  "type": "project",
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/barryosull/valueobjects"
+    }
+  ],
+  "require": {
+    "eventsourced/valueobjects": "2.1.*",
+    "php": ">=5.5.27"
+  },
+  "require-dev": {
+    
+  },
+  "autoload": {
+    
+  },
+  "autoload-dev": {
+   
+  },
+  "scripts": {
+    
+  },
+  "config": {
+    "preferred-install": "dist"
+  }
+}
