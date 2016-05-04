@@ -10,9 +10,9 @@ namespace Infrastructure\App\DQLParser;
 /* Usefull functions: */
 
 /* chr_unicode - get unicode character from its char code */
-if (!function_exists('Infrastructure\\App\\DQLParser\\chr_unicode')) { function chr_unicode($code) { return mb_convert_encoding('&#' . $code . ';', 'UTF-8', 'HTML-ENTITIES');} }
+if (!function_exists('Infrastructure\App\DQLParser\\chr_unicode')) { function chr_unicode($code) { return mb_convert_encoding('&#' . $code . ';', 'UTF-8', 'HTML-ENTITIES');} }
 /* peg_regex_test - multibyte regex test */
-if (!function_exists('Infrastructure\\App\\DQLParser\\peg_regex_test')) { function peg_regex_test($pattern, $string) { if (substr($pattern, -1) == 'i') return mb_eregi(substr($pattern, 1, -2), $string); else return mb_ereg(substr($pattern, 1, -1), $string);}}
+if (!function_exists('Infrastructure\App\DQLParser\\peg_regex_test')) { function peg_regex_test($pattern, $string) { if (substr($pattern, -1) == 'i') return mb_eregi(substr($pattern, 1, -2), $string); else return mb_ereg(substr($pattern, 1, -1), $string);}}
 
 /* Syntax error exception */
 if (!class_exists("PhpPegJs\\SyntaxError", false)){
