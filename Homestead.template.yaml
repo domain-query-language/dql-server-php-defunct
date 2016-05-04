@@ -1,0 +1,36 @@
+---
+ip: [IP Address that you want]
+memory: 2048
+cpus: 1
+hostname: dql-development
+name: dql-development
+provider: virtualbox
+
+authorize: ~/.ssh/id_rsa.pub
+
+keys:
+    - ~/.ssh/id_rsa
+
+folders:
+    - map: [Path/to/your/DQL/install]
+      to: "/home/vagrant/dql-server"
+
+sites:
+    - map: dql-server.app
+      to: "/home/vagrant/dql-server/public"
+
+databases:
+    - dql-server
+
+# blackfire:
+#     - id: foo
+#       token: bar
+#       client-id: foo
+#       client-token: bar
+
+# ports:
+#     - send: 50000
+#       to: 5000
+#     - send: 7777
+#       to: 777
+#       protocol: udp
