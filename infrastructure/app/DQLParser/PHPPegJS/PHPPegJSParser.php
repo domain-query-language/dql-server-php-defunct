@@ -5,14 +5,14 @@
  * http://pegjs.majda.cz/
  */
 
-namespace Infrastructure\App\DQLParser;
+namespace Infrastructure\App\DQLParser\PHPPegJS;
 
 /* Usefull functions: */
 
 /* chr_unicode - get unicode character from its char code */
-if (!function_exists('Infrastructure\\App\\DQLParser\\chr_unicode')) { function chr_unicode($code) { return mb_convert_encoding('&#' . $code . ';', 'UTF-8', 'HTML-ENTITIES');} }
+if (!function_exists('Infrastructure\App\DQLParser\PHPPegJS\\chr_unicode')) { function chr_unicode($code) { return mb_convert_encoding('&#' . $code . ';', 'UTF-8', 'HTML-ENTITIES');} }
 /* peg_regex_test - multibyte regex test */
-if (!function_exists('Infrastructure\\App\\DQLParser\\peg_regex_test')) { function peg_regex_test($pattern, $string) { if (substr($pattern, -1) == 'i') return mb_eregi(substr($pattern, 1, -2), $string); else return mb_ereg(substr($pattern, 1, -1), $string);}}
+if (!function_exists('Infrastructure\App\DQLParser\PHPPegJS\\peg_regex_test')) { function peg_regex_test($pattern, $string) { if (substr($pattern, -1) == 'i') return mb_eregi(substr($pattern, 1, -2), $string); else return mb_ereg(substr($pattern, 1, -1), $string);}}
 
 /* Syntax error exception */
 if (!class_exists("PhpPegJs\\SyntaxError", false)){
@@ -231,6 +231,7 @@ class PHPPegJSParser{
     private $peg_c19;
     private $peg_c20;
     private $peg_c21;
+    private $peg_c22;
 
     private function peg_parseCommand() {
 
@@ -466,7 +467,7 @@ class PHPPegJSParser{
           }
           if ($s3 !== $this->peg_FAILED) {
             $this->peg_reportedPos = $s0;
-            $s1 = call_user_func($this->peg_c13,$s2);
+            $s1 = call_user_func($this->peg_c16,$s2);
             $s0 = $s1;
           } else {
             $this->peg_currPos = $s0;
@@ -487,23 +488,23 @@ class PHPPegJSParser{
     private function peg_parseName() {
 
       $s0 = $this->peg_currPos;
-      $s1 = $this->peg_c16;
-      if (peg_regex_test($this->peg_c17, mb_substr($this->input, $this->peg_currPos, 1, "UTF-8"))) {
+      $s1 = $this->peg_c17;
+      if (peg_regex_test($this->peg_c18, mb_substr($this->input, $this->peg_currPos, 1, "UTF-8"))) {
         $s2 = mb_substr($this->input, $this->peg_currPos, 1, "UTF-8");
         $this->peg_currPos++;
       } else {
         $s2 = $this->peg_FAILED;
-        if ($this->peg_silentFails === 0) { $this->peg_fail($this->peg_c18); }
+        if ($this->peg_silentFails === 0) { $this->peg_fail($this->peg_c19); }
       }
       if ($s2 !== $this->peg_FAILED) {
         while ($s2 !== $this->peg_FAILED) {
           $s1[] = $s2;
-          if (peg_regex_test($this->peg_c17, mb_substr($this->input, $this->peg_currPos, 1, "UTF-8"))) {
+          if (peg_regex_test($this->peg_c18, mb_substr($this->input, $this->peg_currPos, 1, "UTF-8"))) {
             $s2 = mb_substr($this->input, $this->peg_currPos, 1, "UTF-8");
             $this->peg_currPos++;
           } else {
             $s2 = $this->peg_FAILED;
-            if ($this->peg_silentFails === 0) { $this->peg_fail($this->peg_c18); }
+            if ($this->peg_silentFails === 0) { $this->peg_fail($this->peg_c19); }
           }
         }
       } else {
@@ -511,7 +512,7 @@ class PHPPegJSParser{
       }
       if ($s1 !== $this->peg_FAILED) {
         $this->peg_reportedPos = $s0;
-        $s1 = call_user_func($this->peg_c19,$s1);
+        $s1 = call_user_func($this->peg_c20,$s1);
       }
       $s0 = $s1;
 
@@ -520,22 +521,22 @@ class PHPPegJSParser{
 
     private function peg_parse_() {
 
-      $s0 = $this->peg_c16;
-      if (peg_regex_test($this->peg_c20, mb_substr($this->input, $this->peg_currPos, 1, "UTF-8"))) {
+      $s0 = $this->peg_c17;
+      if (peg_regex_test($this->peg_c21, mb_substr($this->input, $this->peg_currPos, 1, "UTF-8"))) {
         $s1 = mb_substr($this->input, $this->peg_currPos, 1, "UTF-8");
         $this->peg_currPos++;
       } else {
         $s1 = $this->peg_FAILED;
-        if ($this->peg_silentFails === 0) { $this->peg_fail($this->peg_c21); }
+        if ($this->peg_silentFails === 0) { $this->peg_fail($this->peg_c22); }
       }
       while ($s1 !== $this->peg_FAILED) {
         $s0[] = $s1;
-        if (peg_regex_test($this->peg_c20, mb_substr($this->input, $this->peg_currPos, 1, "UTF-8"))) {
+        if (peg_regex_test($this->peg_c21, mb_substr($this->input, $this->peg_currPos, 1, "UTF-8"))) {
           $s1 = mb_substr($this->input, $this->peg_currPos, 1, "UTF-8");
           $this->peg_currPos++;
         } else {
           $s1 = $this->peg_FAILED;
-          if ($this->peg_silentFails === 0) { $this->peg_fail($this->peg_c21); }
+          if ($this->peg_silentFails === 0) { $this->peg_fail($this->peg_c22); }
         }
       }
 
@@ -581,14 +582,17 @@ class PHPPegJSParser{
       };
     $this->peg_c14 = "\"";
     $this->peg_c15 = array( "type" => "literal", "value" => "\"", "description" => "\"\\\"\"" );
-    $this->peg_c16 = array();
-    $this->peg_c17 = "/^[A-Za-z0-9_-]/";
-    $this->peg_c18 = array( "type" => "class", "value" => "[A-Za-z0-9_\\-]", "description" => "[A-Za-z0-9_\\-]" );
-    $this->peg_c19 = function($name) {
+    $this->peg_c16 = function($name) {
+        return $name;
+      };
+    $this->peg_c17 = array();
+    $this->peg_c18 = "/^[A-Za-z0-9_-]/";
+    $this->peg_c19 = array( "type" => "class", "value" => "[A-Za-z0-9_\\-]", "description" => "[A-Za-z0-9_\\-]" );
+    $this->peg_c20 = function($name) {
         return join("", $name);
       };
-    $this->peg_c20 = "/^[ \\t\\n\\r]/";
-    $this->peg_c21 = array( "type" => "class", "value" => "[ \\t\\n\\r]", "description" => "[ \\t\\n\\r]" );
+    $this->peg_c21 = "/^[ \\t\\n\\r]/";
+    $this->peg_c22 = array( "type" => "class", "value" => "[ \\t\\n\\r]", "description" => "[ \\t\\n\\r]" );
 
     $peg_startRuleFunctions = array( 'Command' => array($this, "peg_parseCommand") );
     $peg_startRuleFunction  = array($this, "peg_parseCommand");

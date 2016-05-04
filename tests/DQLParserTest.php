@@ -7,7 +7,7 @@ class DQLParserTest extends TestCase
     /**
      * @var DQLParser 
      */
-    private $parser;
+    protected $parser;
     
     public function setUp()
     {

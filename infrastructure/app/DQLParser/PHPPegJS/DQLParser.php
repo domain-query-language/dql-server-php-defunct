@@ -1,4 +1,4 @@
-<?php namespace Infrastructure\App\DQLParser;
+<?php namespace Infrastructure\App\DQLParser\PHPPegJS;
 
 use App\DQLParser\ParserError;
 
@@ -9,9 +9,9 @@ class DQLParser implements \App\DQLParser\DQLParser
     
     public function __construct()
     {
-        $this->schema_path = base_path("infrastructure/app/DQLParser/PegJSGrammar.pegjs");
-        $this->parser_path = base_path("infrastructure/app/DQLParser/PHPPegJSParser.php");
-        $this->parser_generator_script = base_path("infrastructure/app/DQLParser/GenerateParser.js");
+        $this->schema_path = base_path("infrastructure/app/DQLParser/PHPPegJS/PegJSGrammar.pegjs");
+        $this->parser_path = base_path("infrastructure/app/DQLParser/PHPPegJS/PHPPegJSParser.php");
+        $this->parser_generator_script = base_path("infrastructure/app/DQLParser/PHPPegJS/GenerateParser.js");
     }
     
     public function parse($dql_statement) 
@@ -42,10 +42,10 @@ class DQLParser implements \App\DQLParser\DQLParser
     private function develop_parser()
     {
         if ($this->has_parser_schema_been_updated()) {
-            $this->create_parser_file_from_schema();
-        } else {
-            return $this->make_parser();
+            $parser_code = $this->create_parser_code_from_schema();
+            $this->store_parser_code($parser_code);
         }
+        return $this->make_parser();
     }
     
     private function has_parser_schema_been_updated()
@@ -65,11 +65,19 @@ class DQLParser implements \App\DQLParser\DQLParser
         return false;
     }
     
-    private function create_parser_file_from_schema()
+    private function create_parser_code_from_schema()
     {
-        $parser_code = [];
-        exec("/usr/bin/node ".$this->parser_generator_script, $parser_code);
-        file_put_contents($this->parser_path, implode("\n", $parser_code));
+        $parser_generator = new ParserGenerator();
+        return $parser_generator->generate(
+            file_get_contents($this->schema_path),
+            "Infrastructure\\App\\DQLParser\\PHPPegJS" ,
+            "PHPPegJSParser"
+        );
+    }
+    
+    private function store_parser_code($parser_code)
+    {
+        file_put_contents($this->parser_path, $parser_code);
     }
     
     private function make_parser()

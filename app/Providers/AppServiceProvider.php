@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             \App\DQLParser\DQLParser::class,
-            \Infrastructure\App\DQLParser\DQLParser::class
+            \Infrastructure\App\DQLParser\PHPPegJS\DQLParser::class
         );
     }
 }
