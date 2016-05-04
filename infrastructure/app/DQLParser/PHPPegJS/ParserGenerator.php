@@ -1,4 +1,4 @@
-<?php namespace Infrastructure\App\DQLParser;
+<?php namespace Infrastructure\App\DQLParser\PHPPegJS;
 
 class ParserGenerator
 {
@@ -35,7 +35,7 @@ class ParserGenerator
         $path_to_grammar = tempnam(null, null);
         file_put_contents($path_to_grammar, $grammar);
         
-        $parser_generator_script = base_path("infrastructure/app/DQLParser/GenerateParser.js");
+        $parser_generator_script = base_path("infrastructure/app/DQLParser/PHPPegJS/GenerateParser.js");
         
         $result_array = [];
         $return_var = 0;

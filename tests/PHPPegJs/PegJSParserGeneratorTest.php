@@ -1,6 +1,6 @@
 <?php
 
-use Infrastructure\App\DQLParser\ParserGenerator;
+use Infrastructure\App\DQLParser\PHPPegJS\ParserGenerator;
 
 class PegJSParserGeneratorTest extends TestCase
 {    

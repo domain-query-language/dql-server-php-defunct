@@ -1,4 +1,4 @@
-<?php namespace Infrastructure\App\DQLParser;
+<?php namespace Infrastructure\App\DQLParser\PHPPegJS;
 
 use App\DQLParser\ParserError;
 
@@ -9,9 +9,9 @@ class DQLParser implements \App\DQLParser\DQLParser
     
     public function __construct()
     {
-        $this->schema_path = base_path("infrastructure/app/DQLParser/PegJSGrammar.pegjs");
-        $this->parser_path = base_path("infrastructure/app/DQLParser/PHPPegJSParser.php");
-        $this->parser_generator_script = base_path("infrastructure/app/DQLParser/GenerateParser.js");
+        $this->schema_path = base_path("infrastructure/app/DQLParser/PHPPegJS/PegJSGrammar.pegjs");
+        $this->parser_path = base_path("infrastructure/app/DQLParser/PHPPegJS/PHPPegJSParser.php");
+        $this->parser_generator_script = base_path("infrastructure/app/DQLParser/PHPPegJS/GenerateParser.js");
     }
     
     public function parse($dql_statement) 
@@ -70,7 +70,7 @@ class DQLParser implements \App\DQLParser\DQLParser
         $parser_generator = new ParserGenerator();
         return $parser_generator->generate(
             file_get_contents($this->schema_path),
-            "Infrastructure\\App\\DQLParser" ,
+            "Infrastructure\\App\\DQLParser\\PHPPegJS" ,
             "PHPPegJSParser"
         );
     }

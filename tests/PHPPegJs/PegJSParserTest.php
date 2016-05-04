@@ -4,7 +4,7 @@ class PegJSParserTest extends DQLParserTest
 {    
     public function test_rebuild_on_schema_update()
     {
-        touch(base_path("infrastructure/app/DQLParser/PegJSGrammar.pegjs"));
+        touch(base_path("infrastructure/app/DQLParser/PHPPegJS/PegJSGrammar.pegjs"));
         
         $dql_statement = "create environment 'test';";
         $ast = json_decode('{
