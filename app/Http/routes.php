@@ -14,3 +14,9 @@
 Route::get('/test', function () {
     return view('test');
 });
+
+Route::get('dql/form', function(){
+   return view('dql/form'); 
+});
+
+Route::post('dql/command', 'DQLController@command');

@@ -1,6 +1,6 @@
 <?php
 
-class ComposerTest extends \PHPUnit_Framework_TestCase 
+class ComposerTest extends TestCase
 {    
     public function test_load_library()
     {
