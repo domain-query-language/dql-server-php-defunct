@@ -1,7 +1,7 @@
 
 Command = CreateEnvironment / UsingEnvironment
 
-CreateEnvironment = _ "create" _ "environment" _ value:QuotedName _ ";"
+CreateEnvironment = _ "create" _ "environment" _ value:QuotedName _ ";" _
   {
     return [
       'type' => 'command',
@@ -10,7 +10,7 @@ CreateEnvironment = _ "create" _ "environment" _ value:QuotedName _ ";"
     ];
   }
 
-UsingEnvironment = _ "using" _ "environment" _ value:QuotedName _ ";"
+UsingEnvironment = _ "using" _ "environment" _ value:QuotedName _ ";" _
   {
     return [
       'type' => 'command',

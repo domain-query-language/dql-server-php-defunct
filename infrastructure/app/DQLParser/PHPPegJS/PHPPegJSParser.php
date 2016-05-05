@@ -280,9 +280,15 @@ class PHPPegJSParser{
                       if ($this->peg_silentFails === 0) { $this->peg_fail($this->peg_c6); }
                     }
                     if ($s8 !== $this->peg_FAILED) {
-                      $this->peg_reportedPos = $s0;
-                      $s1 = call_user_func($this->peg_c7,$s6);
-                      $s0 = $s1;
+                      $s9 = $this->peg_parse_();
+                      if ($s9 !== $this->peg_FAILED) {
+                        $this->peg_reportedPos = $s0;
+                        $s1 = call_user_func($this->peg_c7,$s6);
+                        $s0 = $s1;
+                      } else {
+                        $this->peg_currPos = $s0;
+                        $s0 = $this->peg_c0;
+                      }
                     } else {
                       $this->peg_currPos = $s0;
                       $s0 = $this->peg_c0;
@@ -356,9 +362,15 @@ class PHPPegJSParser{
                       if ($this->peg_silentFails === 0) { $this->peg_fail($this->peg_c6); }
                     }
                     if ($s8 !== $this->peg_FAILED) {
-                      $this->peg_reportedPos = $s0;
-                      $s1 = call_user_func($this->peg_c10,$s6);
-                      $s0 = $s1;
+                      $s9 = $this->peg_parse_();
+                      if ($s9 !== $this->peg_FAILED) {
+                        $this->peg_reportedPos = $s0;
+                        $s1 = call_user_func($this->peg_c10,$s6);
+                        $s0 = $s1;
+                      } else {
+                        $this->peg_currPos = $s0;
+                        $s0 = $this->peg_c0;
+                      }
                     } else {
                       $this->peg_currPos = $s0;
                       $s0 = $this->peg_c0;
