@@ -6,12 +6,12 @@ class DQLParser implements \App\DQLParser\DQLParser
 {
     private $schema_path; 
     private $parser_path;
+    private $parser_class_name = "PHPPegJSParser";
     
     public function __construct()
     {
         $this->schema_path = base_path("infrastructure/app/DQLParser/PHPPegJS/PegJSGrammar.pegjs");
-        $this->parser_path = base_path("infrastructure/app/DQLParser/PHPPegJS/PHPPegJSParser.php");
-        $this->parser_generator_script = base_path("infrastructure/app/DQLParser/PHPPegJS/GenerateParser.js");
+        $this->parser_path = base_path("infrastructure/app/DQLParser/PHPPegJS/$this->parser_class_name.php");
     }
     
     public function parse($dql_statement) 
@@ -32,20 +32,17 @@ class DQLParser implements \App\DQLParser\DQLParser
     
     private function fetch_parser()
     {
-        if (app()->environment() != "production") {
-            return $this->develop_parser();
-        } else {
-            return $this->make_parser();
-        }
-    }
-    
-    private function develop_parser()
-    {
-        if ($this->has_parser_schema_been_updated()) {
-            $parser_code = $this->create_parser_code_from_schema();
-            $this->store_parser_code($parser_code);
+        $is_not_production = app()->environment() != "production";
+        if ($is_not_production && $this->has_parser_schema_been_updated()){
+            $this->generate_parser();
         }
         return $this->make_parser();
+    }
+    
+    private function generate_parser()
+    {
+        $parser_code = $this->create_parser_code_from_schema();
+        $this->store_parser_code($parser_code);
     }
     
     private function has_parser_schema_been_updated()
@@ -71,7 +68,7 @@ class DQLParser implements \App\DQLParser\DQLParser
         return $parser_generator->generate(
             file_get_contents($this->schema_path),
             "Infrastructure\\App\\DQLParser\\PHPPegJS" ,
-            "PHPPegJSParser"
+            $this->parser_class_name
         );
     }
     
