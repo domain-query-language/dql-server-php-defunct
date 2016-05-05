@@ -18,3 +18,6 @@ To install DQL-Server for development, you need to complete the following steps:
 5. Add an entry to your hosts file ("/etc/hosts" on mac/linux), point the url "dql-server.app" at the IP address you entered above
 6. Go to http://dql-server.app/server-test.php to test that it's working
 7. Grab a coffee/tea/beer, you're done
+
+## Issuing commands
+To issue a command, go to http://dql-server.app/dql/form. This is the interface for sending commands to your DQL server.
