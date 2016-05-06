@@ -34,16 +34,14 @@ class ParserGenerator
         
         $path_to_grammar = tempnam(null, null);
         file_put_contents($path_to_grammar, $grammar);
-        
-        $parser_generator_script = base_path("infrastructure/app/DQLParser/PHPPegJS/GenerateParser.js");
-        
+                
         $result_array = [];
         $return_var = 0;
                 
-        exec("node $parser_generator_script $path_to_grammar", $result_array, $return_var);
+        exec("node node_modules/peg-php-parser-generator/script/generate.js $path_to_grammar", $result_array, $return_var);
                 
         $result_message = implode("\n", $result_array);
-        
+
         if ($return_var == 1) {
             throw new \Exception($result_message);
         }
