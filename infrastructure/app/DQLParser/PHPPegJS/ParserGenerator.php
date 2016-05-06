@@ -2,6 +2,13 @@
 
 class ParserGenerator
 {
+    private $command_line;
+    
+    public function __construct(CommandLine $command_line)
+    {
+        $this->command_line = $command_line;
+    }
+    
     public function generate($grammar, $namespace, $class_name)
     {
         $generated_code = $this->call_generation_script($grammar);
@@ -29,16 +36,18 @@ class ParserGenerator
     }
     
     private function call_generation_script($grammar)
-    {
-        $this->assert_has_node();
-        
+    {        
         $path_to_grammar = tempnam(null, null);
         file_put_contents($path_to_grammar, $grammar);
                 
         $result_array = [];
         $return_var = 0;
                 
-        exec("node node_modules/peg-php-parser-generator/script/generate.js $path_to_grammar", $result_array, $return_var);
+        $this->command_line->execute(
+            "node node_modules/peg-php-parser-generator/script/generate.js $path_to_grammar", 
+            $result_array, 
+            $return_var
+        );
                 
         $result_message = implode("\n", $result_array);
 
@@ -51,13 +60,5 @@ class ParserGenerator
         }
                 
         return $result_message;
-    }
-    
-    private function assert_has_node()
-    {
-        $returnVal = shell_exec("which node");
-        if (empty($returnVal)) {
-            throw new \Exception("NodeJS is not installed. Please update your system.");
-        }
     }
 }

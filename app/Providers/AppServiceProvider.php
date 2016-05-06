@@ -27,5 +27,10 @@ class AppServiceProvider extends ServiceProvider
             \App\DQLParser\DQLParser::class,
             \Infrastructure\App\DQLParser\PHPPegJS\DQLParser::class
         );
+        
+        $this->app->bind(
+            \Infrastructure\App\DQLParser\PHPPegJS\CommandLine::class,
+            \Infrastructure\App\DQLParser\PHPPegJS\CommandLine\Ubuntu::class
+        );
     }
 }

@@ -22,4 +22,17 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         return $app;
     }
+    
+    /**
+     * @var \Illuminate\Foundation\Application 
+     */
+    private $application;
+    
+    public function app()
+    {
+        if (!$this->application) {
+            $this->application = $this->createApplication();
+        }
+        return $this->application;
+    }
 }

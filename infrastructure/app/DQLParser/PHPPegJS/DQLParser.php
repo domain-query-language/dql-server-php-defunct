@@ -7,9 +7,11 @@ class DQLParser implements \App\DQLParser\DQLParser
     private $schema_path; 
     private $parser_path;
     private $parser_class_name = "PHPPegJSParser";
+    private $parser_generator;
     
-    public function __construct()
+    public function __construct(ParserGenerator $parser_generator)
     {
+        $this->parser_generator = $parser_generator;
         $this->schema_path = base_path("infrastructure/app/DQLParser/PHPPegJS/PegJSGrammar.pegjs");
         $this->parser_path = base_path("infrastructure/app/DQLParser/PHPPegJS/$this->parser_class_name.php");
     }
@@ -64,8 +66,7 @@ class DQLParser implements \App\DQLParser\DQLParser
     
     private function create_parser_code_from_schema()
     {
-        $parser_generator = new ParserGenerator();
-        return $parser_generator->generate(
+        return $this->parser_generator->generate(
             file_get_contents($this->schema_path),
             "Infrastructure\\App\\DQLParser\\PHPPegJS" ,
             $this->parser_class_name
