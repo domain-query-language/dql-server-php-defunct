@@ -56,7 +56,7 @@ class ParserGenerator
         }
         
         if (!$result_message) {
-            throw new \Exception("Error generating parser script. Please ensure nodejs is installed.");
+            throw new \Exception("Error generating parser script.");
         }
                 
         return $result_message;
