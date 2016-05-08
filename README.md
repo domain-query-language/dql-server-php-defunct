@@ -1,6 +1,10 @@
 # DQL-Server
 A server side application that can receive and process Domain Query Language (DQL) statements, leading to a fully working, event-sourced, domain.
 
+[![Build Status](https://travis-ci.org/domain-query-language/dql-server.svg?branch=master)](https://travis-ci.org/domain-query-language/dql-server)
+
+
+
 ## Status
 This project is still in development. This document will be updated as development progresses.
 
