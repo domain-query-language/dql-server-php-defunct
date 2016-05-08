@@ -36,7 +36,7 @@ class SyntaxError extends \Exception
     }
 };}
 
-class PHPPegJSParser{
+class GeneratedParser{
 
 
     private $peg_currPos          = 0;

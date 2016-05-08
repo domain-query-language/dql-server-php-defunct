@@ -6,7 +6,7 @@ class DQLParser implements \App\DQLParser\DQLParser
 {
     private $schema_path; 
     private $parser_path;
-    private $parser_class_name = "PHPPegJSParser";
+    private $parser_class_name = "GeneratedParser";
     private $parser_generator;
     
     public function __construct(ParserGenerator $parser_generator)
@@ -80,6 +80,6 @@ class DQLParser implements \App\DQLParser\DQLParser
     
     private function make_parser()
     {
-        return new PHPPegJSParser();
+        return new GeneratedParser();
     }
 }
