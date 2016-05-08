@@ -24,6 +24,6 @@
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
-        <env name="APP_KEY" value="TestCypherForPHPUNIT"/>
+        <env name="APP_KEY" value="base64:XpKFndIg9gyLLyGwf8h4kvfOxhruYQP6siJ0qriwsB8="/>
     </php>
 </phpunit>
