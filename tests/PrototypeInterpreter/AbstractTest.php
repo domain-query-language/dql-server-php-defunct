@@ -2,6 +2,8 @@
 
 require_once "EventStore.php";
 
+use App\Interpreter\Interpreter;
+
 //PrototypeInterpreter
 abstract class AbstractTest extends TestCase
 {   
@@ -25,6 +27,9 @@ abstract class AbstractTest extends TestCase
         return new EventStore();
     }
     
+    /**
+     * @return Interpreter
+     */
     abstract protected function build_fires_events_interpreter();
     
     private function command()
@@ -52,6 +57,9 @@ abstract class AbstractTest extends TestCase
         
     }
     
+    /**
+     * @return Interpreter
+     */
     abstract protected function build_fails_on_invariants_interpreter();
     
     public function test_interpreter_fails_on_invariants()
