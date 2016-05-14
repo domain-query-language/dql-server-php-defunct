@@ -2,7 +2,7 @@
 
 class Event
 {
-    public function interpret($content)
+    public function make($context, $arguments)
     {
         
     }

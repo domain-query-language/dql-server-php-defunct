@@ -2,11 +2,16 @@
 
 class Invariant
 {
-    public function interpret($context)
+    private $result;
+    
+    public function __construct($result)
     {
-        $arguments = $context->arguments;
-        
-        return true;
+        $this->result = $result;
+    }
+    
+    public function check($arguments)
+    {
+        return $this->result;
     }
 }
 
