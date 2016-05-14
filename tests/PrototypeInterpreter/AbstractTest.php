@@ -14,6 +14,7 @@ abstract class AbstractTest extends TestCase
     {
         $this->ast = $this->ast();
         $this->event_store = $this->event_store();
+        $this->expected_events = [];
     }
     
     private function ast()
@@ -51,9 +52,9 @@ abstract class AbstractTest extends TestCase
     {
         $interpreter = $this->build_fails_on_invariants_interpreter();
         
-        $interpreter->interpret($this->context());
+        $events = $interpreter->interpret($this->context());
         
-        $this->assert($this->expected_events, $this->event_store->events());
+        $this->assert($this->expected_events, $events);
         
     }
     
