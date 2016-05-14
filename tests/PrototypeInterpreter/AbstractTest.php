@@ -2,6 +2,9 @@
 
 require_once "EventStore.php";
 
+use App\Interpreter\Interpreter;
+use App\Interpreter\InvariantException;
+
 //PrototypeInterpreter
 abstract class AbstractTest extends TestCase
 {   
@@ -12,6 +15,10 @@ abstract class AbstractTest extends TestCase
     {
         $this->ast = $this->ast();
         $this->event_store = $this->event_store();
+        
+        $event = new \stdClass();
+        $event->id = 'event_id';
+        $this->expected_events = [$event, $event];
     }
     
     private function ast()
@@ -25,6 +32,9 @@ abstract class AbstractTest extends TestCase
         return new EventStore();
     }
     
+    /**
+     * @return Interpreter
+     */
     abstract protected function build_fires_events_interpreter();
     
     private function command()
@@ -44,19 +54,21 @@ abstract class AbstractTest extends TestCase
    
     public function test_interpreter_fires_events()
     {
-        $interpreter = $this->build_fails_on_invariants_interpreter();
+        $interpreter = $this->build_fires_events_interpreter();
         
-        $interpreter->interpret($this->context());
+        $events = $interpreter->interpret($this->context());
         
-        $this->assert($this->expected_events, $this->event_store->events());
-        
+        $this->assertEquals($this->expected_events, $events);  
     }
     
+    /**
+     * @return Interpreter
+     */
     abstract protected function build_fails_on_invariants_interpreter();
     
     public function test_interpreter_fails_on_invariants()
     {
-        $this->setExpectedException(\InvariantException::class);
+        $this->setExpectedException(InvariantException::class);
         
         $interpreter = $this->build_fails_on_invariants_interpreter();
         
