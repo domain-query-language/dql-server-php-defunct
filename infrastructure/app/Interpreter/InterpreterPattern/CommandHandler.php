@@ -48,11 +48,11 @@ class CommandHandler implements \App\Interpreter\Interpreter
         }
     }
     
-    //Hey
+    //Note: Internal function of invariants
     private function check_invariant($ast)
     {
-        $invariant = $this->fetch_invariant($ast->invariant_id);
-        $arguments = $this->build_argument_list($ast->arguments);
+        $invariant = $this->invariant_repository->fetch($ast->invariant_id);
+        $arguments = $this->interpret_arguments($ast->arguments);
         
         $result = $invariant->check($arguments);
         
@@ -63,12 +63,7 @@ class CommandHandler implements \App\Interpreter\Interpreter
         return $result;
     }
     
-    private function fetch_invariant($invariant_id)
-    {
-        return $this->invariant_repository->fetch($invariant_id);
-    }
-    
-    private function build_argument_list($arguments_ast) 
+    private function interpret_arguments($arguments_ast) 
     {
         $arguments = [];
         foreach ($arguments_ast as $argument_ast) {
@@ -100,7 +95,7 @@ class CommandHandler implements \App\Interpreter\Interpreter
     
     private function interpret_build_event($ast)
     {
-        $arguments = $this->build_argument_list($ast->arguments);
+        $arguments = $this->interpret_arguments($ast->arguments);
         
         $event = new \stdClass();
         $event->id = 'event_id';
@@ -108,6 +103,7 @@ class CommandHandler implements \App\Interpreter\Interpreter
         return $event;
     }
     
+    //Note: Private method of Aggregates
     private function apply_event($event)
     {
         
