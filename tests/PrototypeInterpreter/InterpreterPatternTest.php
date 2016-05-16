@@ -11,12 +11,12 @@ class InterpreterPatternTest extends AbstractTest
     protected function build_fires_events_interpreter()
     {
         $invariant_repository = new Pass(\Infrastructure\App\Interpreter\InterpreterPattern\Invariant::class);
-        return new CommandHandler($this->event_store, $invariant_repository, $this->ast->handler);
+        return new CommandHandler($invariant_repository, $this->ast->handler);
     }
     
     protected function build_fails_on_invariants_interpreter()
     {
         $invariant_repository = new Fail(\Infrastructure\App\Interpreter\InterpreterPattern\Invariant::class);
-        return new CommandHandler($this->event_store, $invariant_repository, $this->ast->handler);
+        return new CommandHandler($invariant_repository, $this->ast->handler);
     }
 }
