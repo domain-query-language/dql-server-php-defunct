@@ -31,13 +31,13 @@ class CommandHandler implements \App\Interpreter\Interpreter
         return $this->applied_events;
     }
     
-    private function interpret_statement($statement_ast)
+    private function interpret_statement($ast)
     {
-        if ($statement_ast->assert) {
-            $this->interpret_assert($statement_ast->assert);
+        if ($ast->assert) {
+            $this->interpret_assert($ast->assert);
         }
-        if ($statement_ast->apply) {
-            $this->interpret_apply($statement_ast->apply);
+        if ($ast->apply) {
+            $this->interpret_apply($ast->apply);
         }
     }
     
@@ -63,19 +63,19 @@ class CommandHandler implements \App\Interpreter\Interpreter
         return $result;
     }
     
-    private function interpret_arguments($arguments_ast) 
+    private function interpret_arguments($ast) 
     {
         $arguments = [];
-        foreach ($arguments_ast as $argument_ast) {
+        foreach ($ast as $argument_ast) {
             $arguments[] = $this->interpret_get_property($argument_ast->property);
         }
         return $arguments;
     }
     
-    private function interpret_get_property($property_ast)
+    private function interpret_get_property($ast)
     {
         $property = $this->context;
-        foreach ($property_ast as $key) {
+        foreach ($ast as $key) {
             if (!isset($property->$key)) {
                throw new \Exception("Property '$key' does not exist"); 
             }
@@ -86,11 +86,15 @@ class CommandHandler implements \App\Interpreter\Interpreter
              
     private function interpret_apply($ast)
     {
+        if (isset($ast->assert)) {
+            if (!$this->check_invariant($ast->assert)) {
+                return;
+            }
+        }
+        
         $applied_event = $this->interpret_build_event($ast);
         
         $this->apply_event($applied_event);
-        
-        $this->applied_events[] = $applied_event;
     }
     
     private function interpret_build_event($ast)
@@ -106,6 +110,6 @@ class CommandHandler implements \App\Interpreter\Interpreter
     //Note: Private method of Aggregates
     private function apply_event($event)
     {
-        
+        $this->applied_events[] = $event;
     }
 }
