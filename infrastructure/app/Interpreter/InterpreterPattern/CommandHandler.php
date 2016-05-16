@@ -1,18 +1,20 @@
 <?php namespace Infrastructure\App\Interpreter\InterpreterPattern;
 
-use App\Interpreter\InvariantException;
+use App\Interpreter;
+use Infrastructure\Domain\EventStore;
 
 class CommandHandler implements \App\Interpreter\Interpreter
 {
     private $event_store;
     private $invariant_repository;
     private $ast;
+    
     private $context;
     private $applied_events;
     
     public function __construct(
-        \Infrastructure\Domain\EventStore $event_store,
-        \App\Interpreter\InvariantRepository $invariant_repository,
+        EventStore $event_store,
+        Interpreter\InvariantRepository $invariant_repository,
         $ast
     )
     {
@@ -21,7 +23,7 @@ class CommandHandler implements \App\Interpreter\Interpreter
         $this->ast = $ast;
     }
         
-    public function interpret($context)
+    public function interpret(Interpreter\Context $context)
     {
         $this->context = $context;
         foreach ($this->ast->statements as $statement_ast) {
@@ -44,7 +46,7 @@ class CommandHandler implements \App\Interpreter\Interpreter
     private function interpret_assert($ast)
     {
         if (!$this->check_invariant($ast)) {
-            throw new InvariantException("Failure");
+            throw new Interpreter\InvariantException("Failure");
         }
     }
     
@@ -67,21 +69,9 @@ class CommandHandler implements \App\Interpreter\Interpreter
     {
         $arguments = [];
         foreach ($ast as $argument_ast) {
-            $arguments[] = $this->interpret_get_property($argument_ast->property);
+            $arguments[] = $this->context->get_property($argument_ast->property);
         }
         return $arguments;
-    }
-    
-    private function interpret_get_property($ast)
-    {
-        $property = $this->context;
-        foreach ($ast as $key) {
-            if (!isset($property->$key)) {
-               throw new \Exception("Property '$key' does not exist"); 
-            }
-            $property = $property->$key;
-        }
-        return $property;
     }
              
     private function interpret_apply($ast)

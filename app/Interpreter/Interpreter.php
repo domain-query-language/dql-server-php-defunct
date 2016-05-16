@@ -4,6 +4,6 @@ namespace App\Interpreter;
 
 interface Interpreter 
 {
-    public function interpret($context);
+    public function interpret(Context $context);
 }
 
