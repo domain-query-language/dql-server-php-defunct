@@ -4,6 +4,7 @@ require_once "EventStore.php";
 
 use App\Interpreter\Interpreter;
 use App\Interpreter\InvariantException;
+use App\Interpreter\Context;
 
 //PrototypeInterpreter
 abstract class AbstractTest extends TestCase
@@ -47,8 +48,8 @@ abstract class AbstractTest extends TestCase
     
     private function context()
     {
-        $context = new stdClass();
-        $context->command = $this->command();
+        $context = new Context();
+        $context = $context->set_property('command', $this->command());
         return $context;
     }
    

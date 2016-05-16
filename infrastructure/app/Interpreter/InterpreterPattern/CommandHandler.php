@@ -1,18 +1,20 @@
 <?php namespace Infrastructure\App\Interpreter\InterpreterPattern;
 
-use App\Interpreter\InvariantException;
+use App\Interpreter;
+use Infrastructure\Domain\EventStore;
 
 class CommandHandler implements \App\Interpreter\Interpreter
 {
     private $event_store;
     private $invariant_repository;
     private $ast;
+    
     private $context;
     private $applied_events;
     
     public function __construct(
-        \Infrastructure\Domain\EventStore $event_store,
-        \App\Interpreter\InvariantRepository $invariant_repository,
+        EventStore $event_store,
+        Interpreter\InvariantRepository $invariant_repository,
         $ast
     )
     {
@@ -21,7 +23,7 @@ class CommandHandler implements \App\Interpreter\Interpreter
         $this->ast = $ast;
     }
         
-    public function interpret($context)
+    public function interpret(Interpreter\Context $context)
     {
         $this->context = $context;
         foreach ($this->ast->statements as $statement_ast) {
@@ -31,24 +33,23 @@ class CommandHandler implements \App\Interpreter\Interpreter
         return $this->applied_events;
     }
     
-    private function interpret_statement($statement_ast)
+    private function interpret_statement($ast)
     {
-        if ($statement_ast->assert) {
-            $this->interpret_assert($statement_ast->assert);
+        if ($ast->assert) {
+            $this->interpret_assert($ast->assert);
         }
-        if ($statement_ast->apply) {
-            $this->interpret_apply($statement_ast->apply);
+        if ($ast->apply) {
+            $this->interpret_apply($ast->apply);
         }
     }
     
     private function interpret_assert($ast)
     {
         if (!$this->check_invariant($ast)) {
-            throw new InvariantException("Failure");
+            throw new Interpreter\InvariantException("Failure");
         }
     }
     
-    //Note: Internal function of invariants
     private function check_invariant($ast)
     {
         $invariant = $this->invariant_repository->fetch($ast->invariant_id);
@@ -63,34 +64,26 @@ class CommandHandler implements \App\Interpreter\Interpreter
         return $result;
     }
     
-    private function interpret_arguments($arguments_ast) 
+    private function interpret_arguments($ast) 
     {
         $arguments = [];
-        foreach ($arguments_ast as $argument_ast) {
-            $arguments[] = $this->interpret_get_property($argument_ast->property);
+        foreach ($ast as $argument_ast) {
+            $arguments[] = $this->context->get_property($argument_ast->property);
         }
         return $arguments;
-    }
-    
-    private function interpret_get_property($property_ast)
-    {
-        $property = $this->context;
-        foreach ($property_ast as $key) {
-            if (!isset($property->$key)) {
-               throw new \Exception("Property '$key' does not exist"); 
-            }
-            $property = $property->$key;
-        }
-        return $property;
     }
              
     private function interpret_apply($ast)
     {
+        if (isset($ast->assert)) {
+            if (!$this->check_invariant($ast->assert)) {
+                return;
+            }
+        }
+        
         $applied_event = $this->interpret_build_event($ast);
         
         $this->apply_event($applied_event);
-        
-        $this->applied_events[] = $applied_event;
     }
     
     private function interpret_build_event($ast)
@@ -103,9 +96,10 @@ class CommandHandler implements \App\Interpreter\Interpreter
         return $event;
     }
     
-    //Note: Private method of Aggregates
     private function apply_event($event)
     {
-        
+        // Logic for applying events to the projectors
+        // Suggest we have access to the aggregates projector
+        $this->applied_events[] = $event;
     }
 }

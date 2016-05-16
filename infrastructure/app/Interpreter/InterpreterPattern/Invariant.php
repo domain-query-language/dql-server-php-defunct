@@ -1,5 +1,8 @@
 <?php namespace Infrastructure\App\Interpreter\InterpreterPattern;
 
+/**
+ * Stub invariant for testing purposes
+ */
 class Invariant
 {
     private $result;
