@@ -2,7 +2,7 @@
 
 use App\Interpreter\Context;
 
-class NullInterpreter
+class NullInterpreter implements \App\Interpreter\Interpreter
 {
     public function interpret(Context $context)
     {

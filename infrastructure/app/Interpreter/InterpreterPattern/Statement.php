@@ -3,7 +3,7 @@
 use App\Interpreter\InvariantRepository;
 use App\Interpreter\Context;
 
-class Statement
+class Statement implements \App\Interpreter\Interpreter
 {    
     private $interpreter;
     

@@ -4,7 +4,7 @@ use App\Interpreter\InvariantRepository;
 use App\Interpreter\Context;
 use App\Interpreter\InvariantException;
 
-class Assert
+class Assert implements \App\Interpreter\Interpreter
 {    
     private $interpreter;
     

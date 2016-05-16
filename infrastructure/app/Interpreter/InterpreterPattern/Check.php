@@ -3,7 +3,7 @@
 use App\Interpreter\InvariantRepository;
 use App\Interpreter\Context;
 
-class Check
+class Check implements \App\Interpreter\Interpreter
 {    
     private $invariant;
     private $comparator;

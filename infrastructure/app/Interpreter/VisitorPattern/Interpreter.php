@@ -34,9 +34,7 @@ class Interpreter implements Visitor
             }
         }
         
-        $applied_event = $this->build_event($ast);
-        
-        $this->applied_events[] = $applied_event;
+        $this->applied_events[] = $this->build_event($ast);
     }
     
     private function check_invariant($ast)

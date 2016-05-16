@@ -2,7 +2,7 @@
 
 use App\Interpreter\Context;
 
-class Arguments
+class Arguments implements \App\Interpreter\Interpreter
 {    
     private $ast;
     

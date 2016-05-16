@@ -3,7 +3,7 @@
 use App\Interpreter\InvariantRepository;
 use App\Interpreter\Context;
 
-class Apply
+class Apply implements \App\Interpreter\Interpreter
 {    
     private $check_interpreter;
     private $arguments_interpreter;
