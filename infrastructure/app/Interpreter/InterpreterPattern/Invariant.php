@@ -3,7 +3,7 @@
 /**
  * Stub invariant for testing purposes
  */
-class Invariant
+class Invariant 
 {
     private $result;
     
