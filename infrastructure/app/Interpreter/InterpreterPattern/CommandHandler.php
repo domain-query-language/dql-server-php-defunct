@@ -50,7 +50,6 @@ class CommandHandler implements \App\Interpreter\Interpreter
         }
     }
     
-    //Note: Internal function of invariants
     private function check_invariant($ast)
     {
         $invariant = $this->invariant_repository->fetch($ast->invariant_id);
@@ -97,9 +96,10 @@ class CommandHandler implements \App\Interpreter\Interpreter
         return $event;
     }
     
-    //Note: Private method of Aggregates
     private function apply_event($event)
     {
+        // Logic for applying events to the projectors
+        // Suggest we have access to the aggregates projector
         $this->applied_events[] = $event;
     }
 }
