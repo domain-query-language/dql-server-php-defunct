@@ -1,6 +1,6 @@
-<?php namespace Infrastructure\App\Interpreter\InterpreterPattern;
+<?php namespace Infrastructure\App\Interpreter;
 
-use Infrastructure\App\Interpreter\InterpreterPattern\Handler;
+use Infrastructure\App\Interpreter\Handler;
 use App\Interpreter\Context;
 
 class CommandHandler implements \App\Interpreter\Interpreter

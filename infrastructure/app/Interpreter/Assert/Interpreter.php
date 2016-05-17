@@ -1,4 +1,4 @@
-<?php namespace Infrastructure\App\Interpreter\InterpreterPattern\Assert;
+<?php namespace Infrastructure\App\Interpreter\Assert;
 
 use App\Interpreter\Context;
 use App\Interpreter\InvariantException;

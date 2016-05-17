@@ -1,4 +1,4 @@
-<?php namespace Infrastructure\App\Interpreter\InterpreterPattern\Apply;
+<?php namespace Infrastructure\App\Interpreter\Apply;
 
 use App\Interpreter\Context;
 

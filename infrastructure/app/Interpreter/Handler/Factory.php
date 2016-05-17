@@ -1,6 +1,6 @@
-<?php namespace Infrastructure\App\Interpreter\InterpreterPattern\Handler;
+<?php namespace Infrastructure\App\Interpreter\Handler;
 
-use Infrastructure\App\Interpreter\InterpreterPattern\Statement;
+use Infrastructure\App\Interpreter\Statement;
 
 class Factory 
 {   

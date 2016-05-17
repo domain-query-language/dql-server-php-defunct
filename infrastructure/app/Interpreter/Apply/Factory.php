@@ -1,8 +1,8 @@
-<?php namespace Infrastructure\App\Interpreter\InterpreterPattern\Apply;
+<?php namespace Infrastructure\App\Interpreter\Apply;
 
-use Infrastructure\App\Interpreter\InterpreterPattern\Check;
-use Infrastructure\App\Interpreter\InterpreterPattern\Arguments;
-use Infrastructure\App\Interpreter\InterpreterPattern\NullInterpreter;
+use Infrastructure\App\Interpreter\Check;
+use Infrastructure\App\Interpreter\Arguments;
+use Infrastructure\App\Interpreter\NullInterpreter;
 
 class Factory 
 {   

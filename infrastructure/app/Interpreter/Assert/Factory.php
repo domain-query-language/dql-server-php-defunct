@@ -1,6 +1,6 @@
-<?php namespace Infrastructure\App\Interpreter\InterpreterPattern\Assert;
+<?php namespace Infrastructure\App\Interpreter\Assert;
 
-use Infrastructure\App\Interpreter\InterpreterPattern\Check;
+use Infrastructure\App\Interpreter\Check;
 
 class Factory
 {    

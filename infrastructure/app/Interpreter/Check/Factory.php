@@ -1,7 +1,7 @@
-<?php namespace Infrastructure\App\Interpreter\InterpreterPattern\Check;
+<?php namespace Infrastructure\App\Interpreter\Check;
 
 use App\Interpreter\InvariantRepository;
-use Infrastructure\App\Interpreter\InterpreterPattern\Arguments;
+use Infrastructure\App\Interpreter\Arguments;
 
 class Factory 
 {    

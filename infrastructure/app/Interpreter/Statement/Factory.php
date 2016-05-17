@@ -1,7 +1,7 @@
-<?php namespace Infrastructure\App\Interpreter\InterpreterPattern\Statement;
+<?php namespace Infrastructure\App\Interpreter\Statement;
 
-use Infrastructure\App\Interpreter\InterpreterPattern\Assert;
-use Infrastructure\App\Interpreter\InterpreterPattern\Apply;
+use Infrastructure\App\Interpreter\Assert;
+use Infrastructure\App\Interpreter\Apply;
 
 class Factory
 {    
