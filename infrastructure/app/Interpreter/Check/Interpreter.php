@@ -1,4 +1,4 @@
-<?php namespace Infrastructure\App\Interpreter\InterpreterPattern\Check;
+<?php namespace Infrastructure\App\Interpreter\Check;
 
 use App\Interpreter\Context;
 
