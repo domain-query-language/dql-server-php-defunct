@@ -1,26 +1,19 @@
 <?php namespace Infrastructure\App\Interpreter\InterpreterPattern;
 
-use App\Interpreter\InvariantRepository;
+use Infrastructure\App\Interpreter\InterpreterPattern\Handler;
 use App\Interpreter\Context;
 
 class CommandHandler implements \App\Interpreter\Interpreter
 {
-    private $statements = [];
+    private $interpreter;
     
-    public function __construct(InvariantRepository $invariant_repository, $ast)
+    public function __construct(Handler\Factory $handler_factory, $ast)
     {
-        foreach ($ast->statements as $statement_ast) {
-            $this->statements[] = new Statement($statement_ast, $invariant_repository);
-        }
+        $this->interpreter = $handler_factory->ast($ast);
     }
         
     public function interpret(Context $context)
     {
-        $this->context = $context;
-        $events = [];
-        foreach ($this->statements as $statement) {
-           $events[] = $statement->interpret($context); 
-        }  
-        return array_values(array_filter($events));
+        return $this->interpreter->interpret($context);
     }
 }

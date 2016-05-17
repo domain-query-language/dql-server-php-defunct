@@ -1,16 +1,15 @@
-<?php namespace Infrastructure\App\Interpreter\InterpreterPattern;
+<?php namespace Infrastructure\App\Interpreter\InterpreterPattern\Assert;
 
-use App\Interpreter\InvariantRepository;
 use App\Interpreter\Context;
 use App\Interpreter\InvariantException;
 
-class Assert implements \App\Interpreter\Interpreter
+class Interpreter implements \App\Interpreter\Interpreter
 {    
     private $interpreter;
     
-    public function __construct($ast, InvariantRepository $invariant_repo)
+    public function __construct($interpreter)
     {
-        $this->interpreter = new Check($ast, $invariant_repo);
+        $this->interpreter = $interpreter;
     }
     
     public function interpret(Context $context)
