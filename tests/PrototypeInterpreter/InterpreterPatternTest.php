@@ -5,18 +5,22 @@ require_once "InvariantRepository/Fail.php";
 require_once "InvariantRepository/Pass.php";
 
 use Infrastructure\App\Interpreter\InterpreterPattern\CommandHandler;
+use App\Interpreter\InvariantRepository;
+use Infrastructure\App\Interpreter\InterpreterPattern\Handler;
 
 class InterpreterPatternTest extends AbstractTest
 {
     protected function build_fires_events_interpreter()
     {
-        $invariant_repository = new Pass(\Infrastructure\App\Interpreter\InterpreterPattern\Invariant::class);
-        return new CommandHandler($invariant_repository, $this->ast->handler);
+        $this->app()->bind(InvariantRepository::class, Pass::class);
+        $handler_factory = $this->app()->make(Handler\Factory::class);
+        return new CommandHandler($handler_factory, $this->ast->handler);
     }
     
     protected function build_fails_on_invariants_interpreter()
     {
-        $invariant_repository = new Fail(\Infrastructure\App\Interpreter\InterpreterPattern\Invariant::class);
-        return new CommandHandler($invariant_repository, $this->ast->handler);
+        $this->app()->bind(InvariantRepository::class, Fail::class);
+        $handler_factory = $this->app()->make(Handler\Factory::class);
+        return new CommandHandler($handler_factory, $this->ast->handler);
     }
 }

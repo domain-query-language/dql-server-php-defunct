@@ -1,8 +1,8 @@
-<?php namespace Infrastructure\App\Interpreter\InterpreterPattern;
+<?php namespace Infrastructure\App\Interpreter\InterpreterPattern\Arguments;
 
 use App\Interpreter\Context;
 
-class Arguments implements \App\Interpreter\Interpreter
+class Interpreter implements \App\Interpreter\Interpreter
 {    
     private $ast;
     
@@ -20,5 +20,7 @@ class Arguments implements \App\Interpreter\Interpreter
         return $arguments;
     }
 }
+
+
 
 
