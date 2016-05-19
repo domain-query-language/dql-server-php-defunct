@@ -1,6 +1,6 @@
-<?php
+<?php namespace Test;
 
-class WebInterfaceTest extends TestCase
+class WebInterfaceTest extends \Test\TestCase
 {        
     public function test_load_form()
     {

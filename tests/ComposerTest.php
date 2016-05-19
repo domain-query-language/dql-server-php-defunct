@@ -1,6 +1,6 @@
-<?php
+<?php namespace Test;
 
-class ComposerTest extends TestCase
+class ComposerTest extends \Test\TestCase
 {    
     public function test_load_library()
     {

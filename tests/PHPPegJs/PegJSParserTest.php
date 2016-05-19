@@ -1,4 +1,4 @@
-<?php
+<?php namespace Test;
 
 require_once 'CommandLine/Valid.php';
 require_once 'CommandLine/Invalid.php';
@@ -38,7 +38,7 @@ class PegJSParserTest extends TestCase
     
     public function test_rebuild_on_schema_update()
     {
-        $generator = new \Infrastructure\App\DQLParser\PHPPegJS\ParserGenerator( new Invalid());
+        $generator = new \Infrastructure\App\DQLParser\PHPPegJS\ParserGenerator( new \Invalid());
         $parser = new \Infrastructure\App\DQLParser\PHPPegJS\DQLParser($generator);   
         
         //The exception thrown by an invalid build, proves the builder was called
