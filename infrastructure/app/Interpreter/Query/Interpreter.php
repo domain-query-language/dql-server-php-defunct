@@ -17,6 +17,11 @@ class Interpreter implements \App\Interpreter\Interpreter
     {
         $values = $this->value_factory->context($context);
         $this->statement->execute($values);
-        return $this->statement->fetchAll(\PDO::FETCH_OBJ);
+        $rows = $this->statement->fetchAll(\PDO::FETCH_OBJ);
+        
+        if (count($rows) == 0) {
+            return false;
+        }
+        return true;
     }
 }

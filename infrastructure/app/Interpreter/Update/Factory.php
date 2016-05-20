@@ -1,5 +1,7 @@
 <?php namespace Infrastructure\App\Interpreter\Update;
 
+use Infrastructure\App\Interpreter\Query\ValueFactory;
+
 class Factory 
 {       
     private $pdo;
