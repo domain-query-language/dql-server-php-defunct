@@ -3,6 +3,7 @@
 use App\Interpreter\Context;
 use Infrastructure\App\Interpreter\Update;
 use Infrastructure\App\Interpreter\Query;
+use Test\Interpreter\Projection\MockPDO;
 
 class InterpreterTest extends \Test\TestCase
 {
@@ -18,7 +19,9 @@ class InterpreterTest extends \Test\TestCase
         $this->query_context->set_property('query', $query);
         
         $this->update_context = new Context();
-        $this->query_context->set_property('update', $query);        
+        $this->query_context->set_property('update', $query); 
+        
+        $this->app()->bind(\PDO::class, MockPDO::class);
     }
     
     public function test_query_returns_false_initially()
