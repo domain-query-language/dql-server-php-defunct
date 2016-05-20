@@ -1,4 +1,4 @@
-<?php
+<?php namespace Test\Interpreter\CommandHandler;
 
 require_once "InvariantRepository/Fail.php";
 require_once "InvariantRepository/Pass.php";
@@ -6,10 +6,9 @@ require_once "InvariantRepository/Pass.php";
 use App\Interpreter\InvariantRepository;
 use App\Interpreter\Context;
 use App\Interpreter\InvariantException;
-use Infrastructure\App\Interpreter\CommandHandler;
 use Infrastructure\App\Interpreter\Handler;
 
-class InterpreterTest extends TestCase
+class InterpreterTest extends \Test\TestCase
 {
     protected $ast;
     
@@ -24,13 +23,12 @@ class InterpreterTest extends TestCase
     
     private function ast()
     {
-        $ast_file = base_path('tests/Interpreter/ast.json');
-        return json_decode(file_get_contents($ast_file));
+        return $this->load_json('tests/Interpreter/CommandHandler/ast.json');
     }
     
     private function command()
     {
-        $command = new stdClass();
+        $command = new \stdClass();
         $command->aggregate_id = '9d3ee092-9ae2-4e31-9d34-14636635645e';
         $command->shopper_id = '1d0aa941-6dd5-472c-9020-f2cf4caf45ea';
         return $command;
@@ -48,9 +46,9 @@ class InterpreterTest extends TestCase
      */
     protected function build_fires_events_interpreter()
     {
-        $this->app()->bind(InvariantRepository::class, Pass::class);
+        $this->app()->bind(InvariantRepository::class, \Pass::class);
         $handler_factory = $this->app()->make(Handler\Factory::class);
-        return new CommandHandler($handler_factory, $this->ast->handler);
+        return $handler_factory->ast($this->ast->handler);
     }
     
     public function test_interpreter_fires_events()
@@ -65,9 +63,9 @@ class InterpreterTest extends TestCase
      */
     protected function build_fails_on_invariants_interpreter()
     {
-        $this->app()->bind(InvariantRepository::class, Fail::class);
+        $this->app()->bind(InvariantRepository::class, \Fail::class);
         $handler_factory = $this->app()->make(Handler\Factory::class);
-        return new CommandHandler($handler_factory, $this->ast->handler);
+        return $handler_factory->ast($this->ast->handler);
     }
     
     public function test_interpreter_fails_on_invariants()

@@ -1,0 +1,10 @@
+{
+  "statements": [
+    {
+      "property": "shopper_id",
+      "value": {
+        "property": ["shopper_id"]
+      }
+    }
+  ]
+}

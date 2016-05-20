@@ -1,6 +1,6 @@
-<?php
+<?php namespace Test;
 
-class TestCase extends Illuminate\Foundation\Testing\TestCase
+class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
     /**
      * The base URL to use while testing the application.
@@ -18,7 +18,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
         $app = require __DIR__.'/../bootstrap/app.php';
 
-        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+        $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
     }
@@ -34,5 +34,11 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
             $this->application = $this->createApplication();
         }
         return $this->application;
+    }
+    
+    protected function load_json($file_path)
+    {
+        $ast_file = base_path($file_path);
+        return json_decode(file_get_contents($ast_file));
     }
 }

@@ -1,0 +1,25 @@
+{
+  "query": {
+    "select": [{
+        "field": "shopper_id",
+        "operation": "count",
+        "name": "cart_count"
+      }],
+    "where": [{
+        "field": "shopper_id",
+        "compator": "==",
+        "value": {
+          "property": "shopper_id"
+        }
+      }],
+    "check": {
+      "condition": {
+        "field": "cart_count",
+        "compator": ">",
+        "value": {
+          "literal": 0
+        }
+      }
+    }
+  }
+}

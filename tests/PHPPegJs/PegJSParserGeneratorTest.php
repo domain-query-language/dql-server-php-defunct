@@ -1,4 +1,4 @@
-<?php
+<?php namespace Test;
 
 require_once 'CommandLine/Valid.php';
 require_once 'CommandLine/Invalid.php';
@@ -16,7 +16,7 @@ class PegJSParserGeneratorTest extends TestCase
      
     public function test_valid()
     {       
-        $generator = new Infrastructure\App\DQLParser\PHPPegJS\ParserGenerator(new Valid());
+        $generator = new \Infrastructure\App\DQLParser\PHPPegJS\ParserGenerator(new \Valid());
         
         $generated_code = $generator->generate(
             'test string', 
@@ -32,7 +32,7 @@ class PegJSParserGeneratorTest extends TestCase
     {
         $this->setExpectedException(\Exception::class, "ERROR");
         
-        $generator = new Infrastructure\App\DQLParser\PHPPegJS\ParserGenerator(new Invalid());
+        $generator = new \Infrastructure\App\DQLParser\PHPPegJS\ParserGenerator(new \Invalid());
                 
         $generator->generate(
             'test string', 
