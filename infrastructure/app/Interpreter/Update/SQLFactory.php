@@ -1,4 +1,4 @@
-<?php namespace Infrastructure\App\Interpreter\update;
+<?php namespace Infrastructure\App\Interpreter\Update;
 
 class SQLFactory
 {
