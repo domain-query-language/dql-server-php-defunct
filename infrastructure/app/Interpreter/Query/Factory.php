@@ -2,6 +2,9 @@
 
 class Factory 
 {       
+    private $db_connection;
+    private $sql_factory;
+    
     public function __construct()
     {
         
@@ -9,6 +12,8 @@ class Factory
     
     public function ast($ast)
     {
-        return new Interpreter();
+        //$sql = $this->sql_factory->ast($ast);
+        $sql = '';
+        return new Interpreter($this->db_connection, $sql);
     }   
 }
