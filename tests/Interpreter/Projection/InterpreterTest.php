@@ -47,13 +47,10 @@ class InterpreterTest extends \Test\TestCase
     
     public function test_query_returns_false_for_different_shopper_id()
     {
-        $query = new \stdClass();
-        $query->shopper_id = 'c6955003-814c-4f55-b907-006d7563579b';
-        
         $query_context = new Context();
-        $query_context->set_property('query', $query);
+        $query_context->set_property('shopper_id', 'c6955003-814c-4f55-b907-006d7563579b');
         
-        $result = $this->query_interpreter()->interpret($this->context);
+        $result = $this->query_interpreter()->interpret($query_context);
         $this->assertFalse($result);
     }  
 }
