@@ -7,26 +7,19 @@ use Test\Interpreter\Projection\MockPDO;
 
 class InterpreterTest extends \Test\TestCase
 {
-    protected $query_context;
-    protected $update_context;
-    
+    protected $context;
+
     public function setUp()
     {
-        $query = new \stdClass();
-        $query->shopper_id = '5d37e24a-f833-45f3-90b1-3ac70fd05ac4';
-        
-        $this->query_context = new Context();
-        $this->query_context->set_property('query', $query);
-        
-        $this->update_context = new Context();
-        $this->query_context->set_property('update', $query); 
-        
+        $this->context = new Context();
+        $this->context->set_property('shopper_id', '5d37e24a-f833-45f3-90b1-3ac70fd05ac4');
+
         $this->app()->bind(\PDO::class, MockPDO::class);
     }
     
     public function test_query_returns_false_initially()
     {
-        $result = $this->query_interpreter()->interpret($this->query_context);
+        $result = $this->query_interpreter()->interpret($this->context);
         $this->assertFalse($result);
     }
     
@@ -39,9 +32,9 @@ class InterpreterTest extends \Test\TestCase
     
     public function test_update_sets_the_value()
     {
-        $this->update_interpreter()->interpret($this->update_context);
+        $this->update_interpreter()->interpret($this->context);
         
-        $result = $this->query_interpreter()->interpret($this->query_context);
+        $result = $this->query_interpreter()->interpret($this->context);
         $this->assertTrue($result);
     }
     
@@ -60,7 +53,7 @@ class InterpreterTest extends \Test\TestCase
         $query_context = new Context();
         $query_context->set_property('query', $query);
         
-        $result = $this->query_interpreter()->interpret($this->query_context);
+        $result = $this->query_interpreter()->interpret($this->context);
         $this->assertFalse($result);
     }  
 }
