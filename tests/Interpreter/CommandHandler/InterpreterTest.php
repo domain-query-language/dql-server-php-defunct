@@ -23,8 +23,7 @@ class InterpreterTest extends \Test\TestCase
     
     private function ast()
     {
-        $ast_file = base_path('tests/Interpreter/CommandHandler/ast.json');
-        return json_decode(file_get_contents($ast_file));
+        return $this->load_json('tests/Interpreter/CommandHandler/ast.json');
     }
     
     private function command()
