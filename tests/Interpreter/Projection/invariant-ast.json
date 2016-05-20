@@ -1,21 +1,22 @@
 {
+  "aggregate_id": "5e867d81-9e3f-4a33-9150-6f4b373ba74f",
   "query": {
     "select": [{
         "field": "shopper_id",
         "operation": "count",
-        "name": "cart_count"
+        "alias": "cart_count"
       }],
     "where": [{
         "field": "shopper_id",
-        "compator": "==",
+        "comparator": "==",
         "value": {
-          "property": "shopper_id"
+          "property": ["shopper_id"]
         }
       }],
     "check": {
       "condition": {
         "field": "cart_count",
-        "compator": ">",
+        "comparator": ">",
         "value": {
           "literal": 0
         }
