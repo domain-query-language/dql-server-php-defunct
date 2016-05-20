@@ -16,7 +16,7 @@ class ValueFactory
     public function context(Context $context)
     {
         return array_map(function($property) use ($context) {
-            return $context->get_property([$property]);
+            return $context->get_property($property);
         }, $this->properties);
     }
 }

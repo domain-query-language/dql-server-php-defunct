@@ -10,7 +10,7 @@
         "field": "shopper_id",
         "comparator": "==",
         "value": {
-          "property": "shopper_id"
+          "property": ["shopper_id"]
         }
       }],
     "check": {
