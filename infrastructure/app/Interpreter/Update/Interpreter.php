@@ -1,16 +1,5 @@
 <?php namespace Infrastructure\App\Interpreter\Update;
 
-use App\Interpreter\Context;
-
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter extends \Infrastructure\App\Interpreter\Query\Interpreter
 {
-    public function __construct()
-    {
-    
-    }
-        
-    public function interpret(Context $context)
-    {
-        
-    }
 }
