@@ -2,6 +2,7 @@
 
 use App\Interpreter\Context;
 use Infrastructure\App\Interpreter\Compare;
+use App\Interpreter\Compare\PropertyException;
 
 class CompositeTest extends AbstractTest
 {
@@ -39,7 +40,7 @@ class CompositeTest extends AbstractTest
         $context = new Context();
         $context = $context->set_property('min', '1');
 
-        $this->setExpectedException(\Exception::class);
+        $this->setExpectedException(PropertyException::class);
         
         $value = $this->interpreter->interpret($context);
     }
