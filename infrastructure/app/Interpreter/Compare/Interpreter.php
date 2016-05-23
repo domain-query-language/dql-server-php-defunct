@@ -1,4 +1,4 @@
-<?php namespace Infrastructure\App\Interpreter\ValueObject;
+<?php namespace Infrastructure\App\Interpreter\Compare;
 
 class Interpreter implements \App\Interpreter\Interpreter
 {
@@ -21,6 +21,5 @@ class Interpreter implements \App\Interpreter\Interpreter
             throw new Exception("Invalid value");
         }
     }
-
 }
 

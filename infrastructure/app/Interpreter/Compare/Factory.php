@@ -1,0 +1,10 @@
+<?php namespace Infrastructure\App\Interpreter\Compare;
+
+class Factory 
+{    
+    public function ast($ast)
+    {
+        return new Interpreter($ast->comparator, $ast->value->literal);
+    }
+}
+
