@@ -3,6 +3,7 @@
 use App\Interpreter\Context;
 use Infrastructure\App\Interpreter\ValueObject;
 use Infrastructure\App\Interpreter\Validator;
+use App\Interpreter\ValueObjectRepository as VoRepo;
 
 class ComplexTest extends \Test\TestCase
 {
@@ -11,6 +12,7 @@ class ComplexTest extends \Test\TestCase
     public function setUp()
     {
         $ast = $this->load_json('tests/Interpreter/ValueObject/complex-ast.json');
+        $this->app()->bind(VoRepo::class, ValueObjectRepository::class);
         $factory = $this->app()->make(ValueObject\Factory::class);
         $this->interpreter = $factory->ast($ast);
     }

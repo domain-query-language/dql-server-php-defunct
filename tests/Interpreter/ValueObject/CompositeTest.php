@@ -5,13 +5,13 @@ use Infrastructure\App\Interpreter\ValueObject;
 use Infrastructure\App\Interpreter\Compare;
 use App\Interpreter\ValueObjectRepository as VoRepo;
 
-class SimpleTest extends \Test\TestCase
+class CompositeTest extends \Test\TestCase
 {
     private $interpreter;
     
     public function setUp()
     {
-        $ast = $this->load_json('tests/Interpreter/ValueObject/simple-ast.json');
+        $ast = $this->load_json('tests/Interpreter/ValueObject/composite-ast.json');
         $this->app()->bind(VoRepo::class, ValueObjectRepository::class);
         $factory = $this->app()->make(ValueObject\Factory::class);
         $this->interpreter = $factory->ast($ast);
@@ -20,19 +20,33 @@ class SimpleTest extends \Test\TestCase
     public function test_build()
     {
         $context = new Context();
-        $context = $context->set_property('value', 1);
+        $context = $context->set_property('min', '1');
+        $context = $context->set_property('max', '5');
 
         $value = $this->interpreter->interpret($context);
         
-        $this->assertEquals(1, $value);
+        $expected = ['min'=>1, 'max'=>5];
+        
+        $this->assertEquals((object)$expected, $value);
     }
     
-    public function test_fail()
+    public function test_fail_if_value_wrong()
     {
         $context = new Context();
-        $context = $context->set_property('value', -1);
+        $context = $context->set_property('min', '1');
+        $context = $context->set_property('max', 'dasdasDdaSDasd');
 
         $this->setExpectedException(Compare\Exception::class);
+        
+        $value = $this->interpreter->interpret($context);
+    }
+    
+    public function test_fails_if_key_missing()
+    {
+        $context = new Context();
+        $context = $context->set_property('min', '1');
+
+        $this->setExpectedException(\Exception::class);
         
         $value = $this->interpreter->interpret($context);
     }
