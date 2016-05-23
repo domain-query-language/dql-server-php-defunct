@@ -1,12 +1,12 @@
 {
-    "id": "4ea61742-409a-48b6-9563-2587c681f838",
-    "name": "quantity",
-    "validator": {
-        "condition": {
-            "comparator": ">",
-            "value": {
-                "literal": 0
-            }
-        }
+  "id": "4ea61742-409a-48b6-9563-2587c681f838",
+  "name": "quantity",
+  "check": {
+    "condition": {
+      "comparator": ">",
+      "value": {
+        "literal": 0
+      }
     }
+  }
 }
