@@ -1,20 +1,13 @@
 <?php namespace Test\Interpreter\ValueObject;
 
 use App\Interpreter\Context;
-use Infrastructure\App\Interpreter\ValueObject;
 use Infrastructure\App\Interpreter\Compare;
-use App\Interpreter\ValueObjectRepository as VoRepo;
 
-class SimpleTest extends \Test\TestCase
+class SimpleTest extends AbstractTest
 {
-    private $interpreter;
-    
-    public function setUp()
+    protected function ast_file_path()
     {
-        $ast = $this->load_json('tests/Interpreter/ValueObject/simple-ast.json');
-        $this->app()->bind(VoRepo::class, ValueObjectRepository::class);
-        $factory = $this->app()->make(ValueObject\Factory::class);
-        $this->interpreter = $factory->ast($ast);
+        return 'tests/Interpreter/ValueObject/simple-ast.json';
     }
     
     public function test_build()
