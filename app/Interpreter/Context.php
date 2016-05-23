@@ -24,17 +24,26 @@ class Context
     
     public function get_property($ast)
     {
+        if (is_string($ast)) {
+            return $this->get_key($this->data, $ast);
+        }
+        
         if (count($ast) == 0) {
             throw new \Exception("Invalid property count, cannot find blank property.");
         }
         $property = $this->data;
         foreach ($ast as $key) {
-            if (!isset($property->$key)) {
-               throw new \Exception("Property '$key' does not exist"); 
-            }
-            $property = $property->$key;
+            $property = $this->get_key($property, $key);
         }
         return $property;
+    }
+    
+    private function get_key($object, $key)
+    {
+        if (!isset($object->$key)) {
+            throw new \Exception("Property '$key' does not exist"); 
+        }
+        return $object->$key;
     }
 }
 

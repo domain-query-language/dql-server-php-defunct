@@ -11,7 +11,8 @@ class SimpleTest extends \Test\TestCase
     public function setUp()
     {
         $ast = $this->load_json('tests/Interpreter/ValueObject/simple-ast.json');
-        $this->interpreter = new ValueObject\Interpreter($ast);
+        $factory = $this->app()->make(ValueObject\Factory::class);
+        $this->interpreter = $factory->ast($ast);
     }
     
     public function test_build()
@@ -29,7 +30,7 @@ class SimpleTest extends \Test\TestCase
         $context = new Context();
         $context = $context->set_property('value', -1);
 
-        $this->setExpectedException(ValueObject\Exception);
+        $this->setExpectedException(ValueObject\Exception::class);
         
         $value = $this->interpreter->interpret($context);
         
