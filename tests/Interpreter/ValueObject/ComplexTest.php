@@ -1,20 +1,15 @@
 <?php namespace Test\Interpreter\ValueObject;
 
 use App\Interpreter\Context;
-use Infrastructure\App\Interpreter\ValueObject;
 use Infrastructure\App\Interpreter\Validator;
 
-class ComplexTest extends \Test\TestCase
-{
-    private $interpreter;
-    
-    public function setUp()
+class ComplexTest extends AbstractTest
+{    
+    protected function ast_file_path()
     {
-        $ast = $this->load_json('tests/Interpreter/ValueObject/complex-ast.json');
-        $factory = $this->app()->make(ValueObject\Factory::class);
-        $this->interpreter = $factory->ast($ast);
+        return 'tests/Interpreter/ValueObject/complex-ast.json';
     }
-    
+        
     public function test_build()
     {
         $context = new Context();

@@ -38,7 +38,7 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
     
     protected function load_json($file_path)
     {
-        $ast_file = base_path($file_path);
-        return json_decode(file_get_contents($ast_file));
+        $full_file_path = base_path($file_path);
+        return json_decode(file_get_contents($full_file_path));
     }
 }
