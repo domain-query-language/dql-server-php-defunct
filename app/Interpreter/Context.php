@@ -1,8 +1,5 @@
 <?php namespace App\Interpreter;
 
-/**
- * Stub invariant for testing purposes
- */
 class Context
 {
     private $data;
@@ -41,7 +38,7 @@ class Context
     private function get_key($object, $key)
     {
         if (!isset($object->$key)) {
-            throw new \Exception("Property '$key' does not exist"); 
+            throw new Context\PropertyException("Property '$key' does not exist"); 
         }
         return $object->$key;
     }

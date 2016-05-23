@@ -2,7 +2,7 @@
 
 use App\Interpreter\Context;
 use Infrastructure\App\Interpreter\Compare;
-use App\Interpreter\Compare\PropertyException;
+use App\Interpreter\Context\PropertyException;
 
 class CompositeTest extends AbstractTest
 {
