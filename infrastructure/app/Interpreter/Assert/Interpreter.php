@@ -2,19 +2,36 @@
 
 use App\Interpreter\Context;
 use App\Interpreter\InvariantException;
+use Infrastructure\App\Interpreter\Invariant;
+use Infrastructure\App\Interpreter\Arguments;
 
 class Interpreter implements \App\Interpreter\Interpreter
 {    
-    private $interpreter;
+    private $invariant;
+    private $arguments;
+    private $comparator;
     
-    public function __construct($interpreter)
+    public function __construct(
+        Invariant\Interpreter $invariant, 
+        Arguments\Interpreter $arguments, 
+        $comparator)
     {
-        $this->interpreter = $interpreter;
+        $this->invariant = $invariant;
+        $this->arguments = $arguments;
+        $this->comparator = $comparator;
     }
     
     public function interpret(Context $context)
     {
-        if (!$this->interpreter->interpret($context)) {
+        $arguments_context = $this->arguments->interpret($context);
+        
+        $result = $this->invariant->interpret($arguments_context);
+        
+        if ($this->comparator == 'not') {
+            $result = !$result;
+        }
+        
+        if (!$result) {
             throw new InvariantException("Failure");
         }
     }

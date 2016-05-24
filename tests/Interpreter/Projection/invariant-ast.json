@@ -12,14 +12,14 @@
         "value": {
           "property": ["shopper_id"]
         }
-      }],
-    "check": {
-      "condition": {
-        "field": "cart_count",
-        "comparator": ">",
-        "value": {
-          "literal": 0
-        }
+    }]
+  },
+  "check": {
+    "condition": {
+      "field": "cart_count",
+      "comparator": ">",
+      "value": {
+        "literal": 0
       }
     }
   }

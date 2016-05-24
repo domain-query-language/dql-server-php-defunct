@@ -17,7 +17,7 @@ class Interpreter implements \App\Interpreter\Interpreter
         foreach ($this->ast as $argument_ast) {
             $arguments[] = $context->get_property($argument_ast->property);
         }
-        return $arguments;
+        return $context;
     }
 }
 

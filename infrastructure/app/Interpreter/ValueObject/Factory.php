@@ -28,9 +28,9 @@ class Factory
         
         $condition = $ast->check->condition;
         if (isset($condition->comparator)) {
-            return $this->compare_factory->ast($condition);
+            return new Interpreter($this->compare_factory->ast($condition));
         } else {
-            return $this->validator_factory->ast($condition);
+            return new Interpreter($this->validator_factory->ast($condition));
         }
     } 
 }

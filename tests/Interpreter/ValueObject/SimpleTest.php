@@ -1,7 +1,7 @@
 <?php namespace Test\Interpreter\ValueObject;
 
 use App\Interpreter\Context;
-use Infrastructure\App\Interpreter\Compare;
+use Infrastructure\App\Interpreter\ValueObject;
 
 class SimpleTest extends AbstractTest
 {
@@ -25,7 +25,7 @@ class SimpleTest extends AbstractTest
         $context = new Context();
         $context = $context->set_property('value', -1);
 
-        $this->setExpectedException(Compare\Exception::class);
+        $this->setExpectedException(ValueObject\Exception::class);
         
         $value = $this->interpreter->interpret($context);
     }
