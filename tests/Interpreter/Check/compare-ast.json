@@ -1,0 +1,9 @@
+{
+  "condition": {
+    "field": "value",
+    "comparator": ">",
+    "value": {
+      "literal": 0
+    }
+  }
+}
