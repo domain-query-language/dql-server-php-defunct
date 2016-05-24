@@ -40,7 +40,7 @@ class InterpreterTest extends \Test\TestCase
     
     private function update_interpreter()
     {
-        $ast = $this->load_json('tests/Interpreter/Projection/handler-ast.json');
+        $ast = $this->load_json('tests/Interpreter/Projection/event-handler-ast.json');
         $query_factory = $this->app()->make(Update\Factory::class);
         return $query_factory->ast($ast);
     }

@@ -3,6 +3,7 @@
   "name": "quantity",
   "check": {
     "condition": {
+      "field": "value",
       "comparator": ">",
       "value": {
         "literal": 0
