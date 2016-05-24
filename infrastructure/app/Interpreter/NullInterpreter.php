@@ -6,6 +6,6 @@ class NullInterpreter implements \App\Interpreter\Interpreter
 {
     public function interpret(Context $context)
     {
-        return true;
+        return $context;
     }
 }
