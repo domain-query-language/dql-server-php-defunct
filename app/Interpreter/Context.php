@@ -6,6 +6,9 @@ class Context
     
     public function __construct($data = null)
     {
+        if (is_array($data)) {
+            $data = (object)$data;
+        }
         if (is_null($data)) {
             $data = new \stdClass();
         }

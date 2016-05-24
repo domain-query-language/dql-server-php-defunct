@@ -12,9 +12,8 @@ class SimpleTest extends AbstractTest
     
     public function test_build()
     {
-        $context = new Context();
-        $context = $context->set_property('value', 1);
-
+        $context = new Context(['value'=>1]);
+       
         $value = $this->interpreter->interpret($context);
         
         $this->assertEquals(1, $value);
@@ -22,11 +21,10 @@ class SimpleTest extends AbstractTest
     
     public function test_fail()
     {
-        $context = new Context();
-        $context = $context->set_property('value', -1);
+        $context = new Context(['value'=>-1]);
 
         $this->setExpectedException(ValueObject\Exception::class);
         
-        $value = $this->interpreter->interpret($context);
+        $this->interpreter->interpret($context);
     }
 }
