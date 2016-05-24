@@ -2,7 +2,6 @@
 
 use Infrastructure\App\Interpreter\Check;
 use Infrastructure\App\Interpreter\Arguments;
-use Infrastructure\App\Interpreter\NullInterpreter;
 
 class Factory 
 {   
@@ -15,13 +14,8 @@ class Factory
     
     public function ast($ast)
     {
-        $check_interpreter = new NullInterpreter();
-        if (isset($ast->assert)) {
-            $check_interpreter = $this->check_factory->ast($ast->assert);
-        }
-
         $arguments_interpreter = new Arguments\Interpreter($ast->arguments);
         
-        return new Interpreter($check_interpreter, $arguments_interpreter);
+        return new Interpreter($arguments_interpreter);
     }   
 }

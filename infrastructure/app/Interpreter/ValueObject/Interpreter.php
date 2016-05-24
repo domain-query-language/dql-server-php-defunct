@@ -4,19 +4,19 @@ use App\Interpreter\Context;
 
 class Interpreter implements \App\Interpreter\Interpreter
 {    
-    private $compare;
+    private $check;
     
-    public function __construct(\App\Interpreter\Interpreter $compare)
+    public function __construct($check)
     {
-        $this->compare = $compare;
+        $this->check = $check;
     }
     
     public function interpret(Context $context)
     { 
-        if (!$this->compare->interpret($context)) {
+        if (!$this->check->interpret($context)) {
             throw new Exception();
         }
-        return $context->get_property(['value']);
+        return $context->get_property('value');
     }
 }
 

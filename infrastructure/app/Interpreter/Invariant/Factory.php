@@ -1,19 +1,19 @@
 <?php namespace Infrastructure\App\Interpreter\Invariant;
 
-use Infrastructure\App\Interpreter\Compare;
+use Infrastructure\App\Interpreter\Check;
 
 class Factory 
 {     
-    private $compare_factory;
+    private $check_factory;
     
-    public function __construct(Compare\Factory $compare_factory)
+    public function __construct(Check\Factory $check_factory)
     {
-        $this->compare_factory = $compare_factory;
+        $this->check_factory = $check_factory;
     }
     
     public function ast($ast)
     {
-        $check = $this->compare_factory->ast($ast->check->condition);
+        $check = $this->check_factory->ast($ast->check);
         return new Interpreter($check);
     }
 }

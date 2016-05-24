@@ -1,24 +1,29 @@
 <?php namespace Infrastructure\App\Interpreter\Check;
 
-use App\Interpreter\InvariantRepository;
-use Infrastructure\App\Interpreter\Arguments;
+use Infrastructure\App\Interpreter\Compare;
+use Infrastructure\App\Interpreter\Validator;
 
 class Factory 
 {    
-    private $invariant_repo;
+    private $compare_factory;
+    private $validator_factory;
     
-    public function __construct(InvariantRepository $invariant_repo)
+    public function __construct(
+        Compare\Factory $compare_factory, 
+        Validator\Factory $validator_factory)
     {
-        $this->invariant_repo = $invariant_repo;
+        $this->compare_factory = $compare_factory;
+        $this->validator_factory = $validator_factory;
     }
     
     public function ast($ast)
     {
-        $invariant = $this->invariant_repo->fetch($ast->invariant_id);
-        
-        $arguments_interpreter = new Arguments\Interpreter($ast->arguments);
-        
-        return new Interpreter($invariant, $arguments_interpreter, $ast->comparator);
+        $condition = $ast->condition;
+        if (isset($condition->comparator)) {
+            return new Interpreter($this->compare_factory->ast($condition));
+        } else {
+            return new Interpreter($this->validator_factory->ast($condition));
+        }
     }
 }
 
