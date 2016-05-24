@@ -2,6 +2,6 @@
 
 interface InvariantRepository 
 {
-    public function fetch($id);
+    public function fetch_ast($id);
 }
 

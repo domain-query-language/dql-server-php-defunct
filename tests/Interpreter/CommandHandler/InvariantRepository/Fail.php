@@ -2,8 +2,8 @@
 
 class Fail implements \App\Interpreter\InvariantRepository
 {
-    public function fetch($id)
+    public function fetch_ast($id)
     {
-        return new \Infrastructure\App\Interpreter\Invariant(true);
+        return true;
     }
 }
