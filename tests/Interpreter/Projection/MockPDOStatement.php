@@ -3,20 +3,20 @@
 class MockPDOStatement extends \PDOStatement
 {
     private static $seen_ids = [];
-    private $result = [];
+    private $rows = [];
         
     public function execute($input_parameters = null)
     {
+        $row = (object)['cart_count'=>0];
         if (in_array($input_parameters[0], static::$seen_ids)) {
-            $this->result = [1];
-        } else {
-            $this->result = [];
+            $row->cart_count = 1;
         }
+        $this->rows = [$row];
         static::$seen_ids[] = $input_parameters[0];
     }
     
     public function fetchAll($how = NULL, $class_name = NULL, $ctor_args = NULL)
     {
-        return $this->result;
+        return $this->rows;
     }
 }

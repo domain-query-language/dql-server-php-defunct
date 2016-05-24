@@ -2,7 +2,7 @@
 
 use App\Interpreter\Context;
 use Infrastructure\App\Interpreter\Update;
-use Infrastructure\App\Interpreter\Query;
+use Infrastructure\App\Interpreter\Invariant;
 use Test\Interpreter\Projection\MockPDO;
 
 class InterpreterTest extends \Test\TestCase
@@ -26,8 +26,8 @@ class InterpreterTest extends \Test\TestCase
     private function query_interpreter()
     {
         $ast = $this->load_json('tests/Interpreter/Projection/invariant-ast.json');
-        $query_factory = $this->app()->make(Query\Factory::class);
-        return $query_factory->ast($ast);
+        $invariant_factory = $this->app()->make(Invariant\Factory::class);
+        return $invariant_factory->ast($ast);
     }
     
     public function test_update_sets_the_value()

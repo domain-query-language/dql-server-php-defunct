@@ -2,6 +2,7 @@
 
 use Infrastructure\App\Interpreter\Invariant;
 use App\Interpreter\Context;
+use Test\Interpreter\Projection\MockPDO;
 
 class InterpreterTest extends \Test\TestCase
 {
@@ -10,6 +11,7 @@ class InterpreterTest extends \Test\TestCase
     public function setUp()
     {
         $ast = $this->load_json('tests/Interpreter/Invariant/invariant-ast.json');
+        $this->app()->bind(\PDO::class, MockPDO::class);
         $invariant_factory = $this->app()->make(Invariant\Factory::class);
         $this->invariant = $invariant_factory->ast($ast);
     }

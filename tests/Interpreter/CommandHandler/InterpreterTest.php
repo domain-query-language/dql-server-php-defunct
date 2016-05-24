@@ -6,6 +6,7 @@ use App\Interpreter\InvariantException;
 use Infrastructure\App\Interpreter\Handler;
 use Test\Interpreter\CommandHandler\InvariantRepository\Pass;
 use Test\Interpreter\CommandHandler\InvariantRepository\Fail;
+use Test\Interpreter\Projection\MockPDO;
 
 class InterpreterTest extends \Test\TestCase
 {
@@ -18,6 +19,8 @@ class InterpreterTest extends \Test\TestCase
         $event = new \stdClass();
         $event->id = 'event_id';
         $this->expected_events = [$event, $event];
+        
+        $this->app()->bind(\PDO::class, MockPDO::class);
     }
     
     private function ast()

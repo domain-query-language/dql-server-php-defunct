@@ -19,9 +19,6 @@ class Interpreter implements \App\Interpreter\Interpreter
         $this->statement->execute($values);
         $rows = $this->statement->fetchAll(\PDO::FETCH_OBJ);
         
-        if (count($rows) == 0) {
-            return false;
-        }
-        return true;
+        return new Context((object)$rows[0]);
     }
 }
