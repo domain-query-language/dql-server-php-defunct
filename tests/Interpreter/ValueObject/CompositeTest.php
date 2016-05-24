@@ -1,7 +1,7 @@
 <?php namespace Test\Interpreter\ValueObject;
 
 use App\Interpreter\Context;
-use Infrastructure\App\Interpreter\Compare;
+use Infrastructure\App\Interpreter\ValueObject;
 use App\Interpreter\Context\PropertyException;
 
 class CompositeTest extends AbstractTest
@@ -30,7 +30,7 @@ class CompositeTest extends AbstractTest
         $context = $context->set_property('min', '1');
         $context = $context->set_property('max', 'dasdasDdaSDasd');
 
-        $this->setExpectedException(Compare\Exception::class);
+        $this->setExpectedException(ValueObject\Exception::class);
         
         $value = $this->interpreter->interpret($context);
     }

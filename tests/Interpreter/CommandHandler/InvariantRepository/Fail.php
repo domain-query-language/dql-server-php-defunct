@@ -1,9 +1,11 @@
-<?php
+<?php namespace Test\Interpreter\CommandHandler\InvariantRepository;
 
-class Fail implements \App\Interpreter\InvariantRepository
+class Fail extends Pass
 {
     public function fetch_ast($id)
     {
-        return true;
+        $ast = parent::fetch_ast($id);
+        $ast->check->condition->comparator = "!=";
+        return $ast;
     }
 }

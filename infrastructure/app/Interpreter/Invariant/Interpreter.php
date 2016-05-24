@@ -1,19 +1,20 @@
 <?php namespace Infrastructure\App\Interpreter\Invariant;
 
 use App\Interpreter\Context;
+use Infrastructure\App\Interpreter\Compare;
 
 class Interpreter implements \App\Interpreter\Interpreter
 {    
-    private $result;
+    private $compare;
     
-    public function __construct($result)
+    public function __construct(Compare\Interpreter $compare)
     {
-        $this->result = $result;
+        $this->compare = $compare;
     }
     
     public function interpret(Context $context)
     { 
-        return $this->result;
+        return $this->compare->interpret($context);
     }
 }
 

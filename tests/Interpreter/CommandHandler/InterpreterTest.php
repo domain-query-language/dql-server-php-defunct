@@ -1,12 +1,11 @@
 <?php namespace Test\Interpreter\CommandHandler;
 
-require_once "InvariantRepository/Fail.php";
-require_once "InvariantRepository/Pass.php";
-
 use App\Interpreter\InvariantRepository;
 use App\Interpreter\Context;
 use App\Interpreter\InvariantException;
 use Infrastructure\App\Interpreter\Handler;
+use Test\Interpreter\CommandHandler\InvariantRepository\Pass;
+use Test\Interpreter\CommandHandler\InvariantRepository\Fail;
 
 class InterpreterTest extends \Test\TestCase
 {
@@ -38,6 +37,7 @@ class InterpreterTest extends \Test\TestCase
     {
         $context = new Context();
         $context = $context->set_property('command', $this->command());
+        $context = $context->set_property('is_checked_out', true);
         return $context;
     }
     
@@ -46,7 +46,7 @@ class InterpreterTest extends \Test\TestCase
      */
     protected function build_fires_events_interpreter()
     {
-        $this->app()->bind(InvariantRepository::class, \Pass::class);
+        $this->app()->bind(InvariantRepository::class, Pass::class);
         $handler_factory = $this->app()->make(Handler\Factory::class);
         return $handler_factory->ast($this->ast->handler);
     }
@@ -63,7 +63,7 @@ class InterpreterTest extends \Test\TestCase
      */
     protected function build_fails_on_invariants_interpreter()
     {
-        $this->app()->bind(InvariantRepository::class, \Fail::class);
+        $this->app()->bind(InvariantRepository::class, Fail::class);
         $handler_factory = $this->app()->make(Handler\Factory::class);
         return $handler_factory->ast($this->ast->handler);
     }

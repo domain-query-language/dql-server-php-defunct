@@ -1,7 +1,7 @@
 <?php namespace Test\Interpreter\ValueObject;
 
 use App\Interpreter\Context;
-use Infrastructure\App\Interpreter\Validator;
+use Infrastructure\App\Interpreter\ValueObject;
 
 class ComplexTest extends AbstractTest
 {    
@@ -25,7 +25,7 @@ class ComplexTest extends AbstractTest
         $context = new Context();
         $context = $context->set_property('value', 'dasdasDdaSDasd');
 
-        $this->setExpectedException(Validator\Exception::class);
+        $this->setExpectedException(ValueObject\Exception::class);
         
         $value = $this->interpreter->interpret($context);
     }
