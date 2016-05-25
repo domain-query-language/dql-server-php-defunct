@@ -8,12 +8,13 @@ use Test\Interpreter\CommandHandler\InvariantRepository\Pass;
 use Test\Interpreter\CommandHandler\InvariantRepository\Fail;
 use Test\Interpreter\Projection\MockPDO;
 
-class InterpreterTest extends \Test\TestCase
+class InterpreterTest extends \Test\Interpreter\TestCase
 {
     protected $ast;
     
     public function setUp()
     {
+        parent::setUp();
         $this->ast = $this->ast();
         
         $event = new \stdClass();
@@ -25,7 +26,7 @@ class InterpreterTest extends \Test\TestCase
     
     private function ast()
     {
-        return $this->load_json('tests/Interpreter/asts/handler.json');
+        return $this->ast_repo->handler();
     }
     
     private function command()

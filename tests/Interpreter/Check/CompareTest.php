@@ -3,13 +3,14 @@
 use App\Interpreter\Context;
 use Infrastructure\App\Interpreter\Compare;
 
-class CompareTest extends \Test\TestCase
+class CompareTest extends \Test\Interpreter\TestCase
 {
     private $interpreter;
     
     public function setUp()
     {
-        $ast = $this->load_json('tests/Interpreter/asts/valueobject-simple.json');
+        parent::setUp();
+        $ast = $this->ast_repo->valueobject_simple();
         $factory = $this->app()->make(Compare\Factory::class);
         $this->interpreter = $factory->ast($ast->check->condition);
     }

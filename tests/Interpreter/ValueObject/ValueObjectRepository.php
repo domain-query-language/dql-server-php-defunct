@@ -2,9 +2,15 @@
 
 class ValueObjectRepository implements \App\Interpreter\ValueObjectRepository
 {
+    private $ast_repo;
+    
+    public function __construct(\Test\Interpreter\AstRepository $ast_repo)
+    {
+        $this->ast_repo = $ast_repo;
+    }
+    
     public function fetch_ast($id)
     {
-        $full_file_path = base_path('tests/Interpreter/asts/valueobject-simple.json');
-        return json_decode(file_get_contents($full_file_path));
+        return $this->ast_repo->valueobject_simple();
     }
 }
