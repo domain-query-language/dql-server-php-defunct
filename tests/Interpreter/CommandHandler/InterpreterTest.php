@@ -47,7 +47,7 @@ class InterpreterTest extends \Test\TestCase
     /**
      * @return Interpreter
      */
-    protected function build_fires_events_interpreter()
+    protected function make_fires_events_interpreter()
     {
         $this->app()->bind(InvariantRepository::class, Pass::class);
         $handler_factory = $this->app()->make(Handler\Factory::class);
@@ -56,7 +56,7 @@ class InterpreterTest extends \Test\TestCase
     
     public function test_interpreter_fires_events()
     {
-        $interpreter = $this->build_fires_events_interpreter();
+        $interpreter = $this->make_fires_events_interpreter();
         $events = $interpreter->interpret($this->context());    
         $this->assertEquals($this->expected_events, $events);  
     }
@@ -64,7 +64,7 @@ class InterpreterTest extends \Test\TestCase
     /**
      * @return Interpreter
      */
-    protected function build_fails_on_invariants_interpreter()
+    protected function make_fails_on_invariants_interpreter()
     {
         $this->app()->bind(InvariantRepository::class, Fail::class);
         $handler_factory = $this->app()->make(Handler\Factory::class);
@@ -74,7 +74,7 @@ class InterpreterTest extends \Test\TestCase
     public function test_interpreter_fails_on_invariants()
     {
         $this->setExpectedException(InvariantException::class);
-        $interpreter = $this->build_fails_on_invariants_interpreter();
+        $interpreter = $this->make_fails_on_invariants_interpreter();
         $interpreter->interpret($this->context());
     }    
 }
