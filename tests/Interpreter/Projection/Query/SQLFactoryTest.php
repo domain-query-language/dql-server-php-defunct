@@ -2,11 +2,11 @@
 
 use Infrastructure\App\Interpreter\Query\SQLFactory;
 
-class SQLFactoryTest extends \Test\TestCase
+class SQLFactoryTest extends \Test\Interpreter\TestCase
 {
     public function test_convert_invariant_ast_into_sql()
     {
-        $ast = $this->load_json('tests/Interpreter/Projection/invariant-ast.json');
+        $ast = $this->ast_repo->invariant_projection();
         
         $factory = new SQLFactory();
         

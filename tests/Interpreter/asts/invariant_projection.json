@@ -1,5 +1,7 @@
 {
+  "id": "f72e0fb5-510e-4bec-9aba-736910e38b7d",
   "aggregate_id": "5e867d81-9e3f-4a33-9150-6f4b373ba74f",
+  "parameters": ["shopper_id"],
   "query": {
     "select": [{
         "field": "shopper_id",

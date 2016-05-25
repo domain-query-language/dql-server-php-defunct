@@ -2,11 +2,11 @@
 
 use Infrastructure\App\Interpreter\Update\SQLFactory;
 
-class SQLFactoryTest extends \Test\TestCase
+class SQLFactoryTest extends \Test\Interpreter\TestCase
 {   
     public function test_convert_handler_ast_into_sql()
     {
-        $ast = $this->load_json('tests/Interpreter/Projection/event-handler-ast.json');
+        $ast = $this->ast_repo->event_handler();
         
         $factory = new SQLFactory();
         

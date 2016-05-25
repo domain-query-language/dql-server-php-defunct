@@ -5,9 +5,9 @@ use Infrastructure\App\Interpreter\ValueObject;
 
 class SimpleTest extends AbstractTest
 {
-    protected function ast_file_path()
+    protected function ast()
     {
-        return 'tests/Interpreter/ValueObject/simple-ast.json';
+        return $this->ast_repo->valueobject_simple();
     }
     
     public function test_build()

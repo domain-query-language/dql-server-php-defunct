@@ -2,21 +2,21 @@
 
 use Infrastructure\App\Interpreter\Check;
 
-class CheckTest extends \Test\TestCase
+class CheckTest extends \Test\Interpreter\TestCase
 {   
     public function test_check_factory_handles_compare_ast()
     {
-        $ast = $this->load_json('tests/Interpreter/Check/compare-ast.json');
+        $ast = $this->ast_repo->valueobject_simple();
         $factory = $this->app()->make(Check\Factory::class);
         
-        $this->assertInstanceOf(Check\Interpreter::class, $factory->ast($ast));
+        $this->assertInstanceOf(Check\Interpreter::class, $factory->ast($ast->check));
     }
     
     public function test_check_factory_handles_validator_ast()
     {
-        $ast = $this->load_json('tests/Interpreter/Check/validator-ast.json');
+        $ast = $this->ast_repo->valueobject_validator();
         $factory = $this->app()->make(Check\Factory::class);
         
-        $this->assertInstanceOf(Check\Interpreter::class, $factory->ast($ast));
+        $this->assertInstanceOf(Check\Interpreter::class, $factory->ast($ast->check));
     }
 }

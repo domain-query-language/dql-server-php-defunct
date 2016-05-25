@@ -6,9 +6,9 @@ use App\Interpreter\Context\PropertyException;
 
 class CompositeTest extends AbstractTest
 {
-    protected function ast_file_path()
+    protected function ast()
     {
-        return 'tests/Interpreter/ValueObject/composite-ast.json';
+        return $this->ast_repo->valueobject_composite();
     }
     
     public function test_build()

@@ -8,12 +8,13 @@ use Test\Interpreter\CommandHandler\InvariantRepository\Pass;
 use Test\Interpreter\CommandHandler\InvariantRepository\Fail;
 use Test\Interpreter\Projection\MockPDO;
 
-class InterpreterTest extends \Test\TestCase
+class InterpreterTest extends \Test\Interpreter\TestCase
 {
     protected $ast;
     
     public function setUp()
     {
+        parent::setUp();
         $this->ast = $this->ast();
         
         $event = new \stdClass();
@@ -25,7 +26,7 @@ class InterpreterTest extends \Test\TestCase
     
     private function ast()
     {
-        return $this->load_json('tests/Interpreter/CommandHandler/ast.json');
+        return $this->ast_repo->handler();
     }
     
     private function command()
@@ -47,16 +48,16 @@ class InterpreterTest extends \Test\TestCase
     /**
      * @return Interpreter
      */
-    protected function build_fires_events_interpreter()
+    protected function make_fires_events_interpreter()
     {
         $this->app()->bind(InvariantRepository::class, Pass::class);
         $handler_factory = $this->app()->make(Handler\Factory::class);
-        return $handler_factory->ast($this->ast->handler);
+        return $handler_factory->ast($this->ast);
     }
     
     public function test_interpreter_fires_events()
     {
-        $interpreter = $this->build_fires_events_interpreter();
+        $interpreter = $this->make_fires_events_interpreter();
         $events = $interpreter->interpret($this->context());    
         $this->assertEquals($this->expected_events, $events);  
     }
@@ -64,17 +65,17 @@ class InterpreterTest extends \Test\TestCase
     /**
      * @return Interpreter
      */
-    protected function build_fails_on_invariants_interpreter()
+    protected function make_fails_on_invariants_interpreter()
     {
         $this->app()->bind(InvariantRepository::class, Fail::class);
         $handler_factory = $this->app()->make(Handler\Factory::class);
-        return $handler_factory->ast($this->ast->handler);
+        return $handler_factory->ast($this->ast);
     }
     
     public function test_interpreter_fails_on_invariants()
     {
         $this->setExpectedException(InvariantException::class);
-        $interpreter = $this->build_fails_on_invariants_interpreter();
+        $interpreter = $this->make_fails_on_invariants_interpreter();
         $interpreter->interpret($this->context());
     }    
 }

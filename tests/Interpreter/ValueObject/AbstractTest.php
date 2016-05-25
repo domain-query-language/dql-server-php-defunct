@@ -3,17 +3,17 @@
 use Infrastructure\App\Interpreter\ValueObject;
 use App\Interpreter\ValueObjectRepository as VoRepo;
 
-abstract class AbstractTest extends \Test\TestCase
+abstract class AbstractTest extends \Test\Interpreter\TestCase
 {
     protected $interpreter;
     
-    abstract protected function ast_file_path();
+    abstract protected function ast();
     
     public function setUp()
     {
-        $ast = $this->load_json( $this->ast_file_path());
+        parent::setUp();
         $this->app()->bind(VoRepo::class, ValueObjectRepository::class);
         $factory = $this->app()->make(ValueObject\Factory::class);
-        $this->interpreter = $factory->ast($ast);
+        $this->interpreter = $factory->ast($this->ast());
     }
 }

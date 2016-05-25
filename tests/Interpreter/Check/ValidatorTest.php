@@ -3,15 +3,17 @@
 use App\Interpreter\Context;
 use Infrastructure\App\Interpreter\Validator;
 
-class ValidatorTest extends \Test\TestCase
+class ValidatorTest extends \Test\Interpreter\TestCase
 {
     private $interpreter;
     
     public function setUp()
     {
-        $ast = $this->load_json('tests/Interpreter/Check/validator-ast.json');
+        parent::setUp();
+        $ast = $this->ast_repo->valueobject_validator();
+        
         $factory = $this->app()->make(Validator\Factory::class);
-        $this->interpreter = $factory->ast($ast->condition);
+        $this->interpreter = $factory->ast($ast->check->condition);
     }
     
     public function test_build()
