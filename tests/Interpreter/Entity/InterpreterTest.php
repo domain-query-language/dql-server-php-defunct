@@ -23,7 +23,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
         $this->setExpectedException(Entity\Exception::class);
         
-        $this->interpreter = $factory->ast($ast);
+        $factory->ast($ast);
     }
     
     public function test_build()

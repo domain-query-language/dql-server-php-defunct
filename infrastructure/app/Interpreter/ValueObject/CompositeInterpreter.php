@@ -1,6 +1,6 @@
-<?php namespace Infrastructure\App\Interpreter\ValueObject\Composite;
+<?php namespace Infrastructure\App\Interpreter\ValueObject;
 
-class Interpreter implements \App\Interpreter\Interpreter
+class CompositeInterpreter implements \App\Interpreter\Interpreter
 {
     private $keys;
     private $interpreters;

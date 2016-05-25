@@ -2,7 +2,7 @@
 
 use App\Interpreter\Context;
 
-class Interpreter implements \App\Interpreter\Interpreter
+class SimpleInterpreter implements \App\Interpreter\Interpreter
 {    
     private $check;
     
