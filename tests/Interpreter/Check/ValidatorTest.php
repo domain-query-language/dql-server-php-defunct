@@ -9,9 +9,9 @@ class ValidatorTest extends \Test\TestCase
     
     public function setUp()
     {
-        $ast = $this->load_json('tests/Interpreter/Check/validator-ast.json');
+        $ast = $this->load_json('tests/Interpreter/asts/valueobject-validator.json');
         $factory = $this->app()->make(Validator\Factory::class);
-        $this->interpreter = $factory->ast($ast->condition);
+        $this->interpreter = $factory->ast($ast->check->condition);
     }
     
     public function test_build()

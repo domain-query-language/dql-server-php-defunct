@@ -25,7 +25,7 @@ class InterpreterTest extends \Test\TestCase
     
     private function ast()
     {
-        return $this->load_json('tests/Interpreter/CommandHandler/ast.json');
+        return $this->load_json('tests/Interpreter/asts/handler.json');
     }
     
     private function command()
@@ -51,7 +51,7 @@ class InterpreterTest extends \Test\TestCase
     {
         $this->app()->bind(InvariantRepository::class, Pass::class);
         $handler_factory = $this->app()->make(Handler\Factory::class);
-        return $handler_factory->ast($this->ast->handler);
+        return $handler_factory->ast($this->ast);
     }
     
     public function test_interpreter_fires_events()
@@ -68,7 +68,7 @@ class InterpreterTest extends \Test\TestCase
     {
         $this->app()->bind(InvariantRepository::class, Fail::class);
         $handler_factory = $this->app()->make(Handler\Factory::class);
-        return $handler_factory->ast($this->ast->handler);
+        return $handler_factory->ast($this->ast);
     }
     
     public function test_interpreter_fails_on_invariants()

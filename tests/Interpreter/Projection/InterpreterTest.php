@@ -25,7 +25,7 @@ class InterpreterTest extends \Test\TestCase
     
     private function query_interpreter()
     {
-        $ast = $this->load_json('tests/Interpreter/Projection/invariant-ast.json');
+        $ast = $this->load_json('tests/Interpreter/asts/invariant-projection.json');
         $invariant_factory = $this->app()->make(Invariant\Factory::class);
         return $invariant_factory->ast($ast);
     }
@@ -40,7 +40,7 @@ class InterpreterTest extends \Test\TestCase
     
     private function update_interpreter()
     {
-        $ast = $this->load_json('tests/Interpreter/Projection/event-handler-ast.json');
+        $ast = $this->load_json('tests/Interpreter/asts/event-handler.json');
         $query_factory = $this->app()->make(Update\Factory::class);
         return $query_factory->ast($ast);
     }

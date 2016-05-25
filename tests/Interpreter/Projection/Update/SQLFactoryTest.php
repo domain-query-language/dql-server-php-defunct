@@ -6,7 +6,7 @@ class SQLFactoryTest extends \Test\TestCase
 {   
     public function test_convert_handler_ast_into_sql()
     {
-        $ast = $this->load_json('tests/Interpreter/Projection/event-handler-ast.json');
+        $ast = $this->load_json('tests/Interpreter/asts/event-handler.json');
         
         $factory = new SQLFactory();
         

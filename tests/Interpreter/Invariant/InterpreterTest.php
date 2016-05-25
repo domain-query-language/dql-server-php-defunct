@@ -10,7 +10,7 @@ class InterpreterTest extends \Test\TestCase
 
     public function setUp()
     {
-        $ast = $this->load_json('tests/Interpreter/Invariant/invariant-ast.json');
+        $ast = $this->load_json('tests/Interpreter/asts/invariant.json');
         $this->app()->bind(\PDO::class, MockPDO::class);
         $invariant_factory = $this->app()->make(Invariant\Factory::class);
         $this->invariant = $invariant_factory->ast($ast);

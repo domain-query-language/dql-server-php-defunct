@@ -6,7 +6,7 @@ class SQLFactoryTest extends \Test\TestCase
 {
     public function test_convert_invariant_ast_into_sql()
     {
-        $ast = $this->load_json('tests/Interpreter/Projection/invariant-ast.json');
+        $ast = $this->load_json('tests/Interpreter/asts/invariant-projection.json');
         
         $factory = new SQLFactory();
         

@@ -9,9 +9,9 @@ class CompareTest extends \Test\TestCase
     
     public function setUp()
     {
-        $ast = $this->load_json('tests/Interpreter/Check/compare-ast.json');
+        $ast = $this->load_json('tests/Interpreter/asts/valueobject-simple.json');
         $factory = $this->app()->make(Compare\Factory::class);
-        $this->interpreter = $factory->ast($ast->condition);
+        $this->interpreter = $factory->ast($ast->check->condition);
     }
     
     public function test_pass()

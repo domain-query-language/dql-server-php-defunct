@@ -1,0 +1,11 @@
+{
+  "id": "a6a70ade-d3be-42ba-bf6d-c29d055e862e",
+  "name": "quantity",
+  "check": {
+    "condition": {
+      "field": "value",
+      "validator": "regex",
+      "values": ["/([a-f\\d]{8}(-[a-f\\d]{4}){3}-[a-f\\d]{12}?)/i"]
+    }
+  }
+}

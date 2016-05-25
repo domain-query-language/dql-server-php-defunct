@@ -8,7 +8,7 @@ class CompositeTest extends AbstractTest
 {
     protected function ast_file_path()
     {
-        return 'tests/Interpreter/ValueObject/composite-ast.json';
+        return 'tests/Interpreter/asts/valueobject-composite.json';
     }
     
     public function test_build()

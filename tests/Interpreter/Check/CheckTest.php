@@ -6,17 +6,17 @@ class CheckTest extends \Test\TestCase
 {   
     public function test_check_factory_handles_compare_ast()
     {
-        $ast = $this->load_json('tests/Interpreter/Check/compare-ast.json');
+        $ast = $this->load_json('tests/Interpreter/asts/valueobject-simple.json');
         $factory = $this->app()->make(Check\Factory::class);
         
-        $this->assertInstanceOf(Check\Interpreter::class, $factory->ast($ast));
+        $this->assertInstanceOf(Check\Interpreter::class, $factory->ast($ast->check));
     }
     
     public function test_check_factory_handles_validator_ast()
     {
-        $ast = $this->load_json('tests/Interpreter/Check/validator-ast.json');
+        $ast = $this->load_json('tests/Interpreter/asts/valueobject-validator.json');
         $factory = $this->app()->make(Check\Factory::class);
         
-        $this->assertInstanceOf(Check\Interpreter::class, $factory->ast($ast));
+        $this->assertInstanceOf(Check\Interpreter::class, $factory->ast($ast->check));
     }
 }
