@@ -13,22 +13,18 @@ class CompositeTest extends AbstractTest
     
     public function test_build()
     {
-        $context = new Context();
-        $context = $context->set_property('min', '1');
-        $context = $context->set_property('max', '5');
-
-        $value = $this->interpreter->interpret($context);
-        
         $expected = ['min'=>1, 'max'=>5];
+        $context = new Context($expected);
         
+        $value = $this->interpreter->interpret($context);
+                
         $this->assertEquals((object)$expected, $value);
     }
     
     public function test_fail_if_value_wrong()
     {
-        $context = new Context();
-        $context = $context->set_property('min', '1');
-        $context = $context->set_property('max', 'dasdasDdaSDasd');
+        $expected = ['min'=>1, 'max'=>'dasdasDdaSDasd'];
+        $context = new Context($expected);
 
         $this->setExpectedException(ValueObject\Exception::class);
         
@@ -37,9 +33,8 @@ class CompositeTest extends AbstractTest
     
     public function test_fails_if_key_missing()
     {
-        $context = new Context();
-        $context = $context->set_property('min', '1');
-
+        $context = new Context(['min'=> '1']);
+       
         $this->setExpectedException(PropertyException::class);
         
         $value = $this->interpreter->interpret($context);
