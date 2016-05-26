@@ -1,34 +1,31 @@
 <?php namespace Test\Interpreter\CommandHandler;
 
-use App\Interpreter\InvariantRepository;
+use Test\Interpreter\InvariantRepository;
 use App\Interpreter\Context;
 use App\Interpreter\InvariantException;
 use Infrastructure\App\Interpreter\Handler;
-use Test\Interpreter\CommandHandler\InvariantRepository\Pass;
-use Test\Interpreter\CommandHandler\InvariantRepository\Fail;
 use Test\Interpreter\Projection\MockPDO;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
-    protected $ast;
+    protected $interpreter;
     
     public function setUp()
     {
         parent::setUp();
-        $this->ast = $this->ast();
-        
+
+        $this->app()->bind(\PDO::class, MockPDO::class);
+        $this->app()->bind(\App\Interpreter\InvariantRepository::class, InvariantRepository::class);
+                
         $event = new \stdClass();
         $event->id = 'event_id';
         $this->expected_events = [$event, $event];
         
-        $this->app()->bind(\PDO::class, MockPDO::class);
+        $handler_factory = $this->app()->make(Handler\Factory::class);
+        $ast = $this->ast_repo->handler();
+        $this->interpreter = $handler_factory->ast($ast);
     }
-    
-    private function ast()
-    {
-        return $this->ast_repo->handler();
-    }
-    
+     
     private function command()
     {
         $command = new \stdClass();
@@ -39,43 +36,29 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     private function context()
     {
-        $context = new Context();
-        $context = $context->set_property('command', $this->command());
-        $context = $context->set_property('is_checked_out', true);
-        return $context;
-    }
-    
-    /**
-     * @return Interpreter
-     */
-    protected function make_fires_events_interpreter()
-    {
-        $this->app()->bind(InvariantRepository::class, Pass::class);
-        $handler_factory = $this->app()->make(Handler\Factory::class);
-        return $handler_factory->ast($this->ast);
+        return new Context((object)[
+            'command' => $this->command(),
+            'root' => (object)[
+                'is_created' => false
+            ]
+        ]);
     }
     
     public function test_interpreter_fires_events()
     {
-        $interpreter = $this->make_fires_events_interpreter();
-        $events = $interpreter->interpret($this->context());    
+        $events = $this->interpreter->interpret($this->context());    
         $this->assertEquals($this->expected_events, $events);  
-    }
-    
-    /**
-     * @return Interpreter
-     */
-    protected function make_fails_on_invariants_interpreter()
-    {
-        $this->app()->bind(InvariantRepository::class, Fail::class);
-        $handler_factory = $this->app()->make(Handler\Factory::class);
-        return $handler_factory->ast($this->ast);
     }
     
     public function test_interpreter_fails_on_invariants()
     {
         $this->setExpectedException(InvariantException::class);
-        $interpreter = $this->make_fails_on_invariants_interpreter();
-        $interpreter->interpret($this->context());
+        
+        $root = (object)[
+            'is_created' => true
+        ];
+        $context = $this->context()->set_property('root', $root);
+      
+        $this->interpreter->interpret($context);
     }    
 }

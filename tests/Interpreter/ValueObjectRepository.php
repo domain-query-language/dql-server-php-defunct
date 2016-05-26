@@ -1,4 +1,4 @@
-<?php namespace Test\Interpreter\ValueObject;
+<?php namespace Test\Interpreter;
 
 class ValueObjectRepository implements \App\Interpreter\ValueObjectRepository
 {

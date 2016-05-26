@@ -30,7 +30,6 @@ class Factory
         }
         
         return new CompositeInterpreter($interpreters, array_keys((array)$children));
-        
     } 
 }
 

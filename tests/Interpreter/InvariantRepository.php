@@ -1,6 +1,6 @@
-<?php namespace Test\Interpreter\CommandHandler\InvariantRepository;
+<?php namespace Test\Interpreter;
 
-class Pass implements \App\Interpreter\InvariantRepository
+class InvariantRepository implements \App\Interpreter\InvariantRepository
 {
     private $ast_repository;
     

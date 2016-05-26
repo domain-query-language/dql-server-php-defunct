@@ -25,12 +25,18 @@ class Context
     public function get_property($ast)
     {
         if (is_string($ast)) {
-            return $this->get_key($this->data, $ast);
+            $ast = [$ast];
         }
         
         if (count($ast) == 0) {
             throw new \Exception("Invalid property count, cannot find blank property.");
         }
+        
+        $root = $ast[0];
+        if (!isset($this->data->$root)) {
+            array_unshift($ast, 'root');
+        }
+        
         $property = $this->data;
         foreach ($ast as $key) {
             $property = $this->get_key($property, $key);
