@@ -38,7 +38,9 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         return new Context((object)[
             'command' => $this->command(),
-            'is_created' => false
+            'root' => (object)[
+                'is_created' => false
+            ]
         ]);
     }
     
@@ -52,7 +54,10 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         $this->setExpectedException(InvariantException::class);
         
-        $context = $this->context()->set_property('is_created', true);
+        $root = (object)[
+            'is_created' => true
+        ];
+        $context = $this->context()->set_property('root', $root);
       
         $this->interpreter->interpret($context);
     }    

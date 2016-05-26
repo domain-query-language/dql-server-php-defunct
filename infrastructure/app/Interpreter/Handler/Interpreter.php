@@ -13,7 +13,6 @@ class Interpreter implements \App\Interpreter\Interpreter
         
     public function interpret(Context $context)
     {
-        $this->context = $context;
         $events = [];
         foreach ($this->statements as $statement) {
            $events[] = $statement->interpret($context); 
