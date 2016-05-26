@@ -2,8 +2,6 @@
 
 use App\Interpreter\Context;
 use Infrastructure\App\Interpreter\Event;
-use App\Interpreter\ValueObjectRepository AS VoRepo;
-use Test\Interpreter\ValueObject\ValueObjectRepository;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
@@ -13,7 +11,6 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->app()->bind(VoRepo::class, ValueObjectRepository::class);
         $this->factory = $this->app()->make(Event\Factory::class);
         $this->interpreter = $this->factory->ast($this->ast_repo->event());
     }

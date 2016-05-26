@@ -23,7 +23,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
         $this->app()->bind(\PDO::class, MockPDO::class);
     }
-    
+     
     private function ast()
     {
         return $this->ast_repo->handler();
@@ -39,10 +39,10 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     private function context()
     {
-        $context = new Context();
-        $context = $context->set_property('command', $this->command());
-        $context = $context->set_property('is_checked_out', true);
-        return $context;
+        return new Context((object)[
+            'command' => $this->command(),
+            'is_checked_out' => true
+        ]);
     }
     
     /**

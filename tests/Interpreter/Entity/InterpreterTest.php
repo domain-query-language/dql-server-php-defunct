@@ -2,15 +2,12 @@
 
 use App\Interpreter\Context;
 use Infrastructure\App\Interpreter\Entity;
-use App\Interpreter\ValueObjectRepository;
-use Test\Interpreter\ValueObject;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
     public function setUp()
     {
         parent::setUp();
-        $this->app()->bind(ValueObjectRepository::class, ValueObject\ValueObjectRepository::class);
         $factory = $this->app()->make(Entity\Factory::class);
         $this->interpreter = $factory->ast($this->ast_repo->entity());
     }

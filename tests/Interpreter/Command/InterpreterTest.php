@@ -2,8 +2,6 @@
 
 use App\Interpreter\Context;
 use Infrastructure\App\Interpreter\Command;
-use App\Interpreter\ValueObjectRepository;
-use Test\Interpreter\ValueObject;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
@@ -13,7 +11,6 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->app()->bind(ValueObjectRepository::class, ValueObject\ValueObjectRepository::class);
         $this->factory = $this->app()->make(Command\Factory::class);
         $this->interpreter = $this->factory->ast($this->ast_repo->command());
     }
