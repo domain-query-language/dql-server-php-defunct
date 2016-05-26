@@ -20,7 +20,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     public function test_passing_invariant()
     {
         $context = new Context();
-        $context = $context->set_property('is_checked_out', false);
+        $context = $context->set_property('is_created', true);
         
         $this->assertTrue($this->invariant->interpret($context));
     }
@@ -28,7 +28,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     public function test_failing_invariant()
     {
         $context = new Context();
-        $context = $context->set_property('is_checked_out', true);
+        $context = $context->set_property('is_created', false);
         
         $this->assertFalse($this->invariant->interpret($context));
     }

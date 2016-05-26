@@ -5,10 +5,10 @@
   "query": null,
   "check": {
     "condition": {
-      "field": "is_checked_out",
+      "field": "is_created",
       "comparator": "=",
       "value": {
-        "literal": false
+        "literal": true
       }
     }
   }
