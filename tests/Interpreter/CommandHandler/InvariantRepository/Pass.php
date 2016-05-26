@@ -2,10 +2,15 @@
 
 class Pass implements \App\Interpreter\InvariantRepository
 {
+    private $ast_repository;
+    
+    public function __construct(\Test\Interpreter\AstRepository $ast_repository)
+    {
+        $this->ast_repository = $ast_repository;
+    }
+    
     public function fetch_ast($id)
     {
-        $full_file_path = base_path('tests/Interpreter/asts/invariant.json');
-        $ast = json_decode(file_get_contents($full_file_path));        
-        return $ast;
+        return $this->ast_repository->invariant();
     }
 }
