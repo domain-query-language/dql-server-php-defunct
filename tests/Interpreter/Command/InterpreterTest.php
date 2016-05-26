@@ -23,9 +23,9 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         $context = new Context((object)[
             'shopper_id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6'
         ]);
-        $value = $this->interpreter->interpret($context);
+        $command = $this->interpreter->interpret($context);
         $expected = ['shopper_id'=>'7a53bbd2-8919-4bdf-a43c-c330b2f304e6'];
         
-        $this->assertEquals((object)$expected, $value);
+        $this->assertEquals((object)$expected, $command);
     }
 }
