@@ -2,7 +2,6 @@
 
 use App\Interpreter\Context;
 use Infrastructure\App\Interpreter\Event;
-use Infrastructure\App\Interpreter\ValueObject;
 use App\Interpreter\ValueObjectRepository AS VoRepo;
 use Test\Interpreter\ValueObject\ValueObjectRepository;
 
