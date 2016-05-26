@@ -1,7 +1,6 @@
 <?php namespace Test\Interpreter\CommandHandler;
 
 use Test\Interpreter\InvariantRepository;
-use Test\EventRepository\EventRepository;
 use App\Interpreter\Context;
 use App\Interpreter\InvariantException;
 use Infrastructure\App\Interpreter\Handler;
@@ -17,10 +16,11 @@ class InterpreterTest extends \Test\Interpreter\TestCase
 
         $this->app()->bind(\PDO::class, MockPDO::class);
         $this->app()->bind(\App\Interpreter\InvariantRepository::class, InvariantRepository::class);
-        $this->app()->bind(\App\Interpreter\EventRepository::class, EventRepository::class);
                 
-        $event = new \stdClass();
-        $event->id = 'event_id';
+        $event =  $expected = (object)[
+            'id'=>'9be14fd0-80aa-4e82-bd30-df031a51f626', 
+            'payload'=> new \stdClass()
+        ];
         $this->expected_events = [$event, $event];
         
         $handler_factory = $this->app()->make(Handler\Factory::class);

@@ -1,6 +1,6 @@
 <?php namespace Test\Interpreter;
 
-class EventRepository implements \App\Interpreter\InvariantRepository
+class EventRepository implements \App\Interpreter\EventRepository
 {
     private $ast_repository;
     
@@ -11,6 +11,6 @@ class EventRepository implements \App\Interpreter\InvariantRepository
     
     public function fetch_ast($id)
     {
-        return $this->ast_repository->event();
+        return $this->ast_repository->event_empty();
     }
 }
