@@ -12,6 +12,9 @@ class Context
         if (is_null($data)) {
             $data = new \stdClass();
         }
+        if (!isset($data->root)) {
+            $data->root = new \stdClass();
+        }
         $this->data = $data;
     }
     
