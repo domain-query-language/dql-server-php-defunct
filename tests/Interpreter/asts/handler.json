@@ -1,5 +1,5 @@
 {
-  "id": "3cb7bfc4-2571-484a-978f-56339fd71241",
+  "id": "99df81d5-16fe-49c4-b6fe-f0398ad74b91",
   "statements": [
     {
       "assert": {
@@ -10,30 +10,21 @@
       "apply": null
     },
     {
-      "assert": {
-        "invariant_id": "0ddb3171-af13-4762-b284-912855d8df24",
-        "comparator": "not",
+      "assert": null,
+      "apply": {
+        "event_id": "9be14fd0-80aa-4e82-bd30-df031a51f626",
         "arguments": [{
             "property": ["command", "shopper_id"]
           }]
+      }
+    },
+    {
+      "assert": {
+        "invariant_id": "fad933eb-b91c-4087-9d42-d2283b5b4ad3",
+        "comparator": "is",
+        "arguments": []
       },
       "apply": null
-    },
-    {
-      "assert": null,
-      "apply": {
-        "event_id": "9be14fd0-80aa-4e82-bd30-df031a51f626",
-        "arguments": [{
-            "property": ["command", "shopper_id"]
-          }]
-      }
-    },
-    {
-      "assert": null,
-      "apply": {
-        "event_id": "9be14fd0-80aa-4e82-bd30-df031a51f626",
-        "arguments": []
-      }
     }
   ]
 }

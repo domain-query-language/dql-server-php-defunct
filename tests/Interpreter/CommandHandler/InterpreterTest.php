@@ -18,7 +18,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
             'id'=>'9be14fd0-80aa-4e82-bd30-df031a51f626', 
             'payload'=> new \stdClass()
         ];
-        $this->expected_events = [$event, $event];
+        $this->expected_events = [$event];
         
         $handler_factory = $this->app()->make(Handler\Factory::class);
         $ast = $this->ast_repo->handler();
