@@ -17,7 +17,7 @@ class ParameterScannerTest extends \Test\Interpreter\TestCase
     {
         $ast = $this->ast_repo->invariant_arguments();
         $scanner = new ParameterScanner();
-        $expected_parameters = ['shopper_id'];
+        $expected_parameters = ['shopper_id', 'is_created'];
         
         $this->assertEquals($expected_parameters, $scanner->scan($ast));
     }
@@ -26,7 +26,7 @@ class ParameterScannerTest extends \Test\Interpreter\TestCase
     {
         $ast = $this->ast_repo->invariant_projection();
         $scanner = new ParameterScanner();
-        $expected_parameters = ['shopper_id'];
+        $expected_parameters = ['shopper_id', 'is_created'];
         
         $this->assertEquals($expected_parameters, $scanner->scan($ast));
     }

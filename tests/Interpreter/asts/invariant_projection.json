@@ -9,19 +9,26 @@
       }],
     "where": [{
         "field": "shopper_id",
-        "comparator": "==",
+        "comparator": "=",
         "value": {
           "property": ["shopper_id"]
         }
-    }]
+      },
+      {
+        "field": "is_created",
+        "comparator": "=",
+        "value": {
+          "property": ["is_created"]
+        }
+      }]
   },
   "check": {
-    "condition": {
+    "condition": [{
       "field": "cart_count",
       "comparator": ">",
       "value": {
         "literal": 0
       }
-    }
+    }]
   }
 }
