@@ -24,10 +24,16 @@ class Factory
     
     public function ast($ast)
     {
-        $arguments_interpreter = new Arguments\Interpreter($ast->arguments);
         $event_ast = $this->event_repository->fetch_ast($ast->event_id);
+        $parameters = $this->event_parameters($event_ast);
+        $arguments_interpreter = new Arguments\Interpreter($ast->arguments, $parameters);
         $event_interpreter = $this->event_factory->ast($event_ast);
         
         return new Interpreter($arguments_interpreter, $event_interpreter);
     }   
+    
+    private function event_parameters($ast)
+    {
+        return array_keys((array)$ast->children);
+    }
 }

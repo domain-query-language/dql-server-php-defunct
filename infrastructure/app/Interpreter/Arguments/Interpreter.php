@@ -4,18 +4,20 @@ use App\Interpreter\Context;
 
 class Interpreter implements \App\Interpreter\Interpreter
 {    
-    private $ast;
+    private $arguments;
+    private $properties;
     
-    public function __construct($ast)
+    public function __construct($arguments, $properties)
     {
-        $this->ast = $ast;
+        $this->arguments = $arguments;
+        $this->properties = $properties;
     }
     
     public function interpret(Context $context)
     {
-        $arguments = [];
-        foreach ($this->ast as $argument_ast) {
-            $arguments[] = $context->get_property($argument_ast->property);
+        foreach ($this->properties as $key=>$property) {
+            $value = $context->get_property($this->arguments[$key]);
+            $context = $context->set_property($property, $value);
         }
         return $context;
     }

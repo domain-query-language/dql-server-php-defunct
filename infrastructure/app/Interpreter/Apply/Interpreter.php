@@ -15,9 +15,9 @@ class Interpreter implements \App\Interpreter\Interpreter
     
     public function interpret(Context $context)
     {       
-        $arguments = $this->arguments_interpreter->interpret($context);
+        $arguments_context = $this->arguments_interpreter->interpret($context);
         
-        $event = $this->event_interpreter->interpret($context);
+        $event = $this->event_interpreter->interpret($arguments_context);
         
         return $event;
     }

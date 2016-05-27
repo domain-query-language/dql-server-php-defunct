@@ -1,4 +1,4 @@
 {
-  "event_id": "a83d288b-0d9e-4b28-87c2-fb9106bb579d",
-  "arguments": ["command", "shopper_id"]
+  "event_id": "3961fd8c-a054-41e1-a998-3fc9cfd8f0ad",
+  "arguments": [["command", "shopper_id"]]
 }
