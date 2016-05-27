@@ -1,0 +1,7 @@
+{
+  "invariant_id": "0ddb3171-af13-4762-b284-912855d8df24",
+  "comparator": "not",
+  "arguments": [{
+      "property": ["command", "shopper_id"]
+    }]
+}
