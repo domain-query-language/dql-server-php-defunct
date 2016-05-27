@@ -22,7 +22,7 @@ class Factory
     {
         $invariant_ast = $this->invariant_repository->fetch_ast($ast->invariant_id);
         $invariant = $this->invariant_factory->ast($invariant_ast);
-        $arguments = new Arguments\Interpreter($ast->arguments);
+        $arguments = new Arguments\Interpreter($ast->arguments, []);
         return new Interpreter($invariant, $arguments, $ast->comparator);
     }
 }

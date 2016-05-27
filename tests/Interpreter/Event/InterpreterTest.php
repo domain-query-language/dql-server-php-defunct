@@ -14,8 +14,24 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         $this->factory = $this->app()->make(Event\Factory::class);
         $this->interpreter = $this->factory->ast($this->ast_repo->event());
     }
+    
+    public function test_build_empty_event()
+    {
+        $context = new Context((object)[
+            'shopper_id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6'
+        ]);
+        $interpreter = $this->factory->ast($this->ast_repo->event_empty());
+        $event = $interpreter->interpret($context);
         
-    public function test_build()
+        $expected = (object)[
+            'id'=>'9be14fd0-80aa-4e82-bd30-df031a51f626', 
+            'payload'=> new \stdClass()
+        ];
+        
+        $this->assertEquals($expected, $event);
+    }
+        
+    public function test_build_event_with_chldren()
     {
         $context = new Context((object)[
             'shopper_id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6'
