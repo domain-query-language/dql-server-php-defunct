@@ -14,23 +14,27 @@ class ParameterScanner
     {
         $properties = [];
         foreach ($ast->where as $where) {
-            $properties = $this->get_properties($where);
+            $properties[] = $this->get_properties($where);
         }
-        return $properties;
+        return array_filter($properties);
     }
     
     private function scan_check($ast)
     {
-        return $this->get_properties($ast->condition);
+        $properties = [];
+        foreach ($ast->condition as $condition) {
+            $properties[] = $this->get_properties($condition);
+        }
+        return array_filter($properties);
     }
     
     private function get_properties($condition) 
     {
         $value = $condition->value;
         if (isset($value->property)) {
-            return $value->property;
+            return $value->property[0];
         }
-        return [];
+        return;
     }
 }
 

@@ -10,7 +10,7 @@ class SQLFactoryTest extends \Test\Interpreter\TestCase
         
         $factory = new SQLFactory();
         
-        $sql = "SELECT COUNT(shopper_id) AS cart_count FROM aggregate_5e867d81_9e3f_4a33_9150_6f4b373ba74f WHERE shopper_id =?";
+        $sql = "SELECT COUNT(shopper_id) AS cart_count FROM aggregate_5e867d81_9e3f_4a33_9150_6f4b373ba74f WHERE shopper_id =? AND is_created =?";
         
         $this->assertEquals($sql, $factory->ast($ast));
     }

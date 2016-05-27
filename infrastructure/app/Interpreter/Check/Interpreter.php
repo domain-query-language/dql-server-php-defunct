@@ -4,16 +4,21 @@ use App\Interpreter\Context;
 
 class Interpreter implements \App\Interpreter\Interpreter
 {    
-    private $compare;
+    private $interpreters;
     
-    public function __construct($compare)
+    public function __construct($interpreters)
     {
-        $this->compare = $compare;
+        $this->interpreters = $interpreters;
     }
     
     public function interpret(Context $context)
     { 
-        return $this->compare->interpret($context);
+        foreach ($this->interpreters as $interprter) {
+            if (!$interprter->interpret($context)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 
