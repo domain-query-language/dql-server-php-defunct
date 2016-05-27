@@ -17,6 +17,9 @@ class ValueObjectRepository implements \App\Interpreter\ValueObjectRepository
         if ($id == "4ea61742-409a-48b6-9563-2587c681f838") {
             return $this->ast_repo->valueobject_simple();
         } 
+        if ($id == "dd7a3027-323c-484d-afc5-a9c6eb166221") {
+            return $this->ast_repo->valueobject_boolean();
+        }
         return $this->ast_repo->valueobject_validator();
     }
 }
