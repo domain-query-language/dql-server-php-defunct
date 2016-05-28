@@ -4,6 +4,7 @@ class Factory
 {    
     public function ast($ast)
     {
+        dd($ast);
         return new Interpreter();
     }
 }
