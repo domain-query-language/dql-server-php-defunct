@@ -10,6 +10,7 @@ class TestCase extends \Test\TestCase
         $this->app()->bind(\PDO::class, Projection\MockPDO::class);
         $this->app()->bind(\App\Interpreter\InvariantRepository::class, InvariantRepository::class);
         $this->app()->bind(\App\Interpreter\EventRepository::class, EventRepository::class);
+        $this->app()->bind(\App\Interpreter\EventHandlerRepository::class, EventHandlerRepository::class);
         $this->app()->bind(\App\Interpreter\ValueObjectRepository::class, ValueObjectRepository::class);
         parent::setUp();
     }

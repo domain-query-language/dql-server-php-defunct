@@ -1,0 +1,13 @@
+{
+  "id": "24216a60-fa74-4b80-bfd2-edcfc764db5e",
+  "aggregate_id": "5e867d81-9e3f-4a33-9150-6f4b373ba74f",
+  "event_id": "3961fd8c-a054-41e1-a998-3fc9cfd8f0ad",
+  "statements": [
+    {
+      "property": "is_created",
+      "value": {
+        "literal": true
+      }
+    }
+  ]
+}
