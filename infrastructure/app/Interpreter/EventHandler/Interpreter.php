@@ -16,10 +16,8 @@ class Interpreter implements \App\Interpreter\Interpreter
         
         foreach ($this->statements as $statement) {
             $property = $statement->property;
-            $root->$property = $this->get_value($statement, $event);
+            $root->$property = $this->get_value($statement->value, $event);
         }
-        
-        $root->is_created = true;
     }
     
     private function get_value($ast, $event)
