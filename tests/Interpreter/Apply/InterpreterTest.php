@@ -27,4 +27,18 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
         $this->assertEquals($expected, $this->interpreter->interpret($context));
     }
+    
+    public function test_updates_context()
+    {
+        $ast = $this->ast_repo->apply_arguments();
+        $interperter = $this->apply_factory->ast($ast);
+        
+        $root = (object)['is_created'=>false];
+        $command = (object)['shopper_id'=>'81ae684c-8f7a-4e31-8948-bedf4935b3ce'];
+        $context = new Context(['root'=>$root, 'command'=>$command]);
+        
+        $interperter->interpret($context);
+        
+        $this->assertTrue($root->is_created);
+    }
 }
