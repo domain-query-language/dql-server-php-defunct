@@ -13,4 +13,9 @@ class EventStore
     {
         self::$events = $events;
     }
+    
+    public function clear()
+    {
+        self::$events = [];
+    }
 }

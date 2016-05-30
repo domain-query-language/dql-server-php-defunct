@@ -1,6 +1,6 @@
 <?php namespace Test\Interpreter;
 
-class AggregateRepository implements \App\Interpreter\EntityRepository
+class AggregateRepository implements \App\Interpreter\AggregateRepository
 {
     private $ast_repository;
     

@@ -12,7 +12,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         
-        $this->event_store = new \Test\Interpreter\EventStore();
+        $this->event_store = $this->app()->make(\Infrastructure\App\EventStore\EventStore::class);
         
         $ast = $this->ast_repo->aggregate();
         
@@ -25,7 +25,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         );
     }
         
-    /*public function test_builds_root_entity()
+    public function test_builds_root_entity()
     {
         $entity = $this->interpreter->interpret($this->context);
         
@@ -36,8 +36,6 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
         $this->assertEquals($expected, $entity);
     }
-     *
-     */
     
     public function test_replays_events_on_root_entity()
     {

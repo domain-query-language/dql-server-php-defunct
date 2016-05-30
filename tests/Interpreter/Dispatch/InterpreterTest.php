@@ -3,7 +3,7 @@
 use App\Interpreter\Context;
 use Infrastructure\App\Interpreter\Command;
 use Infrastructure\App\Interpreter\Dispatch;
-use Test\Interpreter\EventStore;
+use App\Interpreter\InvariantException;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
@@ -17,8 +17,9 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         $factory = $this->app()->make(Command\Factory::class);
         $command_interpreter = $factory->ast($this->ast_repo->command());
         
-        $this->event_store = new EventStore();
-         
+        $this->event_store = $this->event_store = $this->app()->make(\Infrastructure\App\EventStore\EventStore::class);
+        $this->event_store->clear();
+        
         $this->dispatch_interpreter = $this->app()->make(Dispatch\Interpreter::class);
         
         $context = new Context((object)[
@@ -32,26 +33,19 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
         $this->context = new Context($command);
     }
-        
-    public function test_build()
-    {
-        $events = $this->dispatch_interpreter->interpret($this->context);
-        
-        $this->assertEquals(1, count($events));
-    }
-    
+            
     public function test_events_are_sent_to_event_store()
     {
         $events = $this->dispatch_interpreter->interpret($this->context);
         
-        //$this->assertEquals($events, $this->event_store->fetch('', ''));
+        $this->assertEquals($events, $this->event_store->fetch('', ''));
     }
     
     public function test_that_events_are_loaded_from_the_stream_and_replayed_to_build_state()
     {        
         $this->dispatch_interpreter->interpret($this->context);
         
-        //$this->setExpectedException(InvariantException::class);
+        $this->setExpectedException(InvariantException::class);
         
         // This command has been run once, if the events are replayed successfully, 
         // then replaying it again will break it

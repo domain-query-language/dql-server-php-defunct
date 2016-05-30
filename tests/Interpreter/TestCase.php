@@ -14,6 +14,8 @@ class TestCase extends \Test\TestCase
         $this->app()->bind(\App\Interpreter\ValueObjectRepository::class, ValueObjectRepository::class);
         $this->app()->bind(\App\Interpreter\HandlerRepository::class, HandlerRepository::class);
         $this->app()->bind(\App\Interpreter\EntityRepository::class, EntityRepository::class);
+        $this->app()->bind(\App\Interpreter\AggregateRepository::class, AggregateRepository::class);
+        $this->app()->singleton(\Infrastructure\App\EventStore\EventStore::class, EventStore::class);
         
         parent::setUp();
     }
