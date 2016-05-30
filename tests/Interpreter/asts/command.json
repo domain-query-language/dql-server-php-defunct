@@ -1,6 +1,6 @@
 {
   "id": "2af65a9c-5a1d-46d0-b2be-5a102da14cab",
-  "aggreggate_id": "01f99d4f-4cc7-4125-96fd-11f7dcbe8f9a",
+  "aggregate_id": "01f99d4f-4cc7-4125-96fd-11f7dcbe8f9a",
   "name": "create",
   "children": {
     "shopper_id": "a6a70ade-d3be-42ba-bf6d-c29d055e862e"
