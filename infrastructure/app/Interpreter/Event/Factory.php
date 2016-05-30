@@ -14,7 +14,7 @@ class Factory
     public function ast($ast)
     {
         $payload_interpreter = $this->valueobject_factory->ast($ast);
-        return new Interpreter($ast->id, $payload_interpreter);
+        return new Interpreter($ast->id, $ast->aggregate_id, $payload_interpreter);
     }
 }
 

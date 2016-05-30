@@ -11,13 +11,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     public function setUp()
     {
         parent::setUp();
-                
-        $event = (object)[
-            'id'=>'3961fd8c-a054-41e1-a998-3fc9cfd8f0ad', 
-            'payload'=> (object)['shopper_id'=>'1d0aa941-6dd5-472c-9020-f2cf4caf45ea']
-        ];
-        $this->expected_events = [$event];
-        
+                        
         $handler_factory = $this->app()->make(Handler\Factory::class);
         $ast = $this->ast_repo->handler();
         $this->interpreter = $handler_factory->ast($ast);
@@ -36,6 +30,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         return new Context((object)[
             'command' => $this->command(),
             'root' => (object)[
+                'id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378",
                 'is_created' => false
             ]
         ]);
@@ -44,7 +39,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     public function test_interpreter_fires_events()
     {
         $events = $this->interpreter->interpret($this->context());    
-        $this->assertEquals($this->expected_events, $events);  
+        $this->assertEquals(1, count($events));  
     }
     
     public function test_interpreter_fails_on_invariants()

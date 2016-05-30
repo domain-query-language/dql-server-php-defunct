@@ -21,7 +21,7 @@ class Interpreter implements \App\Interpreter\Interpreter
         
         $event = $this->event_interpreter->interpret($arguments_context);
         
-        $context->set_property('event', $event->payload);
+        $context->set_property('event', $event->domain->payload);
         $this->event_handler_interpreter->interpret($context);
         
         return $event;
