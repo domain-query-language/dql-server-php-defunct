@@ -20,10 +20,13 @@ class Interpreter implements \App\Interpreter\Interpreter
         $handler_ast = $this->handler_repo->fetch_ast($context->get_property(['schema', 'id']));
         
         $handler = $this->handler_factory->ast($handler_ast);
-        
+                
         $handler_context = new Context((object)[
             'command' => $context->get_property(['domain', 'payload']),
-            'root' => (object)['is_created'=>false]
+            'root' => (object)[
+                'id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378",
+                'is_created' => false
+            ]
         ]);
      
         return $handler->interpret($handler_context);
