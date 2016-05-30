@@ -3,24 +3,24 @@
 use App\Interpreter\Context;
 use Infrastructure\App\Interpreter\Command;
 use Infrastructure\App\Interpreter\Dispatch;
+use Test\Interpreter\EventStore;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
-    private $command_interpreter;
     private $dispatch_interpreter;
+    private $event_store;
 
     public function setUp()
     {
         parent::setUp();
         
         $factory = $this->app()->make(Command\Factory::class);
-        $this->command_interpreter = $factory->ast($this->ast_repo->command());
+        $command_interpreter = $factory->ast($this->ast_repo->command());
         
+        $this->event_store = new EventStore();
+         
         $this->dispatch_interpreter = $this->app()->make(Dispatch\Interpreter::class);
-    }
         
-    public function test_build()
-    {    
         $context = new Context((object)[
             'id' => "2ea22141-89f4-4216-88f6-81a67cb20d20",
             "payload" => (object)[
@@ -28,12 +28,33 @@ class InterpreterTest extends \Test\Interpreter\TestCase
             ]
         ]);
         
-        $command = $this->command_interpreter->interpret($context);
+        $command = $command_interpreter->interpret($context);
         
-        $dispatch_context = new Context($command);
+        $this->context = new Context($command);
+    }
         
-        $events = $this->dispatch_interpreter->interpret($dispatch_context);
+    public function test_build()
+    {
+        $events = $this->dispatch_interpreter->interpret($this->context);
         
         $this->assertEquals(1, count($events));
     }
+    
+    public function test_events_are_sent_to_event_store()
+    {
+        $events = $this->dispatch_interpreter->interpret($this->context);
+        
+        //$this->assertEquals($events, $this->event_store->fetch('', ''));
+    }
+    
+    public function test_that_events_are_loaded_from_the_stream_and_replayed_to_build_state()
+    {        
+        $this->dispatch_interpreter->interpret($this->context);
+        
+        //$this->setExpectedException(InvariantException::class);
+        
+        // This command has been run once, if the events are replayed successfully, 
+        // then replaying it again will break it
+        $this->dispatch_interpreter->interpret($this->context);
+    } 
 }

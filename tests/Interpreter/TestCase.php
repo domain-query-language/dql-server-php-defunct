@@ -13,6 +13,7 @@ class TestCase extends \Test\TestCase
         $this->app()->bind(\App\Interpreter\EventHandlerRepository::class, EventHandlerRepository::class);
         $this->app()->bind(\App\Interpreter\ValueObjectRepository::class, ValueObjectRepository::class);
         $this->app()->bind(\App\Interpreter\HandlerRepository::class, HandlerRepository::class);
+        $this->app()->bind(\App\Interpreter\EntityRepository::class, EntityRepository::class);
         
         parent::setUp();
     }
