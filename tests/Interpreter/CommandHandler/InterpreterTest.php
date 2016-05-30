@@ -1,10 +1,8 @@
 <?php namespace Test\Interpreter\CommandHandler;
 
-use Test\Interpreter\InvariantRepository;
 use App\Interpreter\Context;
 use App\Interpreter\InvariantException;
 use Infrastructure\App\Interpreter\Handler;
-use Test\Interpreter\Projection\MockPDO;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
@@ -14,7 +12,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
                 
-        $event =  $expected = (object)[
+        $event = (object)[
             'id'=>'3961fd8c-a054-41e1-a998-3fc9cfd8f0ad', 
             'payload'=> (object)['shopper_id'=>'1d0aa941-6dd5-472c-9020-f2cf4caf45ea']
         ];
