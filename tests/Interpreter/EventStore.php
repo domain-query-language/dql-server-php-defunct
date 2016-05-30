@@ -2,15 +2,15 @@
 
 class EventStore
 {
-    private $events;
+    private static $events = [];
     
     public function fetch($aggregate_id, $aggregate_type_id)
     {
-        return $this->events;
+        return self::$events;
     }
     
     public function store(array $events)
     {
-        $this->events = $events;
+        self::$events = $events;
     }
 }
