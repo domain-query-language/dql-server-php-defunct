@@ -13,6 +13,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         parent::setUp();
         $this->factory = $this->app()->make(Command\Factory::class);
         $this->interpreter = $this->factory->ast($this->ast_repo->command());
+
     }
         
     public function test_build()
