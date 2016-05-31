@@ -8,7 +8,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     public function setUp()
     {
         parent::setUp();
-        $factory = $this->app()->make(Entity\Factory::class);
+        $factory = $this->app->make(Entity\Factory::class);
         $this->interpreter = $factory->ast($this->ast_repo->entity());
     }
     
@@ -16,7 +16,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         $ast = $this->ast_repo->entity();
         unset($ast->children->id);
-        $factory = $this->app()->make(Entity\Factory::class);
+        $factory = $this->app->make(Entity\Factory::class);
         
         $this->setExpectedException(Entity\Exception::class);
         

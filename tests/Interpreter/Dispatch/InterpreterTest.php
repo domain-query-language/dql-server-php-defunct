@@ -14,13 +14,13 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         
-        $factory = $this->app()->make(Command\Factory::class);
+        $factory = $this->app->make(Command\Factory::class);
         $command_interpreter = $factory->ast($this->ast_repo->command());
         
-        $this->event_store = $this->event_store = $this->app()->make(\Infrastructure\App\EventStore\EventStore::class);
+        $this->event_store = $this->event_store = $this->app->make(\Infrastructure\App\EventStore\EventStore::class);
         $this->event_store->clear();
         
-        $this->dispatch_interpreter = $this->app()->make(Dispatch\Interpreter::class);
+        $this->dispatch_interpreter = $this->app->make(Dispatch\Interpreter::class);
         
         $context = new Context((object)[
             'id' => "2ea22141-89f4-4216-88f6-81a67cb20d20",

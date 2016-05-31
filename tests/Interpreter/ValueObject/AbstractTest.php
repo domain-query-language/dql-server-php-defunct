@@ -11,7 +11,7 @@ abstract class AbstractTest extends \Test\Interpreter\TestCase
     public function setUp()
     {
         parent::setUp();
-        $factory = $this->app()->make(ValueObject\Factory::class);
+        $factory = $this->app->make(ValueObject\Factory::class);
         $this->interpreter = $factory->ast($this->ast());
     }
 }

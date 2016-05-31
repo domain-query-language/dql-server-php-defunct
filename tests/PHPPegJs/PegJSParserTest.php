@@ -18,7 +18,7 @@ class PegJSParserTest extends TestCase
             "value": "test"
         }');
                 
-        $parser = $this->app()->make(\Infrastructure\App\DQLParser\PHPPegJS\DQLParser::class);
+        $parser = $this->app->make(\Infrastructure\App\DQLParser\PHPPegJS\DQLParser::class);
         
         $this->assertEquals($ast, $parser->parse($dql_statement));
     }
@@ -28,7 +28,7 @@ class PegJSParserTest extends TestCase
         $dql_statement = "create bleh";
         $this->expectException(\App\DQLParser\ParserError::class);
         
-        $parser = $this->app()->make(\Infrastructure\App\DQLParser\PHPPegJS\DQLParser::class);
+        $parser = $this->app->make(\Infrastructure\App\DQLParser\PHPPegJS\DQLParser::class);
         $parser->parse($dql_statement);
     }
     

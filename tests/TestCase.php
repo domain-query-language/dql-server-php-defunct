@@ -23,19 +23,6 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
         return $app;
     }
     
-    /**
-     * @var \Illuminate\Foundation\Application 
-     */
-    private static $application;
-    
-    public function app()
-    {
-        if (!self::$application) {
-            self::$application = $this->createApplication();
-        }
-        return self::$application;
-    }
-    
     protected function load_json($file_path)
     {
         $full_file_path = base_path($file_path);
