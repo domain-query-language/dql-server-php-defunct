@@ -3,7 +3,7 @@
 use App\EventStore\EventStore;
 use EventBuilder;
 
-class EventStoreTest extends TestCase 
+class EventStoreTest extends \Test\TestCase 
 {
     private $event_store;
     
