@@ -11,7 +11,7 @@ class CompareTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         $ast = $this->ast_repo->valueobject_simple();
-        $factory = $this->app()->make(Compare\Factory::class);
+        $factory = $this->app->make(Compare\Factory::class);
         $this->interpreter = $factory->ast($ast->check->condition[0]);
     }
     

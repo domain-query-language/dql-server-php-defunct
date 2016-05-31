@@ -18,7 +18,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         ]);
         $this->context->set_property('shopper_id', '5d37e24a-f833-45f3-90b1-3ac70fd05ac4');
 
-        $this->app()->bind(\PDO::class, MockPDO::class);
+        $this->app->bind(\PDO::class, MockPDO::class);
     }
     
     public function test_query_returns_false_initially()
@@ -30,7 +30,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     private function query_interpreter()
     {
         $ast = $this->ast_repo->invariant_projection();
-        $invariant_factory = $this->app()->make(Invariant\Factory::class);
+        $invariant_factory = $this->app->make(Invariant\Factory::class);
         return $invariant_factory->ast($ast);
     }
     
@@ -45,7 +45,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     private function update_interpreter()
     {
         $ast = $this->ast_repo->event_handler();
-        $query_factory = $this->app()->make(Update\Factory::class);
+        $query_factory = $this->app->make(Update\Factory::class);
         return $query_factory->ast($ast);
     }
     

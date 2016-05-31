@@ -12,11 +12,11 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         
-        $this->event_store = $this->app()->make(\Infrastructure\App\EventStore\EventStore::class);
+        $this->event_store = $this->app->make(\Infrastructure\App\EventStore\EventStore::class);
         
         $ast = $this->ast_repo->aggregate();
         
-        $factory = $this->app()->make(Aggregate\Factory::class);
+        $factory = $this->app->make(Aggregate\Factory::class);
         
         $this->interpreter = $factory->ast($ast);
         

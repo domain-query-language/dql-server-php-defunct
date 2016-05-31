@@ -10,6 +10,7 @@ class PegJSParserGeneratorTest extends TestCase
     
     public function setUp()
     {
+        parent::setUp();
         $this->parser_namespace = "ParseGeneratorTest";
         $this->parser_class_name = "Parse".rand(0, 10000000000);
     }

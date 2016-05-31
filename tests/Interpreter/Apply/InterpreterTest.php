@@ -11,7 +11,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->apply_factory = $this->app()->make(Apply\Factory::class);
+        $this->apply_factory = $this->app->make(Apply\Factory::class);
         $ast = $this->ast_repo->apply();
         $this->interpreter = $this->apply_factory->ast($ast);     
     }

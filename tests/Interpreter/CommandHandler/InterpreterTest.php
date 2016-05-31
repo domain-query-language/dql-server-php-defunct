@@ -12,7 +12,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
                         
-        $handler_factory = $this->app()->make(Handler\Factory::class);
+        $handler_factory = $this->app->make(Handler\Factory::class);
         $ast = $this->ast_repo->handler();
         $this->interpreter = $handler_factory->ast($ast);
     }
