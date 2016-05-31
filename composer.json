@@ -11,6 +11,7 @@
     }
   ],
   "require": {
+    "nesbot/carbon": "1.21.0", 
     "eventsourced/valueobjects": "2.1.*",
     "laravel/framework": "5.2.*",
     "ramsey/uuid": "3.4.1",
