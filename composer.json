@@ -13,6 +13,7 @@
   "require": {
     "eventsourced/valueobjects": "2.1.*",
     "laravel/framework": "5.2.*",
+    "ramsey/uuid": "3.4.1",
     "php": ">=7"
   },
   "require-dev": {
@@ -31,7 +32,9 @@
     "psr-4": {
       "App\\": "app/",
       "Infrastructure\\": "infrastructure/",
-      "Test\\": "tests/"
+      "Test\\": "tests/",
+      "App\\EventStore\\": "workbench/src/EventStore/",
+      "Test\\EventStore\\": "workbench/test/EventStore/"
     }
   },
   "autoload-dev": {

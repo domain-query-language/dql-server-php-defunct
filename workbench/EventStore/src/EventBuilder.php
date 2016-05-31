@@ -1,8 +1,24 @@
-<?php
+<?php namespace App\EventStore;
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+class EventBuilder
+{
+    public function set_schema_id($id)
+    {
+        
+    }
+    
+    public function set_schema_aggregate_id($id)
+    {
+        
+    }
+    
+    public function set_domain_aggregate_id($id)
+    {
+        
+    }
+    
+    public function set_domain_payload($payload)
+    {
+        
+    }
+}
