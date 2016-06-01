@@ -4,17 +4,17 @@ use DB;
 
 class DBTestCase extends TestCase
 {    
-    protected static $db;
-            
+    protected static $pdo;
+              
     public static function setUpBeforeClass()
-    {
+    {        
         parent::setUpBeforeClass();
-        self::$db = DB::connection()->getPdo();
+        self::$pdo = DB::connection()->getPdo();
     }
     
     protected static function run_statement($sql)
     {
-        $statement = self::$db->prepare($sql);
+        $statement = self::$pdo->prepare($sql);
         $statement->execute();
         return $statement->fetchAll(\PDO::FETCH_OBJ);
     }   
