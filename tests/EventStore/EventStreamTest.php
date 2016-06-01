@@ -1,7 +1,7 @@
 <?php namespace Test\EventStore;
 
-use Infrastructure\App\EventStore\AggregateID;
-use Infrastructure\App\EventStore\EventStream;
+use App\EventStore\AggregateID;
+use App\EventStore\EventStream;
 
 class EventStreamTest extends \Test\TestCase
 {

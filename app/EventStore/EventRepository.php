@@ -1,4 +1,4 @@
-<?php namespace Infrastructure\App\EventStore;
+<?php namespace App\EventStore;
 
 interface EventRepository
 {

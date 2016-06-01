@@ -33,9 +33,7 @@
     "psr-4": {
       "App\\": "app/",
       "Infrastructure\\": "infrastructure/",
-      "Test\\": "tests/",
-      "App\\EventStore\\": "workbench/src/EventStore/",
-      "Test\\EventStore\\": "workbench/test/EventStore/"
+      "Test\\": "tests/"
     }
   },
   "autoload-dev": {

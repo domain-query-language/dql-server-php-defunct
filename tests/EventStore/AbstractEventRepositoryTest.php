@@ -2,7 +2,7 @@
 
 use Test\DBTestCase;
 use App\EventStore\EventBuilder;
-use Infrastructure\App\EventStore\AggregateID;
+use App\EventStore\AggregateID;
 
 abstract class AbstractEventRepositoryTest extends DBTestCase
 {

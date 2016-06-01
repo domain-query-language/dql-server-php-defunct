@@ -1,8 +1,8 @@
 <?php namespace Test\EventStore;
 
-use Infrastructure\App\EventStore\AggregateID;
+use App\EventStore\AggregateID;
 
-class EventRepository implements \Infrastructure\App\EventStore\EventRepository
+class EventRepository implements \App\EventStore\EventRepository
 {
     private $rows = [];
     

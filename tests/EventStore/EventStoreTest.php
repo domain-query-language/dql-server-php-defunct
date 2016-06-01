@@ -1,10 +1,10 @@
 <?php namespace Test\EventStore;
 
-use Infrastructure\App\EventStore\EventStore;
-use Infrastructure\App\EventStore\EventRepository;
-use Infrastructure\App\EventStore\EventStreamFactory;
-use Infrastructure\App\EventStore\EventStream;
-use Infrastructure\App\EventStore\AggregateID;
+use App\EventStore\EventStore;
+use App\EventStore\EventRepository;
+use App\EventStore\EventStreamFactory;
+use App\EventStore\EventStream;
+use App\EventStore\AggregateID;
 
 class EventStoreTest extends \Test\TestCase 
 {
@@ -19,6 +19,11 @@ class EventStoreTest extends \Test\TestCase
         $this->stub_event_factory = $this->getMockBuilder(EventStreamFactory::class)
                 ->disableOriginalConstructor()->getMock();
         $this->event_store = new EventStore($this->stub_event_repo, $this->stub_event_factory);
+    }
+    
+    public function test_thing()
+    {
+        
     }
     
     public function test_takes_in_data()
