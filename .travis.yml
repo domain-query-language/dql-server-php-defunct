@@ -5,6 +5,7 @@ php:
 services: sqlite3
 
 before_script:
+  - phpenv config-rm xdebug.ini
   - composer install
   
 script: composer run-script test
