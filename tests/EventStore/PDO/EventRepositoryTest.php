@@ -27,6 +27,8 @@ class EventRepositoryTest extends DBTestCase
         $this->event = $event_builder->build();
         
         $this->repo = new EventRepository(self::$pdo, $event_builder);
+        
+        $this->repo->store([$this->event]);
     }
     
     public function test_fetch()
@@ -35,11 +37,21 @@ class EventRepositoryTest extends DBTestCase
             "b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f",
             "a955d32b-0130-463f-b3ef-23adec9af469"  
         );
-        
-        $this->repo->store([$this->event]);
-        
+                
         $results = $this->repo->fetch($aggregate_id, 0, 10);
         
         $this->assertEquals([$this->event], $results);
+    }
+    
+    public function test_returns_empty_if_no_results()
+    {
+        $aggregate_id = new AggregateID(
+            "b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f",
+            "03ad4280-01f3-450b-8e0a-55c1365e40ee"  
+        );
+                
+        $results = $this->repo->fetch($aggregate_id, 0, 10);
+        
+        $this->assertEquals([], $results);
     }
 }
