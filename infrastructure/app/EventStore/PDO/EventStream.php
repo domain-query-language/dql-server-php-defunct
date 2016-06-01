@@ -1,27 +1,32 @@
 <?php namespace Infrastructure\App\EventStore\PDO;
 
-use App\EventStore\Stream;
+use App\EventStore\EventStream;
 use App\EventStore\EventBuilder;
 
-class Stream implements Stream
+class EventStream implements EventStream
 {
-    protected $limit = 100;
-    protected $chunk_size = 100;
+    private $chunk_size = 100;
+    private $streamed_count = 0;
     
-    protected $event_builder;
+    private $event_builder;
+    private $event_repo;
+    private $aggregate_id;
     
-    protected $log_table = 'event_log';
-    protected $streamed_count;
-
-    protected $events;
-    
-    public function __construct(EventBuilder $event_builder)
-    {
+    private $events;
+       
+    public function __construct(
+        EventBuilder $event_builder,
+        EventRepository $event_repo,
+        AggregateID $aggregate_id
+    ){
         $this->event_builder = $event_builder;
+        $this->event_repo = $event_repo;
+        $this->aggregate_id = $aggregate_id;
         
         $this->reset();
         $this->fetch();
     }
+    
     protected function reset()
     {
         $this->streamed_count = 0;
@@ -30,69 +35,58 @@ class Stream implements Stream
 
     protected function fetch()
     {
-        $this->event_snapshots = new Collection();
-        $event_rows = $this->get_next_chunk();
+        $this->events = $this->get_next_chunk();
+    }
         
-        foreach ($event_rows as $event_row) {
-            $this->event_builder->set_id($event_row->event_id)
-                    ->set_schema_id($event_row->schema_id)
-                    ->set_schema_aggregate_id($event_row->schema_aggregate_id)
-                    ->set_domain_aggregate_id($event_row->domain_aggregate_id)
-                    ->set_domain_payload(json_decode($event_row->payload));
-            $this->events[] = $this->event_builder->build();
-        }
-        $this->set_offset($event_snapshot_schemas);
+    private function get_next_chunk()
+    {
+        $offset = $this->streamed_count;
+        $limit = $this->chunk_size;
+        return $this->event_repo->fetch($this->aggregate_id, $offset, $limit);
     }
     
-    protected function 
-    
-    abstract protected function get_next_chunk();
-    
-    abstract protected function set_offset(array $event_snapshot_rows);
     protected function is_unlimited()
     {
-        return ($this->limit->equals(new Integer_(0)));
+        return ($this->limit == 0);
     }
+    
     protected function has_more_chunks()
     {
-        return (
-            $this->event_snapshots->count()->value() <
-            $this->chunk_size->value()
-        );
+        return (count($this->events) < $this->chunk_size);
     }
+    
     public function current()
     {
-        return $this->event_snapshots->current();
+        return current($this->events);
     }
+    
     public function next()
     {
+        $event = next($this->events);
         $this->event_snapshots->next();
-        if(
-            !$this->event_snapshots->valid() &&
-            $this->has_more_chunks()
-        )
-        {
+        if(! $event && $this->has_more_chunks()) {
             $this->fetch();
         }
-        $this->streamed_count = $this->streamed_count->increment();
+        $this->streamed_count++;
+        
+        return $event;
     }
+    
     public function key()
     {
-        return $this->event_snapshots->key();
+        return key($this->events);
     }
+    
     public function valid()
     {
-        if(
-            $this->streamed_count->equals($this->limit) &&
-            !$this->is_unlimited()
-        )
-        {
+        if($this->streamed_count == $this->limit && ! $this->is_unlimited()){
             return false;
         }
-        return $this->event_snapshots->valid();
+        return current($this->events !== false);
     }
+    
     public function rewind()
     {
-        $this->event_snapshots->rewind();
+        rewind($this->events);
     }
 }

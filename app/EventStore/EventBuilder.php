@@ -22,6 +22,7 @@ class EventBuilder
     public function set_id($id)
     {
         $this->event->id = $id;
+        return $this;
     }
     
     public function set_schema_id($id)
