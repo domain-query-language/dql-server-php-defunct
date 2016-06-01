@@ -6,7 +6,7 @@ use App\EventStore\IDGenerator;
 use App\EventStore\Schema;
 use App\EventStore\Domain;
 
-class BuilderTest extends \Test\TestCase
+class EventBuilderTest extends \Test\TestCase
 {
     private $event_builder;
     private $event;
