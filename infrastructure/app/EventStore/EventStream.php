@@ -1,4 +1,4 @@
-<?php namespace Infrastructure\App\EventStore\PDO;
+<?php namespace Infrastructure\App\EventStore;
 
 use App\EventStore\EventStream;
 use App\EventStore\EventBuilder;

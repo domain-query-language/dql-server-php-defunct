@@ -3,7 +3,7 @@
 use Test\DBTestCase;
 use Infrastructure\App\EventStore\PDO\EventRepository;
 use App\EventStore\EventBuilder;
-use Infrastructure\App\EventStore\PDO\AggregateID;
+use Infrastructure\App\EventStore\AggregateID;
 
 class EventRepositoryTest extends DBTestCase
 {

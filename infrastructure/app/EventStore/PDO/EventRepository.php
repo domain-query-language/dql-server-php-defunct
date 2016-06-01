@@ -3,8 +3,9 @@
 use PDO;
 use App\EventStore\Event;
 use App\EventStore\EventBuilder;
+use Infrastructure\App\EventStore\AggregateID;
 
-class EventRepository
+class EventRepository implements \Infrastructure\App\EventStore\EventRepository
 {
     private $pdo;
     private $select_statement;
