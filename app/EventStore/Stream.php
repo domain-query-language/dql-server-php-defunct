@@ -1,6 +1,6 @@
 <?php namespace App\EventStore;
 
-interface EventStream extends \Iterator
+interface Stream extends \Iterator
 {
     
 }

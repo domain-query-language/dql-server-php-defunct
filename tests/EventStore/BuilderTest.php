@@ -1,6 +1,6 @@
 <?php namespace Test\EventStore;
 
-use App\EventStore\Builder;
+use App\EventStore\EventBuilder;
 use App\EventStore\Event;
 use App\EventStore\IDGenerator;
 use App\EventStore\Schema;
@@ -8,6 +8,7 @@ use App\EventStore\Domain;
 
 class BuilderTest extends \Test\TestCase
 {
+    private $event_builder;
     private $event;
     
     public function setUp()
@@ -15,13 +16,13 @@ class BuilderTest extends \Test\TestCase
         $stub_generator = $this->getMockBuilder(IDGenerator::class)->getMock();
         $stub_generator->method('generate')->willReturn("87484542-4a35-417e-8e95-5713b8f55c8e");
         
-        $event_builder = new Builder($stub_generator);
-        $event_builder->set_schema_id("14c3896d-092e-4370-bf72-2093facc9792")
+        $this->event_builder = new EventBuilder($stub_generator);
+        $this->event_builder->set_schema_id("14c3896d-092e-4370-bf72-2093facc9792")
             ->set_schema_aggregate_id("b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f")
             ->set_domain_aggregate_id("a955d32b-0130-463f-b3ef-23adec9af469")
             ->set_domain_payload((object)['value'=>true]);
         
-        $this->event = $event_builder->build();
+        $this->event = $this->event_builder->build();
     }
     
     public function test_builds_class()
@@ -55,5 +56,22 @@ class BuilderTest extends \Test\TestCase
         $expected->payload = (object)['value'=>true];
         
         $this->assertEquals($expected, $this->event->domain);
+    }
+    
+    public function test_resets_after_build()
+    {
+        $event = $this->event_builder->build();
+        
+        $this->assertEquals(new Domain(), $event->domain);
+        $this->assertEquals(new Schema(), $event->schema);
+    }
+    
+    public function test_can_set_id()
+    {
+        $id = 'a7285082-a50c-4593-8b13-06a0fd75ba71';
+        $this->event_builder->set_id($id);
+        
+        $event = $this->event_builder->build();
+        $this->assertEquals($id, $event->id);
     }
 }

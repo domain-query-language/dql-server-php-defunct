@@ -1,6 +1,6 @@
 <?php namespace App\EventStore;
 
-class Builder
+class EventBuilder
 {
     private $id_generator;
     private $event;
@@ -9,9 +9,19 @@ class Builder
     {
         $this->id_generator = $id_generator;
         
+        $this->setup_fresh_event();
+    }
+    
+    private function setup_fresh_event()
+    {
         $this->event = new Event(); 
         $this->event->schema = new Schema();
         $this->event->domain = new Domain();
+    }
+    
+    public function set_id($id)
+    {
+        $this->event->id = $id;
     }
     
     public function set_schema_id($id)
@@ -40,8 +50,12 @@ class Builder
     
     public function build()
     {
-        $this->event->id = $this->id_generator->generate();
-        $this->event->occured_at = '2014-10-10 12:12:12';
-        return $this->event;
+        $event = $this->event;
+        $event->id = $event->id ?: $this->id_generator->generate();
+        $event->occured_at = '2014-10-10 12:12:12';
+        
+        $this->setup_fresh_event();
+        
+        return $event;
     }
 }
