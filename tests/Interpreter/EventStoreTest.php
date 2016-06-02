@@ -6,18 +6,26 @@ use App\EventStore\StreamID;
 class EventStoreTest extends TestCase
 {
     private $infrastructure_event_store;
+    private $event_builder;
     private $event_store;
     private $interpreter_event;
     
     public function setUp()
     {
+        parent::setUp();
+        
         $this->infrastructure_event_store = $this->getMockBuilder( \App\EventStore\EventStore::class)
             ->disableOriginalConstructor()->getMock();
         
-        $event_builder = $this->getMockBuilder(\App\EventStore\EventBuilder::class)
-            ->disableOriginalConstructor()->getMock();
+        $stub_id_generator = $this->getMockBuilder(\App\EventStore\IDGenerator::class)->getMock();
+        $stub_id_generator->method('generate')->willReturn("87484542-4a35-417e-8e95-5713b8f55c8e");
         
-        $this->event_store = new EventStore($this->infrastructure_event_store, $event_builder);
+        $stub_datetime_generator = $this->getMockBuilder(\App\EventStore\DateTimeGenerator::class)->getMock();
+        $stub_datetime_generator->method('generate')->willReturn('2014-10-10 12:12:12');
+        
+        $this->event_builder = new \App\EventStore\EventBuilder($stub_id_generator, $stub_datetime_generator);
+        
+        $this->event_store = new EventStore($this->infrastructure_event_store, $this->event_builder);
         
         $this->interpreter_event = (object)[
             "schema"=> (object)[
@@ -33,13 +41,19 @@ class EventStoreTest extends TestCase
     
     public function test_translates_event_before_storing_it()
     {
-        $events = ['event'];
+        $event = $this->interpreter_event;
+        $this->event_builder->set_aggregate_id($event->domain->aggregate_id)
+                    ->set_schema_event_id($event->schema->id)
+                    ->set_schema_aggregate_id($event->schema->aggregate_id)
+                    ->set_payload($event->domain->payload);
+        
+        $transformed_event = $this->event_builder->build();
         
         $this->infrastructure_event_store->expects($this->once())
                  ->method('store')
-                 ->with($this->equalTo($events));
+                 ->with($this->equalTo([$transformed_event]));
         
-        $this->event_store->store($events);
+        $this->event_store->store([$this->interpreter_event]);
     }
         
     public function test_fetch()
