@@ -5,11 +5,6 @@ use Test\EventStore\AbstractEventRepositoryTest;
 
 class EventRepositoryTest extends AbstractEventRepositoryTest
 {    
-    public function setUp()
-    {
-        parent::setUp();
-    }
-
     protected function build_event_repository()
     {
         $this->artisan('migrate');

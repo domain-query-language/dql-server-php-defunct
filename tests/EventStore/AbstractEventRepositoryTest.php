@@ -61,22 +61,4 @@ abstract class AbstractEventRepositoryTest extends DBTestCase
         
         $this->assertEquals([], $results);
     }
-    
-    public function test_locking_a_stream_prevents_others_from_accessing_it()
-    {
-        $this->repo->lock($this->stream_id);
-        
-        $this->setExpectedException(EventRepositoryException::class);
-        
-        $this->repo->lock($this->stream_id);
-    }
-    
-    public function test_unlocking_a_stream_allows_access()
-    {
-        $this->repo->lock($this->stream_id);
-        $this->repo->unlock($this->stream_id);
-        
-        $this->repo->lock($this->stream_id);
-        $this->repo->unlock($this->stream_id);
-    }
 }
