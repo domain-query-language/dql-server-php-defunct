@@ -23,4 +23,15 @@ class EventRepository implements \App\EventStore\EventRepository
     {
         
     }
+
+    public function lock(StreamID $stream_id)
+    {
+        
+    }
+
+    public function unlock(StreamID $stream_id)
+    {
+        
+    }
+
 }

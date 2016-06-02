@@ -90,4 +90,22 @@ class EventRepository implements \App\EventStore\EventRepository
             json_encode($event->domain->payload)
         ];
     }
+    
+    private static $locks = [];
+    
+    public function lock(StreamID $stream_id)
+    {
+        $key = $stream_id->domain_id.",".$stream_id->schema_id;
+        
+        if (isset(self::$locks[$key])) {
+            throw new \App\EventStore\EventRepositoryException();
+        }
+        self::$locks[$key] = true;
+    }
+    
+    public function unlock(StreamID $stream_id)
+    {
+        $key = $stream_id->domain_id.",".$stream_id->schema_id;
+        self::$locks[$key] = null;
+    }
 }
