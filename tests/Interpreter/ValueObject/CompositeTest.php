@@ -1,7 +1,7 @@
 <?php namespace Test\Interpreter\ValueObject;
 
 use App\Interpreter\Context;
-use Infrastructure\App\Interpreter\ValueObject;
+use App\Interpreter\ValueObject;
 use App\Interpreter\Context\PropertyException;
 
 class CompositeTest extends AbstractTest

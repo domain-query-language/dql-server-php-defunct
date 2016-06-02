@@ -27,9 +27,9 @@ class EventStore implements \App\Interpreter\EventStore
     {
         $transformed_events = array_map(function($event){
             $this->event_builder->set_aggregate_id($event->domain->aggregate_id)
-                    ->set_schema_event_id($event->schema->id)
-                    ->set_schema_aggregate_id($event->schema->aggregate_id)
-                    ->set_payload($event->domain->payload);
+                ->set_schema_event_id($event->schema->id)
+                ->set_schema_aggregate_id($event->schema->aggregate_id)
+                ->set_payload($event->domain->payload);
             
             return $this->event_builder->build();
                     

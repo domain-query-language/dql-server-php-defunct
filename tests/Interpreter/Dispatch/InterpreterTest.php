@@ -1,8 +1,8 @@
 <?php namespace Test\Interpreter\Dispatch;
 
 use App\Interpreter\Context;
-use Infrastructure\App\Interpreter\Command;
-use Infrastructure\App\Interpreter\Dispatch;
+use App\Interpreter\Command;
+use App\Interpreter\Dispatch;
 use App\Interpreter\InvariantException;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
