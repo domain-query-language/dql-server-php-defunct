@@ -42,4 +42,17 @@ abstract class AbstractEventStreamLockerTest extends DBTestCase
         $this->locker->lock($this->stream_id);
         $this->locker->unlock($this->stream_id);
     }
+    
+    public function test_locks_are_only_for_the_stream_id()
+    {
+        $this->locker->lock($this->stream_id);
+        
+        $different_stream_id = new StreamID(
+            "e974e9d5-865f-4e0c-9fb0-df1812eceaf7",
+            "49914cfe-4e96-4c07-bba3-ac96ef7d4259"
+        );
+        $this->locker->lock($different_stream_id);
+        
+        $this->locker->unlock($different_stream_id);
+    }
 }
