@@ -3,11 +3,13 @@
 class EventBuilder
 {
     private $id_generator;
+    private $datetime_generator;
     private $event;
     
-    public function __construct(IDGenerator $id_generator)
+    public function __construct(IDGenerator $id_generator, DateTimeGenerator $datetime_generator)
     {
         $this->id_generator = $id_generator;
+        $this->datetime_generator = $datetime_generator;
         
         $this->setup_fresh_event();
     }
@@ -53,7 +55,7 @@ class EventBuilder
     {
         $event = $this->event;
         $event->id = $event->id ?: $this->id_generator->generate();
-        $event->occured_at = '2014-10-10 12:12:12';
+        $event->occured_at = $this->datetime_generator->generate();
         
         $this->setup_fresh_event();
         
