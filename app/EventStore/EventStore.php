@@ -7,7 +7,8 @@ class EventStore
     
     public function __construct(
         EventRepository $event_repository,
-        EventStreamFactory $event_stream_factory)
+        EventStreamFactory $event_stream_factory
+    )
     {
         $this->event_repository = $event_repository;
         $this->event_stream_factory = $event_stream_factory;
