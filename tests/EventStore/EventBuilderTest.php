@@ -43,7 +43,7 @@ class EventBuilderTest extends \Test\TestCase
     {
         $this->assertEquals("2014-10-10 12:12:12", $this->event->occured_at);
     }
-    
+   
     public function test_populates_schema()
     {
         $expected = new Schema();
@@ -78,4 +78,14 @@ class EventBuilderTest extends \Test\TestCase
         $event = $this->event_builder->build();
         $this->assertEquals($id, $event->id);
     }
+    
+    public function test_can_set_occurred_at()
+    {
+        $datetime = "2014-10-10 12:12:12";
+        $this->event_builder->set_occured_at($datetime);
+        
+        $event = $this->event_builder->build();
+        $this->assertEquals($datetime, $event->occured_at);
+    }
+    
 }

@@ -47,6 +47,7 @@ class EventRepository implements \App\EventStore\EventRepository
 
         return array_map(function($event_row){
             $this->event_builder->set_id($event_row->event_id) 
+                ->set_occured_at($event_row->occured_at)
                 ->set_schema_id($event_row->schema_event_id)
                 ->set_schema_aggregate_id($event_row->schema_aggregate_id)
                 ->set_domain_aggregate_id($event_row->aggregate_id)

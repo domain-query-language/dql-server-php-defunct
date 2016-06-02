@@ -11,9 +11,9 @@ class EventStore implements \App\Interpreter\EventStore
         $this->event_store = $event_store;
     }
     
-    public function fetch($aggregate_id, $aggregate_type_id)
+    public function fetch($domain_aggregate_id, $schema_aggregate_id)
     {
-        $stream_id = new StreamID($aggregate_type_id, $aggregate_id);
+        $stream_id = new StreamID($domain_aggregate_id, $schema_aggregate_id);
         
         return $this->event_store->fetch($stream_id);
     }

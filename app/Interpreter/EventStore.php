@@ -2,7 +2,7 @@
 
 interface EventStore
 {
-    public function fetch($aggregate_id, $aggregate_type_id);
+    public function fetch($domain_aggregate_id, $schema_aggregate_id);
     
     public function store(array $events);
 }
