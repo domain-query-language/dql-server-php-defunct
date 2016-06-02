@@ -27,6 +27,6 @@ class MakeEventStreamLockTable extends Migration
      */
     public function down()
     {
-        Scheme::drop("event_stream_lock");
+        Schema::drop("event_stream_lock");
     }
 }

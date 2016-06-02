@@ -13,7 +13,13 @@ class EventStreamFactory
     
     public function aggregate_id(StreamID $aggregate_id)
     {
-        return new EventStream($this->event_builder, $aggregate_id);
+        return new AggregateEventStream($this->event_builder, $aggregate_id);
+    }
+    
+    public function all()
+    {
+        return new EventStream();
     }
 }
+
 

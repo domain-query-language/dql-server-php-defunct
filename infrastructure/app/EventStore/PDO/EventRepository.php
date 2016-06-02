@@ -8,14 +8,15 @@ use App\EventStore\StreamID;
 class EventRepository implements \App\EventStore\EventRepository
 {
     private $pdo;
-    private $select_statement;
+    private $stream_select_statement;
+    private $all_select_statement;
     
     public function __construct(PDO $pdo, EventBuilder $event_builder)
     {
         $this->pdo = $pdo;
         $this->event_builder = $event_builder;
         
-        $query = "
+        $stream_query = "
             SELECT 
                 *
             FROM
@@ -29,32 +30,58 @@ class EventRepository implements \App\EventStore\EventRepository
             OFFSET ?
             ;
          ";
+          
+        $this->stream_select_statement = $this->pdo->prepare($stream_query);
         
-        "   ";
-                
-        $this->select_statement = $this->pdo->prepare($query);
+        $all_query = "
+            SELECT 
+                *
+            FROM
+                event_log
+            ORDER BY 
+                `order`
+            LIMIT ?
+            OFFSET ?
+            ;
+         ";
+        
+        $this->all_select_statement = $this->pdo->prepare($all_query);
     }
     
     public function fetch(StreamID $aggregate_id, $offset, $limit)
     {
-        $domain_id = $aggregate_id->domain_id;
-        $schema_id = $aggregate_id->schema_id;
+        $data = [$aggregate_id->domain_id, $aggregate_id->schema_id, $limit, $offset];
         
-        $data = [$domain_id, $schema_id, $limit, $offset];
-        
-        $this->select_statement->execute($data);
-        $rows = $this->select_statement->fetchAll(\PDO::FETCH_OBJ);
+        $this->stream_select_statement->execute($data);
+        $rows = $this->stream_select_statement->fetchAll(\PDO::FETCH_OBJ);
 
         return array_map(function($event_row){
-            $this->event_builder->set_event_id($event_row->event_id) 
-                ->set_occured_at($event_row->occured_at)
-                ->set_schema_event_id($event_row->schema_event_id)
-                ->set_schema_aggregate_id($event_row->schema_aggregate_id)
-                ->set_aggregate_id($event_row->aggregate_id)
-                ->set_payload(json_decode($event_row->payload));
-            
-            return $this->event_builder->build();
+            return $this->transform_row_to_event($event_row);
         }, $rows);
+    }
+    
+    public function fetch_all($offset, $limit)
+    {
+        $data = [$limit, $offset];
+        
+        $this->all_select_statement->execute($data);
+        $rows = $this->all_select_statement->fetchAll(\PDO::FETCH_OBJ);
+        
+        return array_map(function($event_row){
+            return $this->transform_row_to_event($event_row);
+        }, $rows);
+    }
+    
+    private function transform_row_to_event($event_row)
+    {
+        $this->event_builder->set_event_id($event_row->event_id) 
+            ->set_occured_at($event_row->occured_at)
+            ->set_schema_event_id($event_row->schema_event_id)
+            ->set_schema_aggregate_id($event_row->schema_aggregate_id)
+            ->set_aggregate_id($event_row->aggregate_id)
+            ->set_payload(json_decode($event_row->payload));
+            
+        return $this->event_builder->build();
     }
         
     public function store(array $events)
@@ -71,7 +98,7 @@ class EventRepository implements \App\EventStore\EventRepository
         $data = [];
         foreach ($events as $event) {
             $values[] = "(?, ?, ?, ?, ?, ?)";
-            $data += $this->make_pdo_data_from_event($event);
+            $data = array_merge($data, $this->tranform_event_to_row($event));
         }
            
         $insert .= implode(",", $values);
@@ -79,7 +106,7 @@ class EventRepository implements \App\EventStore\EventRepository
         $this->pdo->prepare($insert)->execute($data);
     }
     
-    private function make_pdo_data_from_event(Event $event)
+    private function tranform_event_to_row(Event $event)
     {
         return [
             $event->event_id,
@@ -89,23 +116,5 @@ class EventRepository implements \App\EventStore\EventRepository
             $event->occured_at,
             json_encode($event->payload)
         ];
-    }
-    
-    private static $locks = [];
-    
-    public function lock(StreamID $stream_id)
-    {
-        $key = $stream_id->domain_id.",".$stream_id->schema_id;
-        
-        if (isset(self::$locks[$key])) {
-            throw new \App\EventStore\EventRepositoryException();
-        }
-        self::$locks[$key] = true;
-    }
-    
-    public function unlock(StreamID $stream_id)
-    {
-        $key = $stream_id->domain_id.",".$stream_id->schema_id;
-        self::$locks[$key] = null;
     }
 }

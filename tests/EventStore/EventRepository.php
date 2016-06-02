@@ -16,6 +16,11 @@ class EventRepository implements \App\EventStore\EventRepository
     
     public function fetch(StreamID $aggregate_id, $offset, $limit)
     {
+        return $this->fetch_all($offset, $limit);
+    }
+    
+    public function fetch_all($offset, $limit)
+    {
         return array_slice($this->rows, $offset, $limit);
     }
 

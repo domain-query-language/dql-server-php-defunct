@@ -23,4 +23,9 @@ class EventStore
     {
         return $this->event_stream_factory->aggregate_id($aggregate_id);
     }
+    
+    public function all()
+    {
+        return $this->event_stream_factory->all();
+    }
 }

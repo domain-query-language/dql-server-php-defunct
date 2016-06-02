@@ -1,21 +1,18 @@
 <?php namespace App\EventStore;
 
-class EventStream implements \Iterator
+abstract class AbstractEventStream implements \Iterator
 {
+    protected $event_repo;
+    
     private $chunk_size = 100;
     private $streamed_count = 0;
-    
-    private $event_repo;
-    private $aggregate_id;
-    
+        
     private $events;
        
     public function __construct(
-        EventRepository $event_repo,
-        StreamID $aggregate_id
+        EventRepository $event_repo
     ){
         $this->event_repo = $event_repo;
-        $this->aggregate_id = $aggregate_id;
         
         $this->reset();
         $this->fetch();
@@ -29,15 +26,10 @@ class EventStream implements \Iterator
 
     protected function fetch()
     {
-        $this->events = $this->get_next_chunk();
+        $this->events = $this->get_next_chunk($this->streamed_count, $this->chunk_size);
     }
         
-    private function get_next_chunk()
-    {
-        $offset = $this->streamed_count;
-        $limit = $this->chunk_size;
-        return $this->event_repo->fetch($this->aggregate_id, $offset, $limit);
-    }
+    abstract protected function get_next_chunk($offset, $limit);
     
     protected function has_more_chunks()
     {
