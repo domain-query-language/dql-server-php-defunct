@@ -3,7 +3,7 @@
 use PDO;
 use App\EventStore\Event;
 use App\EventStore\EventBuilder;
-use App\EventStore\AggregateID;
+use App\EventStore\StreamID;
 
 class EventRepository implements \App\EventStore\EventRepository
 {
@@ -35,7 +35,7 @@ class EventRepository implements \App\EventStore\EventRepository
         $this->select_statement = $this->pdo->prepare($query);
     }
     
-    public function fetch(AggregateID $aggregate_id, $offset, $limit)
+    public function fetch(StreamID $aggregate_id, $offset, $limit)
     {
         $domain_id = $aggregate_id->domain_id;
         $schema_id = $aggregate_id->schema_id;
@@ -47,6 +47,7 @@ class EventRepository implements \App\EventStore\EventRepository
 
         return array_map(function($event_row){
             $this->event_builder->set_id($event_row->event_id) 
+                ->set_occured_at($event_row->occured_at)
                 ->set_schema_id($event_row->schema_event_id)
                 ->set_schema_aggregate_id($event_row->schema_aggregate_id)
                 ->set_domain_aggregate_id($event_row->aggregate_id)

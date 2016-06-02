@@ -51,11 +51,18 @@ class EventBuilder
         return $this;
     }
     
+    public function set_occured_at($datetime)
+    {
+        $this->event->occured_at = $datetime;
+        return $this;
+    }
+    
+    
     public function build()
     {
         $event = $this->event;
         $event->id = $event->id ?: $this->id_generator->generate();
-        $event->occured_at = $this->datetime_generator->generate();
+        $event->occured_at = $event->occured_at ?: $this->datetime_generator->generate();
         
         $this->setup_fresh_event();
         

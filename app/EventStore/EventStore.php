@@ -18,7 +18,7 @@ class EventStore
         $this->event_repository->store($events);
     }
     
-    public function fetch(AggregateID $aggregate_id)
+    public function fetch(StreamID $aggregate_id)
     {
         return $this->event_stream_factory->aggregate_id($aggregate_id);
     }

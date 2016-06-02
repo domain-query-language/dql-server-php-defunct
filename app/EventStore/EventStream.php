@@ -12,7 +12,7 @@ class EventStream implements \Iterator
        
     public function __construct(
         EventRepository $event_repo,
-        AggregateID $aggregate_id
+        StreamID $aggregate_id
     ){
         $this->event_repo = $event_repo;
         $this->aggregate_id = $aggregate_id;
