@@ -98,7 +98,7 @@ class EventRepository implements \App\EventStore\EventRepository
         $data = [];
         foreach ($events as $event) {
             $values[] = "(?, ?, ?, ?, ?, ?)";
-            $data = array_merge($data, $this->make_pdo_data_from_event($event));
+            $data = array_merge($data, $this->tranform_event_to_row($event));
         }
            
         $insert .= implode(",", $values);
@@ -106,7 +106,7 @@ class EventRepository implements \App\EventStore\EventRepository
         $this->pdo->prepare($insert)->execute($data);
     }
     
-    private function make_pdo_data_from_event(Event $event)
+    private function tranform_event_to_row(Event $event)
     {
         return [
             $event->event_id,
