@@ -4,7 +4,7 @@ use App\EventStore\EventStore;
 use App\EventStore\EventRepository;
 use App\EventStore\EventStreamFactory;
 use App\EventStore\EventStream;
-use App\EventStore\AggregateID;
+use App\EventStore\StreamID;
 
 class EventStoreTest extends \Test\TestCase 
 {
@@ -39,7 +39,7 @@ class EventStoreTest extends \Test\TestCase
     
     public function test_returns_stream()
     {   
-        $aggregate_id = $this->getMockBuilder(AggregateID::class)
+        $aggregate_id = $this->getMockBuilder(StreamID::class)
                 ->disableOriginalConstructor()->getMock();
         
         $stream = new EventStream($this->stub_event_repo, $aggregate_id);

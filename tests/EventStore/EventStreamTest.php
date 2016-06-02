@@ -1,6 +1,6 @@
 <?php namespace Test\EventStore;
 
-use App\EventStore\AggregateID;
+use App\EventStore\StreamID;
 use App\EventStore\EventStream;
 
 class EventStreamTest extends \Test\TestCase
@@ -10,7 +10,7 @@ class EventStreamTest extends \Test\TestCase
     
     public function setUp()
     {
-        $this->aggregate_id = new AggregateID(
+        $this->aggregate_id = new StreamID(
             "b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f",
             "a955d32b-0130-463f-b3ef-23adec9af469"  
         );

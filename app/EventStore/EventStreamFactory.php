@@ -11,7 +11,7 @@ class EventStreamFactory
         $this->event_builder = $event_builder;
     }
     
-    public function aggregate_id(AggregateID $aggregate_id)
+    public function aggregate_id(StreamID $aggregate_id)
     {
         return new EventStream($this->event_builder, $aggregate_id);
     }

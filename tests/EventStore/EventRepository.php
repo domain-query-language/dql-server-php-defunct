@@ -1,6 +1,6 @@
 <?php namespace Test\EventStore;
 
-use App\EventStore\AggregateID;
+use App\EventStore\StreamID;
 
 class EventRepository implements \App\EventStore\EventRepository
 {
@@ -14,7 +14,7 @@ class EventRepository implements \App\EventStore\EventRepository
         $this->rows = range(0, $row_count-1);
     }
     
-    public function fetch(AggregateID $aggregate_id, $offset, $limit)
+    public function fetch(StreamID $aggregate_id, $offset, $limit)
     {
         return array_slice($this->rows, $offset, $limit);
     }

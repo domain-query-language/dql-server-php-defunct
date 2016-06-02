@@ -2,7 +2,7 @@
 
 interface EventRepository
 {
-    public function fetch(AggregateID $aggregate_id, $offset, $limit);
+    public function fetch(StreamID $aggregate_id, $offset, $limit);
     
     public function store(array $events);
 }

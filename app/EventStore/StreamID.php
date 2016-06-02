@@ -1,6 +1,6 @@
 <?php namespace App\EventStore;
 
-class AggregateID
+class StreamID
 {
     public $schema_id;
     public $domain_id;

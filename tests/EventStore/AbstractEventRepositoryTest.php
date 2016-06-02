@@ -2,7 +2,7 @@
 
 use Test\DBTestCase;
 use App\EventStore\EventBuilder;
-use App\EventStore\AggregateID;
+use App\EventStore\StreamID;
 
 abstract class AbstractEventRepositoryTest extends DBTestCase
 {
@@ -33,7 +33,7 @@ abstract class AbstractEventRepositoryTest extends DBTestCase
     
     public function test_fetch()
     {
-        $aggregate_id = new AggregateID(
+        $aggregate_id = new StreamID(
             "b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f",
             "a955d32b-0130-463f-b3ef-23adec9af469"  
         );
@@ -45,7 +45,7 @@ abstract class AbstractEventRepositoryTest extends DBTestCase
     
     public function test_returns_empty_if_no_results()
     {
-        $aggregate_id = new AggregateID(
+        $aggregate_id = new StreamID(
             "b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f",
             "03ad4280-01f3-450b-8e0a-55c1365e40ee"  
         );

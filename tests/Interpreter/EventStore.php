@@ -1,6 +1,6 @@
 <?php namespace Test\Interpreter;
 
-class EventStore
+class EventStore implements \App\Interpreter\EventStore
 {
     private static $events = [];
     
