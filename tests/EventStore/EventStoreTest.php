@@ -20,12 +20,7 @@ class EventStoreTest extends \Test\TestCase
                 ->disableOriginalConstructor()->getMock();
         $this->event_store = new EventStore($this->stub_event_repo, $this->stub_event_factory);
     }
-    
-    public function test_thing()
-    {
-        
-    }
-    
+
     public function test_takes_in_data()
     {
         $data = ['data'];

@@ -3,12 +3,15 @@
 use Test\DBTestCase;
 use App\EventStore\EventBuilder;
 use App\EventStore\StreamID;
+use App\EventStore\EventRepository;
+use App\EventStore\EventRepositoryException;
 
 abstract class AbstractEventRepositoryTest extends DBTestCase
 {
     protected $event_builder;
     protected $event;
     protected $repo;
+    protected $stream_id;
     
     public function setUp()
     {
@@ -28,31 +31,52 @@ abstract class AbstractEventRepositoryTest extends DBTestCase
         $this->repo = $this->build_event_repository();
         
         $this->repo->store([$this->event]);
+        
+        $this->stream_id = new StreamID(
+            "b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f",
+            "a955d32b-0130-463f-b3ef-23adec9af469"  
+        );
+        
+        $this->repo->unlock($this->stream_id);
     }
     
+    /** @return EventRepository */
     abstract protected function build_event_repository();
     
     public function test_fetch()
     {
-        $aggregate_id = new StreamID(
-            "b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f",
-            "a955d32b-0130-463f-b3ef-23adec9af469"  
-        );
-                
-        $results = $this->repo->fetch($aggregate_id, 0, 10);
+        $results = $this->repo->fetch($this->stream_id, 0, 10);
         
         $this->assertEquals([$this->event], $results);
     }
     
     public function test_returns_empty_if_no_results()
     {
-        $aggregate_id = new StreamID(
+        $stream_id = new StreamID(
             "b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f",
             "03ad4280-01f3-450b-8e0a-55c1365e40ee"  
         );
                 
-        $results = $this->repo->fetch($aggregate_id, 0, 10);
+        $results = $this->repo->fetch($stream_id, 0, 10);
         
         $this->assertEquals([], $results);
+    }
+    
+    public function test_locking_a_stream_prevents_others_from_accessing_it()
+    {
+        $this->repo->lock($this->stream_id);
+        
+        $this->setExpectedException(EventRepositoryException::class);
+        
+        $this->repo->lock($this->stream_id);
+    }
+    
+    public function test_unlocking_a_stream_allows_access()
+    {
+        $this->repo->lock($this->stream_id);
+        $this->repo->unlock($this->stream_id);
+        
+        $this->repo->lock($this->stream_id);
+        $this->repo->unlock($this->stream_id);
     }
 }
