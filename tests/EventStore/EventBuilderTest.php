@@ -3,6 +3,7 @@
 use App\EventStore\EventBuilder;
 use App\EventStore\Event;
 use App\EventStore\IDGenerator;
+use App\EventStore\DateTimeGenerator;
 use App\EventStore\Schema;
 use App\EventStore\Domain;
 
@@ -13,10 +14,13 @@ class EventBuilderTest extends \Test\TestCase
     
     public function setUp()
     {
-        $stub_generator = $this->getMockBuilder(IDGenerator::class)->getMock();
-        $stub_generator->method('generate')->willReturn("87484542-4a35-417e-8e95-5713b8f55c8e");
+        $stub_id_generator = $this->getMockBuilder(IDGenerator::class)->getMock();
+        $stub_id_generator->method('generate')->willReturn("87484542-4a35-417e-8e95-5713b8f55c8e");
         
-        $this->event_builder = new EventBuilder($stub_generator);
+        $stub_datetime_generator = $this->getMockBuilder(DateTimeGenerator::class)->getMock();
+        $stub_datetime_generator->method('generate')->willReturn('2014-10-10 12:12:12');
+        
+        $this->event_builder = new EventBuilder($stub_id_generator, $stub_datetime_generator);
         $this->event_builder->set_schema_id("14c3896d-092e-4370-bf72-2093facc9792")
             ->set_schema_aggregate_id("b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f")
             ->set_domain_aggregate_id("a955d32b-0130-463f-b3ef-23adec9af469")
