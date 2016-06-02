@@ -1,0 +1,10 @@
+<?php namespace App\Interpreter\EventHandler;
+
+class Factory
+{    
+    public function ast($ast)
+    {
+        return new Interpreter($ast->statements);
+    }
+}
+

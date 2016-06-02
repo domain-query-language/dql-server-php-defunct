@@ -1,7 +1,7 @@
 <?php namespace Test\Interpreter\Event;
 
 use App\Interpreter\Context;
-use Infrastructure\App\Interpreter\Event;
+use App\Interpreter\Event;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {

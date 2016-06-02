@@ -1,6 +1,6 @@
 <?php namespace Test\Interpreter\Projection\Query;
 
-use Infrastructure\App\Interpreter\Query\SQLFactory;
+use App\Interpreter\Query\SQLFactory;
 
 class SQLFactoryTest extends \Test\Interpreter\TestCase
 {

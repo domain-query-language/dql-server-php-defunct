@@ -1,7 +1,7 @@
 <?php namespace Test\Interpreter\Entity;
 
 use App\Interpreter\Context;
-use Infrastructure\App\Interpreter\Entity;
+use App\Interpreter\Entity;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {

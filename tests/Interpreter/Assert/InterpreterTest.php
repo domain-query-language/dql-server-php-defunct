@@ -1,6 +1,6 @@
 <?php namespace Test\Interpreter\Assert;
 
-use Infrastructure\App\Interpreter\Assert;
+use App\Interpreter\Assert;
 use App\Interpreter\Context;
 
 class InterpreterTest extends \Test\Interpreter\TestCase

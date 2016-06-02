@@ -2,7 +2,7 @@
 
 use App\Interpreter\Context;
 use App\Interpreter\InvariantException;
-use Infrastructure\App\Interpreter\Handler;
+use App\Interpreter\Handler;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {

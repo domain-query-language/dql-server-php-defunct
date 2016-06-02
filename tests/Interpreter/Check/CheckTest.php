@@ -1,6 +1,6 @@
 <?php namespace Test\Interpreter\Check;
 
-use Infrastructure\App\Interpreter\Check;
+use App\Interpreter\Check;
 
 class CheckTest extends \Test\Interpreter\TestCase
 {   

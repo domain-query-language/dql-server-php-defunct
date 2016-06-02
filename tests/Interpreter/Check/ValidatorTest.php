@@ -1,7 +1,7 @@
 <?php namespace Test\Interpreter\Check;
 
 use App\Interpreter\Context;
-use Infrastructure\App\Interpreter\Validator;
+use App\Interpreter\Validator;
 
 class ValidatorTest extends \Test\Interpreter\TestCase
 {

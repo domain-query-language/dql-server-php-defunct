@@ -1,7 +1,7 @@
 <?php namespace Test\Interpreter\Check;
 
 use App\Interpreter\Context;
-use Infrastructure\App\Interpreter\Compare;
+use App\Interpreter\Compare;
 
 class CompareTest extends \Test\Interpreter\TestCase
 {

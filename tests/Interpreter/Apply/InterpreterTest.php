@@ -1,6 +1,6 @@
 <?php namespace Test\Interpreter\Apply;
 
-use Infrastructure\App\Interpreter\Apply;
+use App\Interpreter\Apply;
 use App\Interpreter\Context;
 
 class InterpreterTest extends \Test\Interpreter\TestCase

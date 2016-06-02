@@ -1,7 +1,7 @@
 <?php namespace Test\Interpreter\Aggregate;
 
 use App\Interpreter\Context;
-use Infrastructure\App\Interpreter\Aggregate;
+use App\Interpreter\Aggregate;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {

@@ -1,6 +1,6 @@
 <?php namespace Test\Interpreter\Invariant;
 
-use Infrastructure\App\Interpreter\Invariant;
+use App\Interpreter\Invariant;
 use App\Interpreter\Context;
 use Test\Interpreter\Projection\MockPDO;
 

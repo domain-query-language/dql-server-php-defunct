@@ -1,7 +1,7 @@
 <?php namespace Test\Interpreter\Command;
 
 use App\Interpreter\Context;
-use Infrastructure\App\Interpreter\Command;
+use App\Interpreter\Command;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
