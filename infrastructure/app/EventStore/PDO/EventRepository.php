@@ -50,23 +50,13 @@ class EventRepository implements \App\EventStore\EventRepository
     
     public function fetch(StreamID $aggregate_id, $offset, $limit)
     {
-        $domain_id = $aggregate_id->domain_id;
-        $schema_id = $aggregate_id->schema_id;
-        
-        $data = [$domain_id, $schema_id, $limit, $offset];
+        $data = [$aggregate_id->domain_id, $aggregate_id->schema_id, $limit, $offset];
         
         $this->stream_select_statement->execute($data);
         $rows = $this->stream_select_statement->fetchAll(\PDO::FETCH_OBJ);
 
         return array_map(function($event_row){
-            $this->event_builder->set_event_id($event_row->event_id) 
-                ->set_occured_at($event_row->occured_at)
-                ->set_schema_event_id($event_row->schema_event_id)
-                ->set_schema_aggregate_id($event_row->schema_aggregate_id)
-                ->set_aggregate_id($event_row->aggregate_id)
-                ->set_payload(json_decode($event_row->payload));
-            
-            return $this->event_builder->build();
+            return $this->transform_row_to_event($event_row);
         }, $rows);
     }
     
@@ -78,15 +68,20 @@ class EventRepository implements \App\EventStore\EventRepository
         $rows = $this->all_select_statement->fetchAll(\PDO::FETCH_OBJ);
         
         return array_map(function($event_row){
-            $this->event_builder->set_event_id($event_row->event_id) 
-                ->set_occured_at($event_row->occured_at)
-                ->set_schema_event_id($event_row->schema_event_id)
-                ->set_schema_aggregate_id($event_row->schema_aggregate_id)
-                ->set_aggregate_id($event_row->aggregate_id)
-                ->set_payload(json_decode($event_row->payload));
-            
-            return $this->event_builder->build();
+            return $this->transform_row_to_event($event_row);
         }, $rows);
+    }
+    
+    private function transform_row_to_event($event_row)
+    {
+        $this->event_builder->set_event_id($event_row->event_id) 
+            ->set_occured_at($event_row->occured_at)
+            ->set_schema_event_id($event_row->schema_event_id)
+            ->set_schema_aggregate_id($event_row->schema_aggregate_id)
+            ->set_aggregate_id($event_row->aggregate_id)
+            ->set_payload(json_decode($event_row->payload));
+            
+        return $this->event_builder->build();
     }
         
     public function store(array $events)
