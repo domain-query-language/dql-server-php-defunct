@@ -2,12 +2,12 @@
 
 class Event
 {
-    public $id;
-    public $occured_at;
+    public $event_id;
+    public $aggregate_id;
+    public $payload;
     
     /** @var Schema  */
     public $schema;
     
-    /** @var Domain  */
-    public $domain;
+    public $occured_at;
 }

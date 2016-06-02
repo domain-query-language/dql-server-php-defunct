@@ -19,12 +19,12 @@ abstract class AbstractEventRepositoryTest extends DBTestCase
         
         /** @var EventBuilder */
         $this->event_builder = $this->app->make(EventBuilder::class);
-        $this->event_builder->set_id("c91942f1-3c94-4900-a3b0-4497311e3503")
-            ->set_schema_id("14c3896d-092e-4370-bf72-2093facc9792")
-            ->set_domain_aggregate_id("a955d32b-0130-463f-b3ef-23adec9af469")
+        $this->event_builder->set_event_id("c91942f1-3c94-4900-a3b0-4497311e3503")
+            ->set_aggregate_id("a955d32b-0130-463f-b3ef-23adec9af469")
+            ->set_schema_event_id("14c3896d-092e-4370-bf72-2093facc9792")
             ->set_schema_aggregate_id("b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f")
             ->set_occured_at("2014-10-10 12:12:12")
-            ->set_domain_payload((object)['value'=>true]);
+            ->set_payload((object)['value'=>true]);
         
         $this->event = $this->event_builder->build();
         
