@@ -10,4 +10,10 @@ class EventRepositoryTest extends AbstractEventRepositoryTest
         $this->artisan('migrate');
         return new EventRepository(self::$pdo, $this->event_builder);
     }
+    
+    public function tearDown()
+    {
+        parent::tearDown();
+        $this->artisan('migrate:rollback');
+    }
 }

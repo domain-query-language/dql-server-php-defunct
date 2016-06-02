@@ -1,19 +1,13 @@
 <?php namespace Test\EventStore;
 
-use App\EventStore\StreamID;
-use App\EventStore\EventStream;
+use App\EventStore\FullEventStream;
 
-class EventStreamTest extends \Test\TestCase
+class FullEventStreamTest extends \Test\TestCase
 {
-    private $aggregate_id;
     private $event_repository;
     
     public function setUp()
     {
-        $this->aggregate_id = new StreamID(
-            "b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f",
-            "a955d32b-0130-463f-b3ef-23adec9af469"  
-        );
         $this->event_repository = new EventRepository();
     }
     
@@ -25,7 +19,7 @@ class EventStreamTest extends \Test\TestCase
     private function assert_row_count($expected_count)
     {
         $this->event_repository->set_row_count($expected_count);
-        $event_stream = new EventStream($this->event_repository, $this->aggregate_id);
+        $event_stream = new FullEventStream($this->event_repository);
         
         $count = 0;
         foreach ($event_stream as $event) {

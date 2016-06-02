@@ -1,6 +1,6 @@
 <?php namespace App\EventStore;
 
-class EventStream implements \Iterator
+class AggregateEventStream implements \Iterator
 {
     private $chunk_size = 100;
     private $streamed_count = 0;
