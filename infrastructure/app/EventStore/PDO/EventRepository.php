@@ -46,12 +46,12 @@ class EventRepository implements \App\EventStore\EventRepository
         $rows = $this->select_statement->fetchAll(\PDO::FETCH_OBJ);
 
         return array_map(function($event_row){
-            $this->event_builder->set_id($event_row->event_id) 
+            $this->event_builder->set_event_id($event_row->event_id) 
                 ->set_occured_at($event_row->occured_at)
-                ->set_schema_id($event_row->schema_event_id)
+                ->set_schema_event_id($event_row->schema_event_id)
                 ->set_schema_aggregate_id($event_row->schema_aggregate_id)
-                ->set_domain_aggregate_id($event_row->aggregate_id)
-                ->set_domain_payload(json_decode($event_row->payload));
+                ->set_aggregate_id($event_row->aggregate_id)
+                ->set_payload(json_decode($event_row->payload));
             
             return $this->event_builder->build();
         }, $rows);
@@ -82,12 +82,12 @@ class EventRepository implements \App\EventStore\EventRepository
     private function make_pdo_data_from_event(Event $event)
     {
         return [
-            $event->id,
-            $event->domain->aggregate_id,
-            $event->schema->id,
+            $event->event_id,
+            $event->aggregate_id,
+            $event->schema->event_id,
             $event->schema->aggregate_id,
             $event->occured_at,
-            json_encode($event->domain->payload)
+            json_encode($event->payload)
         ];
     }
     
