@@ -1,6 +1,6 @@
 {
   "id": "a6a70ade-d3be-42ba-bf6d-c29d055e862e",
-  "name": "quantity",
+  "name": "id",
   "check": {
     "condition": [{
       "field": "value",
