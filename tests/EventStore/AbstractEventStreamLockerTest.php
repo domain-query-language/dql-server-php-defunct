@@ -3,17 +3,22 @@
 use Test\DBTestCase;
 use App\EventStore\StreamID;
 use App\EventStore\EventStreamLockerException;
+use App\EventStore\DateTimeGenerator;
 
 abstract class AbstractEventStreamLockerTest extends DBTestCase
 {
     protected $locker;
     protected $stream_id;
+    protected $stub_datetime_generator;
     
     public function setUp()
     {
         parent::setUp();
         
-        $this->locker = $this->make_locker();
+        $this->stub_datetime_generator = $this->getMockBuilder(DateTimeGenerator::class)->getMock();
+        $this->stub_datetime_generator->method('generate')->willReturn('2014-10-10 00:00:00.000');
+        
+        $this->locker = $this->make_locker($this->stub_datetime_generator);
         
         $this->stream_id = new StreamID(
             "b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f",
@@ -23,7 +28,7 @@ abstract class AbstractEventStreamLockerTest extends DBTestCase
         $this->locker->unlock($this->stream_id);
     }
     
-    abstract protected function make_locker();
+    abstract protected function make_locker(DateTimeGenerator $stub_datetime_generator);
     
     public function test_locking_a_stream_prevents_others_from_accessing_it()
     {
@@ -54,5 +59,39 @@ abstract class AbstractEventStreamLockerTest extends DBTestCase
         $this->locker->lock($different_stream_id);
         
         $this->locker->unlock($different_stream_id);
+    }
+    
+    public function test_locks_unlock_after_500ms()
+    {
+        $stub_datetime_generator = $this->getMockBuilder(DateTimeGenerator::class)->getMock();
+        $stub_datetime_generator->method('generate')
+            ->will($this->onConsecutiveCalls(
+                '2014-10-10 00:00:00.000', 
+                '2014-10-10 00:00:00.500'
+            ));
+        
+        $locker = $this->make_locker($stub_datetime_generator);
+        
+        $locker->lock($this->stream_id);
+        
+        $locker->lock($this->stream_id);
+    }
+    
+    public function test_does_not_unlock_before_500ms()
+    {
+        $this->setExpectedException(EventStreamLockerException::class);
+        
+        $stub_datetime_generator = $this->getMockBuilder(DateTimeGenerator::class)->getMock();
+        $stub_datetime_generator->method('generate')
+            ->will($this->onConsecutiveCalls(
+                '2014-10-10 00:00:00.000', 
+                '2014-10-10 00:00:00.499'
+            ));
+        
+        $locker = $this->make_locker($stub_datetime_generator);
+        
+        $locker->lock($this->stream_id);
+        
+        $locker->lock($this->stream_id);
     }
 }

@@ -14,7 +14,8 @@ class MakeEventStreamLockTable extends Migration
     {
         $statement = "
             CREATE TABLE `event_stream_lock` (
-            `stream_id` TEXT UNIQUE
+            `stream_id` TEXT UNIQUE,
+            `datetime` TEXT
           );        
         ";
         DB::statement($statement);

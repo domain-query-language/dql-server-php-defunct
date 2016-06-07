@@ -6,6 +6,6 @@ class DateTimeGenerator
 {
     public function generate()
     {
-        return Carbon::now()->toDateTimeString();
+        return Carbon::now()->toFormattedDateString("'Y-m-d H:i:s.u'");
     }
 }
