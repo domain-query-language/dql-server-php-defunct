@@ -11,9 +11,10 @@
     }
   ],
   "require": {
-    "nesbot/carbon": "1.21.0", 
     "eventsourced/valueobjects": "2.1.*",
+    "gabordemooij/redbean": "v4.3.2",
     "laravel/framework": "5.2.*",
+    "nesbot/carbon": "1.21.0", 
     "ramsey/uuid": "3.4.1",
     "php": ">=7"
   },
