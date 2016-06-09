@@ -1,6 +1,5 @@
 <?php namespace Test\Interpreter\Validation\ValueObject;
 
-use App\Interpreter\Context;
 use App\Interpreter\ValueObject;
 
 class BooleanTest extends AbstractTest
@@ -12,19 +11,15 @@ class BooleanTest extends AbstractTest
     
     public function test_build()
     {
-        $context = new Context(['value'=>true]);
-       
-        $value = $this->interpreter->interpret($context);
+        $value = $this->interpreter->validate(true);
         
         $this->assertTrue($value);
     }
     
     public function test_fail()
     {
-        $context = new Context(['value'=>0]);
-
-        $this->setExpectedException(ValueObject\Exception::class);
+        $this->setExpectedException(ValueObject\ValueException::class);
         
-        $this->interpreter->interpret($context);
+        $this->interpreter->validate('incorrect string');
     }
 }

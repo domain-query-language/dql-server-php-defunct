@@ -2,7 +2,7 @@
 
 use App\Interpreter\Context;
 
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter
 {    
     private $interpreters;
     
@@ -11,10 +11,10 @@ class Interpreter implements \App\Interpreter\Interpreter
         $this->interpreters = $interpreters;
     }
     
-    public function interpret(Context $context)
+    public function check($value)
     { 
         foreach ($this->interpreters as $interprter) {
-            if (!$interprter->interpret($context)) {
+            if (!$interprter->check($value)) {
                 return false;
             }
         }

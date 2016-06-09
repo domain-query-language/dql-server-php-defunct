@@ -1,6 +1,6 @@
 <?php namespace App\Interpreter\Validator;
 
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter
 {
     private $validator;
     private $values;
@@ -11,9 +11,8 @@ class Interpreter implements \App\Interpreter\Interpreter
         $this->values = $values;
     }
     
-    public function interpret(\App\Interpreter\Context $context)
+    public function check($value)
     {
-        $value = $context->get_property('value');
         if ($this->validator == "regex"){
             return (preg_match($this->values[0], $value) === 1);
         }

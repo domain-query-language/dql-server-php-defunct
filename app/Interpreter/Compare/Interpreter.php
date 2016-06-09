@@ -1,6 +1,6 @@
 <?php namespace App\Interpreter\Compare;
 
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter
 {
     private $property;
     private $comparator;
@@ -13,10 +13,8 @@ class Interpreter implements \App\Interpreter\Interpreter
         $this->value = $value;
     }
     
-    public function interpret(\App\Interpreter\Context $context)
+    public function check($value)
     {
-        $value = $context->get_property($this->property);
-        
         if ($this->comparator == "="){
             return $value == $this->value;
         }

@@ -1,6 +1,5 @@
 <?php namespace Test\Interpreter\Validation\Entity;
 
-use App\Interpreter\Context;
 use App\Interpreter\Entity;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
@@ -25,11 +24,12 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_build()
     {
-        $context = new Context();
-        $context = $context->set_property('id', '7a53bbd2-8919-4bdf-a43c-c330b2f304e6');
-        $context = $context->set_property('quantity', '5');
-
-        $value = $this->interpreter->interpret($context);
+        $data = [
+            'id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6',
+            'quantity' => '5'
+        ];
+ 
+        $value = $this->interpreter->validate($data);
         
         $expected = ['id'=>'7a53bbd2-8919-4bdf-a43c-c330b2f304e6', 'quantity'=>5];
         

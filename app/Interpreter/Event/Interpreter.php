@@ -1,8 +1,6 @@
 <?php namespace App\Interpreter\Event;
 
-use App\Interpreter\Context;
-
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter
 {
     private $event_id;
     private $aggregate_id;
@@ -15,16 +13,19 @@ class Interpreter implements \App\Interpreter\Interpreter
         $this->payload_interpreter = $payload_interpreter;
     }
     
-    public function interpret(Context $context)
+    public function interpret($value)
     {
+        $value = (object)$value;
+        $payload = isset($value->payload) ? $value->payload : [];
+        
         $result = (object)[
             "schema"=> (object)[
                 'id'=>$this->event_id,
                 'aggregate_id'=>$this->aggregate_id
             ],
             "domain"=> (object)[
-                "aggregate_id"=> $context->get_property('id'),
-                'payload'=>$this->payload_interpreter->interpret($context)
+                "aggregate_id"=>$value->aggreggate_id,
+                'payload'=>$this->payload_interpreter->validate($payload)
             ]
         ]; 
         

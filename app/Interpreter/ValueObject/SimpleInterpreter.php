@@ -1,8 +1,6 @@
 <?php namespace App\Interpreter\ValueObject;
 
-use App\Interpreter\Context;
-
-class SimpleInterpreter implements \App\Interpreter\Interpreter
+class SimpleInterpreter
 {    
     private $check;
     
@@ -11,12 +9,12 @@ class SimpleInterpreter implements \App\Interpreter\Interpreter
         $this->check = $check;
     }
     
-    public function interpret(Context $context)
+    public function validate($value)
     { 
-        if (!$this->check->interpret($context)) {
-            throw new Exception();
+        if (!$this->check->check($value)) {
+            throw new ValueException();
         }
-        return $context->get_property('value');
+        return $value;
     }
 }
 

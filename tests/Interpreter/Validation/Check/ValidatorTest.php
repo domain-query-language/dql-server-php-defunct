@@ -1,6 +1,5 @@
 <?php namespace Test\Interpreter\Validation\Check;
 
-use App\Interpreter\Context;
 use App\Interpreter\Validator;
 
 class ValidatorTest extends \Test\Interpreter\TestCase
@@ -18,15 +17,11 @@ class ValidatorTest extends \Test\Interpreter\TestCase
     
     public function test_build()
     {
-        $context = new Context(['value'=>'0fabce80-7364-45ae-aadd-04e3df412e58']);
-        
-        $this->assertTrue($this->interpreter->interpret($context));
+        $this->assertTrue($this->interpreter->check('0fabce80-7364-45ae-aadd-04e3df412e58'));
     }
     
     public function test_fail()
     {
-        $context = new Context(['value'=>'asdfsadsdf']);
-        
-        $this->assertFalse($this->interpreter->interpret($context));
+        $this->assertFalse($this->interpreter->check('afddfdd'));
     }
 }

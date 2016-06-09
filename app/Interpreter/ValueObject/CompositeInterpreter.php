@@ -1,6 +1,6 @@
 <?php namespace App\Interpreter\ValueObject;
 
-class CompositeInterpreter implements \App\Interpreter\Interpreter
+class CompositeInterpreter
 {
     private $keys;
     private $interpreters;
@@ -11,12 +11,16 @@ class CompositeInterpreter implements \App\Interpreter\Interpreter
         $this->interpreters = $interpreters;
     }
     
-    public function interpret(\App\Interpreter\Context $context)
+    public function validate($value)
     {
+        $value = (object)$value;
         $result = new \stdClass();
         foreach ($this->keys as $index=>$key) {
-            $value_context = $context->set_property('value', $context->get_property($key));
-            $result->$key = $this->interpreters[$index]->interpret($value_context);
+            if (!isset($value->$key)) {
+                throw new PropertyException();
+            }
+            $sub_value = $value->$key;
+            $result->$key = $this->interpreters[$index]->validate($sub_value);
         }
         return $result;
     }

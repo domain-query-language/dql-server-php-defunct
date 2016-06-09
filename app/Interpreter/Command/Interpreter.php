@@ -2,7 +2,7 @@
 
 use App\Interpreter\Context;
 
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter
 {
     private $command_id;
     private $aggregate_id;
@@ -15,9 +15,13 @@ class Interpreter implements \App\Interpreter\Interpreter
         $this->payload_interpreter = $payload_interpreter;
     }
     
-    public function interpret(Context $context)
+    public function interpret($value)
     {
-        $payload_context = new Context($context->get_property('payload'));
+        $key = 'payload';
+        $payload = is_array($value) ? $value[$key] : $value->$key;
+        
+        $key = 'id';
+        $id = is_array($value) ? $value[$key] : $value->$key;
         
         $result = (object)[
             "schema"=> (object)[
@@ -25,8 +29,8 @@ class Interpreter implements \App\Interpreter\Interpreter
                 'aggregate_id'=>$this->aggregate_id
             ],
             "domain"=> (object)[
-                "aggregate_id"=> $context->get_property('id'),
-                'payload'=>$this->payload_interpreter->interpret($payload_context)
+                "aggregate_id"=> $id,
+                'payload'=>$this->payload_interpreter->validate($payload)
             ]
         ]; 
         return $result;

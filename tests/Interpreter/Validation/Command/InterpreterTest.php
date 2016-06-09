@@ -18,13 +18,13 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
     public function test_build()
     {
-        $context = new Context((object)[
+        $data = [
             'id' => "2ea22141-89f4-4216-88f6-81a67cb20d20",
-            "payload" => (object)[
+            "payload" => [
                 'shopper_id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6'
             ]
-        ]);
-        $command = $this->interpreter->interpret($context);
+        ];
+        $command = $this->interpreter->interpret($data);
         $expected = (object)[
             "schema"=> (object)[
                 'id'=>'2af65a9c-5a1d-46d0-b2be-5a102da14cab',

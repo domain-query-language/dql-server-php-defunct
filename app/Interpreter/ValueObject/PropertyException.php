@@ -1,4 +1,4 @@
 <?php namespace App\Interpreter\ValueObject;
 
-class Exception extends \Exception {} 
+class PropertyException extends \Exception {} 
 

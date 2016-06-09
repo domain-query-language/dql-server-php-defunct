@@ -1,6 +1,5 @@
 <?php namespace Test\Interpreter\Validation\Check;
 
-use App\Interpreter\Context;
 use App\Interpreter\Compare;
 
 class CompareTest extends \Test\Interpreter\TestCase
@@ -17,15 +16,11 @@ class CompareTest extends \Test\Interpreter\TestCase
     
     public function test_pass()
     {
-        $context = new Context(['value'=>1]);
-        
-        $this->assertTrue($this->interpreter->interpret($context));
+        $this->assertTrue($this->interpreter->check(1));
     }
     
     public function test_fail()
     {
-        $context = new Context(['value'=>-1]);
-
-        $this->assertFalse( $this->interpreter->interpret($context) );
+        $this->assertFalse( $this->interpreter->check(-1) );
     }
 }

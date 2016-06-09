@@ -1,6 +1,5 @@
 <?php namespace Test\Interpreter\Validation\ValueObject;
 
-use App\Interpreter\Context;
 use App\Interpreter\ValueObject;
 
 class SimpleTest extends AbstractTest
@@ -11,20 +10,16 @@ class SimpleTest extends AbstractTest
     }
     
     public function test_build()
-    {
-        $context = new Context(['value'=>1]);
-       
-        $value = $this->interpreter->interpret($context);
+    {  
+        $value = $this->interpreter->validate(1);
         
         $this->assertEquals(1, $value);
     }
     
     public function test_fail()
     {
-        $context = new Context(['value'=>-1]);
-
-        $this->setExpectedException(ValueObject\Exception::class);
+        $this->setExpectedException(ValueObject\ValueException::class);
         
-        $this->interpreter->interpret($context);
+        $this->interpreter->validate(-1);
     }
 }

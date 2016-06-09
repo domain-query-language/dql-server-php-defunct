@@ -1,6 +1,5 @@
 <?php namespace Test\Interpreter\Validation\Event;
 
-use App\Interpreter\Context;
 use App\Interpreter\Event;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
@@ -17,12 +16,12 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_build_empty_event()
     {
-        $context = new Context((object)[
-            'root' => (object)['id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378"],
-            'shopper_id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6'
-        ]);
+        $data = [
+            'aggreggate_id' => "ff3a666b-4288-4ecd-86d7-7f511a2fd378"
+        ];
+        
         $interpreter = $this->factory->ast($this->ast_repo->event_empty());
-        $event = $interpreter->interpret($context);
+        $event = $interpreter->interpret($data);
         
         $expected = (object)[
             "schema"=> (object)[
@@ -40,11 +39,11 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
     public function test_build_event_with_chldren()
     {
-        $context = new Context((object)[
-            'root' => (object)['id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378"],
-            'shopper_id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6'
-        ]);
-        $event = $this->interpreter->interpret($context);
+        $data = [
+            'aggreggate_id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378",
+            'payload'=>['shopper_id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6']
+        ];
+        $event = $this->interpreter->interpret($data);
         
         $expected = (object)[
             "schema"=> (object)[
