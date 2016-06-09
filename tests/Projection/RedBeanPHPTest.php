@@ -1,7 +1,10 @@
 <?php namespace Test\Projection;
 
 use RedBeanPHP\R;
-
+/**
+ * Test Class to validate whether RedBEanPHP is a viable solution for turning our
+ * RootEntities into a series of tables that can be queried.
+ */
 class RedBeanPHPTest extends \Test\DBTestCase
 {
     public function setUp()
