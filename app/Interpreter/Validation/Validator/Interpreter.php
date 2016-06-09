@@ -1,4 +1,4 @@
-<?php namespace App\Interpreter\Validator;
+<?php namespace App\Interpreter\Validation\Validator;
 
 class Interpreter
 {

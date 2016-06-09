@@ -1,6 +1,6 @@
 <?php namespace Test\Interpreter\Validation\ValueObject;
 
-use App\Interpreter\ValueObject;
+use App\Interpreter\Validation\ValueObject;
 
 abstract class AbstractTest extends \Test\Interpreter\TestCase
 {

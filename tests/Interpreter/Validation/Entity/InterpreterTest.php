@@ -1,6 +1,6 @@
 <?php namespace Test\Interpreter\Validation\Entity;
 
-use App\Interpreter\Entity;
+use App\Interpreter\Validation\Entity;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {

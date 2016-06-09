@@ -1,4 +1,4 @@
-<?php namespace App\Interpreter\ValueObject;
+<?php namespace App\Interpreter\Validation\ValueObject;
 
 class CompositeInterpreter
 {

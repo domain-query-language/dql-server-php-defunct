@@ -1,6 +1,4 @@
-<?php namespace App\Interpreter\Check;
-
-use App\Interpreter\Context;
+<?php namespace App\Interpreter\Validation\Checker;
 
 class Interpreter
 {    

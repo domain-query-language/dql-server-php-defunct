@@ -1,7 +1,7 @@
-<?php namespace App\Interpreter\Check;
+<?php namespace App\Interpreter\Validation\Checker;
 
-use App\Interpreter\Compare;
-use App\Interpreter\Validator;
+use App\Interpreter\Validation\Compare;
+use App\Interpreter\Validation\Validator;
 
 class Factory 
 {    

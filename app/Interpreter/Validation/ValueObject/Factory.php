@@ -1,6 +1,6 @@
-<?php namespace App\Interpreter\ValueObject;
+<?php namespace App\Interpreter\Validation\ValueObject;
 
-use App\Interpreter\Check;
+use App\Interpreter\Validation\Checker;
 use App\Interpreter\ValueObjectRepository;
 
 class Factory 
@@ -9,7 +9,7 @@ class Factory
     private $value_object_repo;
     
     public function __construct(
-        Check\Factory $check_factory,
+        Checker\Factory $check_factory,
         ValueObjectRepository $value_object_repo
     )
     {

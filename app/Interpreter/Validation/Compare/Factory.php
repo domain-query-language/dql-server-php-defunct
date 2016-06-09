@@ -1,4 +1,4 @@
-<?php namespace App\Interpreter\Compare;
+<?php namespace App\Interpreter\Validation\Compare;
 
 class Factory 
 {    

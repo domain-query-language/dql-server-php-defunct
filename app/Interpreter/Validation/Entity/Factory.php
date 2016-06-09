@@ -1,6 +1,6 @@
-<?php namespace App\Interpreter\Entity;
+<?php namespace App\Interpreter\Validation\Entity;
 
-use App\Interpreter\ValueObject;
+use App\Interpreter\Validation\ValueObject;
 
 class Factory 
 {    

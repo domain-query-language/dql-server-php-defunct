@@ -1,6 +1,6 @@
 <?php namespace Test\Interpreter\Validation\Check;
 
-use App\Interpreter\Compare;
+use App\Interpreter\Validation\Compare;
 
 class CompareTest extends \Test\Interpreter\TestCase
 {

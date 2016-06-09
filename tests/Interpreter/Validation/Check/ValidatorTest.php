@@ -1,6 +1,6 @@
 <?php namespace Test\Interpreter\Validation\Check;
 
-use App\Interpreter\Validator;
+use App\Interpreter\Validation\Validator;
 
 class ValidatorTest extends \Test\Interpreter\TestCase
 {
