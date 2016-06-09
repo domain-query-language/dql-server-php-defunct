@@ -1,4 +1,4 @@
-<?php namespace Test\Interpreter\ValueObject;
+<?php namespace Test\Interpreter\Validation\ValueObject;
 
 use App\Interpreter\ValueObject;
 

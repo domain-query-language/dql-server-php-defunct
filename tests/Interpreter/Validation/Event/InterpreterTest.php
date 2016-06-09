@@ -1,4 +1,4 @@
-<?php namespace Test\Interpreter\Event;
+<?php namespace Test\Interpreter\Validation\Event;
 
 use App\Interpreter\Context;
 use App\Interpreter\Event;

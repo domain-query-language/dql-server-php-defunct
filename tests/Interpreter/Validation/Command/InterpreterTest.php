@@ -1,4 +1,4 @@
-<?php namespace Test\Interpreter\Command;
+<?php namespace Test\Interpreter\Validation\Command;
 
 use App\Interpreter\Context;
 use App\Interpreter\Command;

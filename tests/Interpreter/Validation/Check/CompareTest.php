@@ -1,4 +1,4 @@
-<?php namespace Test\Interpreter\Check;
+<?php namespace Test\Interpreter\Validation\Check;
 
 use App\Interpreter\Context;
 use App\Interpreter\Compare;

@@ -1,4 +1,4 @@
-<?php namespace Test\Interpreter\Entity;
+<?php namespace Test\Interpreter\Validation\Entity;
 
 use App\Interpreter\Context;
 use App\Interpreter\Entity;
