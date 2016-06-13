@@ -7,20 +7,19 @@ class Interpreter implements \App\Interpreter\Interpreter
 {    
     private $query;
     private $validator;
-    private $as;
+    private $ast;
         
     public function __construct($query, Validator $validator, $ast)
     {
         $this->query = $query;
         $this->validator = $validator;
+        $this->ast = $ast;
     }
     
     public function interpret(Context $context)
     { 
         $context = $this->query->interpret($context);
-        dd($context);
-        $this->validator->check();
-        return $this->check->interpret($context);
+        return $this->validator->check($this->ast->id, $context->data);
     }
 }
 

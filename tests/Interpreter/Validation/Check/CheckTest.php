@@ -19,4 +19,17 @@ class CheckTest extends \Test\Interpreter\TestCase
         
         $this->assertInstanceOf(Checker\Interpreter::class, $factory->ast($ast->check));
     }
+    
+    public function test_check_handles_invariant_checks()
+    {
+        $ast = $this->ast_repo->invariant();
+        $factory = $this->app->make(Checker\Factory::class);
+        
+        $interpreter = $factory->ast($ast->check);
+        
+        $value = (object)['is_created'=>false];
+        
+        $this->assertFalse($interpreter->check($value));
+        
+    }
 }

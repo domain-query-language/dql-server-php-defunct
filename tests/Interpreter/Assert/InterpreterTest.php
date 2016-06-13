@@ -3,6 +3,10 @@
 use App\Interpreter\Assert;
 use App\Interpreter\Context;
 
+/**
+ * Fix check logic to handle complex VOs
+ * Remove context
+ */
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
     private $apply_factory;

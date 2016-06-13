@@ -15,6 +15,10 @@ class Interpreter
     
     public function check($value)
     {
+        if ($this->property != 'value') {
+            $property = $this->property;
+            $value = $value->$property;
+        }
         if ($this->comparator == "="){
             return $value == $this->value;
         }

@@ -26,7 +26,7 @@ class Interpreter implements \App\Interpreter\Interpreter
         $arguments_context = $this->arguments->interpret($context);
         
         $result = $this->invariant->interpret($arguments_context);
-        
+
         if ($this->comparator == 'not') {
             $result = !$result;
         }
