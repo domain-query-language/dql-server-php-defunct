@@ -17,9 +17,9 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
     public function test_build()
     {
-        $data = [
+        $data = (object)[
             'id' => "2ea22141-89f4-4216-88f6-81a67cb20d20",
-            "payload" => [
+            "payload" => (object)[
                 'shopper_id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6'
             ]
         ];

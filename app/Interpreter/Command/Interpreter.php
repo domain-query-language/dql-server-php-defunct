@@ -1,27 +1,24 @@
 <?php namespace App\Interpreter\Command;
 
-use App\Interpreter\Context;
+use App\Interpreter\Validation;
 
 class Interpreter
 {
     private $command_id;
     private $aggregate_id;
-    private $payload_interpreter;
+    private $validator;
     
-    public function __construct($command_id, $aggregate_id, $payload_interpreter)
+    public function __construct($command_id, $aggregate_id, Validation\Validator $validator)
     {
         $this->command_id = $command_id;
         $this->aggregate_id = $aggregate_id;
-        $this->payload_interpreter = $payload_interpreter;
+        $this->validator = $validator;
     }
     
     public function interpret($value)
     {
-        $key = 'payload';
-        $payload = is_array($value) ? $value[$key] : $value->$key;
-        
-        $key = 'id';
-        $id = is_array($value) ? $value[$key] : $value->$key;
+        $aggregate_id = $value->id;
+        $payload = isset($value->payload) ? $value->payload: [];
         
         $result = (object)[
             "schema"=> (object)[
@@ -29,8 +26,8 @@ class Interpreter
                 'aggregate_id'=>$this->aggregate_id
             ],
             "domain"=> (object)[
-                "aggregate_id"=> $id,
-                'payload'=>$this->payload_interpreter->validate($payload)
+                "aggregate_id"=> $aggregate_id,
+                'payload'=>$this->validator->validate($this->command_id, $payload)
             ]
         ]; 
         return $result;
