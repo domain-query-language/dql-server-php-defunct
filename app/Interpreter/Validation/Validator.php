@@ -5,7 +5,7 @@ class Validator
     private $repo;
     private $vo_factory;
     
-    public function __construct(Repository $repo, ValueObject\Factory $vo_factory)
+    public function __construct(AstRepository $repo, ValueObject\Factory $vo_factory)
     {
         $this->repo = $repo;
         $this->vo_factory = $vo_factory;

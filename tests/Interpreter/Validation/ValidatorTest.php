@@ -1,13 +1,5 @@
 <?php namespace Test\Interpreter\Validation;
 
-/*
- * move validation asts into ast folder
- * replace inline asts with files
- * create validator repo
- * create tests for validator repo
- *   add commented out test below to that test
- */
-
 use App\Interpreter\Validation;
 
 class ValidatorTest extends \Test\Interpreter\TestCase
@@ -20,7 +12,7 @@ class ValidatorTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         $this->validator_repo = 
-                $this->getMockBuilder(Validation\Repository::class)->getMock();
+                $this->getMockBuilder(Validation\AstRepository::class)->getMock();
         
         $vo_factory_class = Validation\ValueObject\Factory::class;
         $this->vo_factory = $this->getMockBuilder($vo_factory_class)
@@ -41,13 +33,13 @@ class ValidatorTest extends \Test\Interpreter\TestCase
     
     public function test_validator_fails_if_given_invalid_validator()
     {
-        $ast = [
+        $ast_with_no_check_or_children = [
             'id' => '1b12d9b6-0c27-432f-b14d-733c49a1da23'
         ];
         
         $this->setExpectedException(Validation\Exception::class);
         
-        $this->validator->create($ast);
+        $this->validator->create($ast_with_no_check_or_children);
     }
     
     public function test_validator_calls_validate_and_returns_result()
@@ -81,18 +73,4 @@ class ValidatorTest extends \Test\Interpreter\TestCase
         
         $this->assertEquals($expected, $actual);
     }
-    
-    /*
-    public function test_validation_fails_if_validator_is_not_found()
-    {
-        $id = "fbd08401-2650-46e4-8ed7-e411f100e4f0";
-        
-        $this->validator_repo->expects($this->once())
-            ->method('fetch')
-            ->with($id)
-            ->;
-        
-        $this->validator->validator($id, []);
-    }
-    */
 } 
