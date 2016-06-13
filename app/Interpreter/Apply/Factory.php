@@ -2,7 +2,6 @@
 
 use App\Interpreter\EventRepository;
 use App\Interpreter\EventHandlerRepository;
-use App\Interpreter\Check;
 use App\Interpreter\Event;
 use App\Interpreter\Arguments;
 use App\Interpreter\NullInterpreter;
@@ -12,21 +11,18 @@ class Factory
 {   
     private $event_repository;
     private $event_factory;
-    private $check_factory;
     private $event_handler_repository;
     private $event_handler_factory;
     
     public function __construct(
         EventRepository $event_repository, 
         Event\Factory $event_factory,
-        Check\Factory $check_factory,
         EventHandlerRepository $event_handler_repository,
         EventHandler\Factory $event_handler_factory
     )
     {
         $this->event_repository = $event_repository;
         $this->event_factory = $event_factory;
-        $this->check_factory = $check_factory;
         $this->event_handler_repository = $event_handler_repository;
         $this->event_handler_factory = $event_handler_factory;
     }

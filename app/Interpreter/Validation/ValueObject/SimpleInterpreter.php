@@ -16,6 +16,11 @@ class SimpleInterpreter
         }
         return $value;
     }
+    
+    public function check($value)
+    {
+        return $this->check->check($value);
+    }
 }
 
 

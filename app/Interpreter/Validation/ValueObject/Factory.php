@@ -1,20 +1,17 @@
 <?php namespace App\Interpreter\Validation\ValueObject;
 
 use App\Interpreter\Validation\Checker;
-use App\Interpreter\ValueObjectRepository;
+use App\Interpreter\Validation\AstRepository;
 
 class Factory 
 {    
     private $check_factory;
-    private $value_object_repo;
+    private $ast_repo;
     
-    public function __construct(
-        Checker\Factory $check_factory,
-        ValueObjectRepository $value_object_repo
-    )
+    public function __construct(Checker\Factory $check_factory, AstRepository $ast_repo)
     {
         $this->check_factory = $check_factory;
-        $this->value_object_repo = $value_object_repo;
+        $this->ast_repo = $ast_repo;
     }
     
     public function ast($ast)
@@ -25,7 +22,7 @@ class Factory
         $children = $ast->children;
         $interpreters = [];
         foreach ($children as $vo_id) {
-            $vo_ast = $this->value_object_repo->fetch_ast($vo_id);
+            $vo_ast = $this->ast_repo->fetch($vo_id);
             $interpreters[] = $this->ast($vo_ast);
         }
         

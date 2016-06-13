@@ -73,4 +73,34 @@ class ValidatorTest extends \Test\Interpreter\TestCase
         
         $this->assertEquals($expected, $actual);
     }
+    
+    public function test_validator_can_check_if_passes_validation()
+    {
+        $id = "f00c202c-13b7-4bd4-b619-7f0a98947e98";
+        
+        $expected = ['data'=>true];
+        
+        $ast = 'asdf';
+
+        $simple_vo_class = Validation\ValueObject\SimpleInterpreter::class;
+        $mock_validator = $this->getMockBuilder($simple_vo_class)
+            ->disableOriginalConstructor()->getMock();
+        
+        $mock_validator->expects($this->once())
+            ->method('check')
+            ->with($expected)
+            ->willReturn(true);
+        
+        $this->vo_factory->expects($this->once())
+            ->method('ast')
+            ->with($ast)
+            ->willReturn($mock_validator);
+    
+        $this->validator_repo->expects($this->once())
+            ->method('fetch')
+            ->with($id)
+            ->willReturn($ast);
+
+        $this->assertTrue($this->validator->check($id, $expected));
+    }
 } 

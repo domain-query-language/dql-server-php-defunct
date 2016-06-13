@@ -47,6 +47,11 @@ class Context
         return $property;
     }
     
+    public function has_property($key)
+    {
+        return isset($this->data->$key);
+    }
+    
     private function get_key($object, $key)
     {
         if (!isset($object->$key)) {

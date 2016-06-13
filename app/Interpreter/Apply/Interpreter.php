@@ -2,7 +2,7 @@
 
 use App\Interpreter\Context;
 
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter
 {    
     private $arguments_interpreter;
     private $event_interpreter;
@@ -15,8 +15,10 @@ class Interpreter implements \App\Interpreter\Interpreter
         $this->event_handler_interpreter = $event_handler_interpreter;
     }
     
-    public function interpret(Context $context)
+    public function apply($root, $command)
     {       
+        $context = new Context(['root'=>$root, 'command'=>$command]);
+        
         $arguments_context = $this->arguments_interpreter->interpret($context);
         
         $event = $this->event_interpreter->interpret($arguments_context);

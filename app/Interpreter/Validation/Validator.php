@@ -31,4 +31,13 @@ class Validator
         
         return $validator->validate($value);
     }
+    
+    public function check($id, $value)
+    {
+        $ast = $this->repo->fetch($id);
+        
+        $validator = $this->vo_factory->ast($ast);
+        
+        return $validator->check($value);
+    }
 }
