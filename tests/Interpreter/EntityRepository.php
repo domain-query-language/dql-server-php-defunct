@@ -1,6 +1,6 @@
 <?php namespace Test\Interpreter;
 
-class EntityRepository implements \App\Interpreter\EntityRepository
+class EntityRepository implements \App\Interpreter\Validation\AstRepository
 {
     private $ast_repository;
     
@@ -9,8 +9,13 @@ class EntityRepository implements \App\Interpreter\EntityRepository
         $this->ast_repository = $ast_repository;
     }
     
-    public function fetch_ast($id)
+    public function fetch($id)
     {
         return $this->ast_repository->entity_root();
+    }
+
+    public function store($ast)
+    {
+        
     }
 }

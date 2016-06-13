@@ -10,6 +10,8 @@ class TestCase extends \Test\TestCase
              
         $this->ast_repo = new AstRepository();
         $this->app->bind(\PDO::class, Projection\MockPDO::class);
+        $this->app->bind(\App\Interpreter\Validation\AstRepository::class, EntityRepository::class);
+        
         $this->app->bind(\App\Interpreter\InvariantRepository::class, InvariantRepository::class);
         $this->app->bind(\App\Interpreter\EventRepository::class, EventRepository::class);
         $this->app->bind(\App\Interpreter\EventHandlerRepository::class, EventHandlerRepository::class);
