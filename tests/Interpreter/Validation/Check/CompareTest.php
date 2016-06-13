@@ -31,6 +31,6 @@ class CompareTest extends \Test\Interpreter\TestCase
         $this->factory = $this->app->make(Compare\Factory::class);
         $this->interpreter = $this->factory->ast($ast->check->condition[0]);
         
-        $this->assertFalse($this->interpreter->check((object)['is_created'=>false]));
+        $this->assertTrue($this->interpreter->check((object)['is_created'=>true]));
     }
 }
