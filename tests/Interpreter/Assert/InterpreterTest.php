@@ -1,12 +1,7 @@
 <?php namespace Test\Interpreter\Assert;
 
 use App\Interpreter\Assert;
-use App\Interpreter\Context;
 
-/**
- * Fix check logic to handle complex VOs
- * Remove context
- */
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
     private $apply_factory;
@@ -22,17 +17,17 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_pass()
     {        
-        $context = new Context(['is_created'=>false]);
+        $data = (object)['is_created'=>false];
         
-        $this->interpreter->interpret($context);
+        $this->interpreter->interpret($data);
     }
     
     public function test_fail()
     {
-        $context = new Context(['is_created'=>true]);
+        $data = (object)['is_created'=>true];
         
         $this->setExpectedException(\App\Interpreter\InvariantException::class);
         
-        $this->interpreter->interpret($context);
+        $this->interpreter->interpret($data);
     }  
 }
