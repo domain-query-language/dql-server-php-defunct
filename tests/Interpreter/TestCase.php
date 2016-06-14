@@ -13,6 +13,7 @@ class TestCase extends \Test\TestCase
         $this->app->bind(\App\Interpreter\Validation\AstRepository::class, AstRepository::class);
         $this->app->bind(\App\Interpreter\Modification\AstRepository::class, AstRepository::class);
         $this->app->bind(\App\Interpreter\Handler\AstRepository::class, AstRepository::class);
+        $this->app->bind(\App\Interpreter\Query\AstRepository::class, AstRepository::class);
         
         $this->app->bind(\App\Interpreter\InvariantRepository::class, InvariantRepository::class);
         $this->app->bind(\App\Interpreter\EventRepository::class, EventRepository::class);

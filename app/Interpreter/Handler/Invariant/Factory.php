@@ -1,29 +1,24 @@
 <?php namespace App\Interpreter\Handler\Invariant;
 
 use App\Interpreter\Validation\Validator;
-use App\Interpreter\Query;
-use App\Interpreter\NullInterpreter;
+use App\Interpreter\Query\Querier;
 
 class Factory 
 {     
     private $validator;
-    private $query_factory;
+    private $querier;
     
     public function __construct(
         Validator $validator,
-        Query\Factory $query_factory)
+        Querier $querier)
     {
         $this->validator = $validator;
-        $this->query_factory = $query_factory;
+        $this->querier = $querier;
     }
     
     public function ast($ast)
     {
-        $query = new NullInterpreter();
-        if ($ast->query) {
-            $query = $this->query_factory->ast($ast);
-        }
-        return new Interpreter($query, $this->validator, $ast);
+        return new Interpreter($this->querier, $this->validator, $ast);
     }
 }
 

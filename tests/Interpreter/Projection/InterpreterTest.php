@@ -34,7 +34,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_update_sets_the_value()
     {
-        $this->update_interpreter()->interpret($this->context);
+        $this->update_interpreter()->update($this->context);
         
         $result = $this->query_interpreter()->interpret($this->context);
         $this->assertTrue($result);
@@ -43,8 +43,8 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     private function update_interpreter()
     {
         $ast = $this->ast_repo->event_handler();
-        $query_factory = $this->app->make(Update\Factory::class);
-        return $query_factory->ast($ast);
+        $update_factory = $this->app->make(Update\Factory::class);
+        return $update_factory->ast($ast);
     }
     
     public function test_query_returns_false_for_different_shopper_id()
