@@ -1,23 +1,25 @@
 <?php namespace App\Interpreter\Invariant;
 
 use App\Interpreter\Context;
-use App\Interpreter\Check;
+use App\Interpreter\Validation\Validator;
 
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter
 {    
     private $query;
-    private $check;
+    private $validator;
+    private $ast;
         
-    public function __construct($query, Check\Interpreter $check)
+    public function __construct($query, Validator $validator, $ast)
     {
         $this->query = $query;
-        $this->check = $check;
+        $this->validator = $validator;
+        $this->ast = $ast;
     }
     
-    public function interpret(Context $context)
+    public function interpret($root)
     { 
-        $context = $this->query->interpret($context);
-        return $this->check->interpret($context);
+        $data = $this->query->interpret($root);
+        return $this->validator->check($this->ast->id, $data);
     }
 }
 

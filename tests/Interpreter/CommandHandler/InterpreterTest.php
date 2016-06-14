@@ -1,6 +1,5 @@
 <?php namespace Test\Interpreter\CommandHandler;
 
-use App\Interpreter\Context;
 use App\Interpreter\InvariantException;
 use App\Interpreter\Handler;
 
@@ -25,20 +24,17 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         return $command;
     }
     
-    private function context()
+    private function root()
     {
-        return new Context((object)[
-            'command' => $this->command(),
-            'root' => (object)[
-                'id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378",
-                'is_created' => false
-            ]
-        ]);
+        return (object)[
+            'id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378",
+            'is_created' => false
+        ];
     }
     
     public function test_interpreter_fires_events()
     {
-        $events = $this->interpreter->interpret($this->context());    
+        $events = $this->interpreter->interpret($this->root(), $this->command());    
         $this->assertEquals(1, count($events));  
     }
     
@@ -46,11 +42,9 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         $this->setExpectedException(InvariantException::class);
         
-        $root = (object)[
-            'is_created' => true
-        ];
-        $context = $this->context()->set_property('root', $root);
+        $root = $this->root();
+        $root->is_created = true;
       
-        $this->interpreter->interpret($context);
+        $this->interpreter->interpret($root, $this->command());
     }    
 }

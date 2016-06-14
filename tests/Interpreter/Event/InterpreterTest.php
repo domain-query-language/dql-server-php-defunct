@@ -1,6 +1,5 @@
-<?php namespace Test\Interpreter\Event;
+<?php namespace Test\Interpreter\Validation\Event;
 
-use App\Interpreter\Context;
 use App\Interpreter\Event;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
@@ -17,12 +16,12 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_build_empty_event()
     {
-        $context = new Context((object)[
-            'root' => (object)['id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378"],
-            'shopper_id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6'
-        ]);
+        $root = (object)[
+            'id' => "ff3a666b-4288-4ecd-86d7-7f511a2fd378"
+        ];
+        
         $interpreter = $this->factory->ast($this->ast_repo->event_empty());
-        $event = $interpreter->interpret($context);
+        $event = $interpreter->interpret($root, null);
         
         $expected = (object)[
             "schema"=> (object)[
@@ -38,13 +37,13 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         $this->assertEquals($expected, $event);
     }
         
-    public function test_build_event_with_chldren()
+    public function test_build_event_with_children()
     {
-        $context = new Context((object)[
-            'root' => (object)['id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378"],
-            'shopper_id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6'
-        ]);
-        $event = $this->interpreter->interpret($context);
+        $root = (object)[
+            'id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378"
+        ];
+        $command = (object)['shopper_id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6'];
+        $event = $this->interpreter->interpret($root, $command);
         
         $expected = (object)[
             "schema"=> (object)[

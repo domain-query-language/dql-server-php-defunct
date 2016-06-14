@@ -1,7 +1,6 @@
 <?php namespace Test\Interpreter\Apply;
 
 use App\Interpreter\Apply;
-use App\Interpreter\Context;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
@@ -29,11 +28,9 @@ class InterpreterTest extends \Test\Interpreter\TestCase
             ]
         ];
         
-        $context = new Context((object)[
-            'root' => (object)['id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378"]
-        ]);
-        
-        $this->assertEquals($expected, $this->interpreter->interpret($context));
+        $root = (object)['id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378"];
+       
+        $this->assertEquals($expected, $this->interpreter->interpret($root, []));
     }
     
     public function test_updates_context()
@@ -46,13 +43,8 @@ class InterpreterTest extends \Test\Interpreter\TestCase
             'is_created'=>false
         ];
         $command = (object)['shopper_id'=>'81ae684c-8f7a-4e31-8948-bedf4935b3ce'];
-        
-        $context = new Context((object)[
-            'root' => $root,
-            'command'=>$command
-        ]);
-        
-        $interperter->interpret($context);
+               
+        $interperter->interpret($root, $command);
         
         $this->assertTrue($root->is_created);
     }

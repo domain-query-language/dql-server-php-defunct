@@ -1,11 +1,9 @@
 <?php namespace App\Interpreter;
 
-use App\Interpreter\Context;
-
-class NullInterpreter implements \App\Interpreter\Interpreter
+class NullInterpreter
 {
-    public function interpret(Context $context)
+    public function interpret($data)
     {
-        return $context;
+        return $data;
     }
 }

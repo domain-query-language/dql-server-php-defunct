@@ -1,6 +1,5 @@
 <?php namespace Test\Interpreter\Aggregate;
 
-use App\Interpreter\Context;
 use App\Interpreter\Aggregate;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
@@ -20,14 +19,12 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
         $this->interpreter = $factory->ast($ast);
         
-        $this->context = new Context((object)[
-            'aggregate_id' => "2ea22141-89f4-4216-88f6-81a67cb20d20"]
-        );
+        $this->aggregate_id = "2ea22141-89f4-4216-88f6-81a67cb20d20";
     }
         
     public function test_builds_root_entity()
     {
-        $entity = $this->interpreter->interpret($this->context);
+        $entity = $this->interpreter->build_root($this->aggregate_id);
         
         $expected = (object)[
             'id' => '2ea22141-89f4-4216-88f6-81a67cb20d20',
@@ -52,7 +49,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
         $this->event_store->store([$event]);
         
-        $entity = $this->interpreter->interpret($this->context);
+        $entity = $this->interpreter->build_root($this->aggregate_id);
         
         $expected = (object)[
             'id' => '2ea22141-89f4-4216-88f6-81a67cb20d20',

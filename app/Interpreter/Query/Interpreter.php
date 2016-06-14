@@ -1,8 +1,6 @@
 <?php namespace App\Interpreter\Query;
 
-use App\Interpreter\Context;
-
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter
 {
     private $statement;
     private $value_factory;
@@ -13,12 +11,12 @@ class Interpreter implements \App\Interpreter\Interpreter
         $this->value_factory = $value_factory;
     }
         
-    public function interpret(Context $context)
+    public function interpret($rrot)
     {
-        $values = $this->value_factory->context($context);
+        $values = $this->value_factory->context($rrot);
         $this->statement->execute($values);
         $rows = $this->statement->fetchAll(\PDO::FETCH_OBJ);
         
-        return new Context((object)$rows[0]);
+        return (object)$rows[0];
     }
 }

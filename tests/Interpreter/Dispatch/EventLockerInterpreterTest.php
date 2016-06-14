@@ -1,6 +1,5 @@
 <?php namespace Test\Interpreter\Dispatch;
 
-use App\Interpreter\Context;
 use App\Interpreter\InvariantException;
 use Infrastructure\App\Interpreter\EventLockerDispatch;
 use App\EventStore\StreamID;
@@ -10,7 +9,7 @@ class EventLockerInterpreterTest extends \Test\Interpreter\TestCase
     private $mock_dispatch_interpreter;
     private $mock_locker;
     private $event_locker_dispatcher;
-    private $context;
+    private $command;
     private $stream_id;
     
     public function setUp()
@@ -27,10 +26,10 @@ class EventLockerInterpreterTest extends \Test\Interpreter\TestCase
             $this->mock_dispatch_interpreter
         );
              
-        $this->context = new Context((object)[
+        $this->command = (object)[
             "schema"=>(object)["aggregate_id"=>'s'],
             "domain"=>(object)["aggregate_id"=>'d']
-        ]);
+        ];
         
         $this->stream_id = new StreamID("s", "d");
     }
@@ -45,8 +44,8 @@ class EventLockerInterpreterTest extends \Test\Interpreter\TestCase
                  ->method('unlock')
                  ->with($this->equalTo($this->stream_id));
         
-        $this->event_locker_dispatcher->interpret($this->context);
-    }
+        $this->event_locker_dispatcher->interpret($this->command);
+    } 
     
     public function test_unlocks_if_there_is_an_error()
     {
@@ -59,6 +58,6 @@ class EventLockerInterpreterTest extends \Test\Interpreter\TestCase
         
         $this->setExpectedException(InvariantException::class);
         
-        $this->event_locker_dispatcher->interpret($this->context);
+        $this->event_locker_dispatcher->interpret($this->command);
     }
 }

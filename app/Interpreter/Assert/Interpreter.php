@@ -1,11 +1,9 @@
 <?php namespace App\Interpreter\Assert;
 
-use App\Interpreter\Context;
 use App\Interpreter\InvariantException;
 use App\Interpreter\Invariant;
-use App\Interpreter\Arguments;
 
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter
 {    
     private $invariant;
     private $arguments;
@@ -13,20 +11,16 @@ class Interpreter implements \App\Interpreter\Interpreter
     
     public function __construct(
         Invariant\Interpreter $invariant, 
-        Arguments\Interpreter $arguments, 
         $comparator)
     {
         $this->invariant = $invariant;
-        $this->arguments = $arguments;
         $this->comparator = $comparator;
     }
     
-    public function interpret(Context $context)
+    public function interpret($root, $command)
     {
-        $arguments_context = $this->arguments->interpret($context);
-        
-        $result = $this->invariant->interpret($arguments_context);
-        
+        $result = $this->invariant->interpret($root);
+
         if ($this->comparator == 'not') {
             $result = !$result;
         }

@@ -1,7 +1,5 @@
 <?php namespace App\Interpreter\Query;
 
-use App\Interpreter\Context;
-
 class ValueFactory
 {
     private $properties;
@@ -13,10 +11,18 @@ class ValueFactory
         }, $ast);
     }
     
-    public function context(Context $context)
+    public function context($context)
     {
-        return array_map(function($property) use ($context) {
-            return $context->get_property($property);
+        return array_map(function($properties) use ($context) {
+            if (is_string($properties)) {
+                $properties = [$properties];
+            }
+
+            $node = $context;
+            foreach ($properties as $property) {
+                $node = $node->$property;
+            }
+            return $node;
         }, $this->properties);
     }
 }

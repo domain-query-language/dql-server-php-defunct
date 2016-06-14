@@ -1,8 +1,6 @@
 <?php namespace App\Interpreter\Handler;
 
-use App\Interpreter\Context;
-
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter
 {
     private $statements = [];
     
@@ -11,11 +9,11 @@ class Interpreter implements \App\Interpreter\Interpreter
         $this->statements = $statements;
     }
         
-    public function interpret(Context $context)
+    public function interpret($root, $command)
     {
         $events = [];
         foreach ($this->statements as $statement) {
-           $events[] = $statement->interpret($context); 
+           $events[] = $statement->interpret($root, $command); 
         }  
         return array_values(array_filter($events));
     }

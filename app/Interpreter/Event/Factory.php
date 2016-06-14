@@ -1,20 +1,19 @@
 <?php namespace App\Interpreter\Event;
 
-use App\Interpreter\ValueObject;
+use App\Interpreter\Validation;
 
 class Factory
 {    
-    private $valueobject_factory;
+    private $validator;
     
-    public function __construct(ValueObject\Factory $valueobject_factory)
+    public function __construct(Validation\Validator $validator)
     {
-        $this->valueobject_factory = $valueobject_factory;
+        $this->validator = $validator;
     }
     
     public function ast($ast)
     {
-        $payload_interpreter = $this->valueobject_factory->ast($ast);
-        return new Interpreter($ast->id, $ast->aggregate_id, $payload_interpreter);
+        return new Interpreter($ast->id, $ast->aggregate_id, $this->validator);
     }
 }
 
