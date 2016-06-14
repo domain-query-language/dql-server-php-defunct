@@ -33,7 +33,7 @@ class Factory
         $event_interpreter = $this->event_factory->ast($event_ast);
         
         $event_handler_ast = $this->event_handler_repository->fetch_ast($ast->event_id);
-        $event_handler_interpreter = new NullInterpreter();
+        $event_handler_interpreter = null;
         if ($event_handler_ast) {
             $event_handler_interpreter = $this->event_handler_factory->ast($event_handler_ast);
         }

@@ -15,8 +15,9 @@ class Interpreter
     {       
         $event = $this->event_interpreter->interpret($root, $command);
         
-        $this->event_handler_interpreter->interpret($root, $event);
-        
+        if ($this->event_handler_interpreter) {
+            $this->event_handler_interpreter->modify($root, $event);
+        }
         return $event;
     }
 }

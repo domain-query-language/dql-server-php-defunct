@@ -31,22 +31,31 @@ class Interpreter
         
     public function interpret($command)
     {
+        $root_entity = $this->build_root_entity($command);
+                
+        $events = $this->handle_command($command, $root_entity);
+        
+        $this->event_store->store($events);
+        
+        return $events;
+    }
+    
+    private function build_root_entity($command)
+    {
         $aggregate_id = $command->schema->aggregate_id;
         
         $aggreate_ast = $this->aggregate_repo->fetch_ast($aggregate_id);
         $aggregate_interpreter = $this->aggregate_factory->ast($aggreate_ast);
         
-        $root_entity = $aggregate_interpreter->build_root($command->domain->aggregate_id);
-        
-        $command_payload = $command->domain->payload;
-        
+        return $aggregate_interpreter->build_root($command->domain->aggregate_id);
+    }
+    
+    private function handle_command($command, $root_entity)
+    {
         $handler_ast = $this->handler_repo->fetch_ast($command->schema->id);
         
         $handler = $this->handler_factory->ast($handler_ast);
                     
-        $events = $handler->interpret($root_entity, $command_payload);
-        $this->event_store->store($events);
-        
-        return $events;
+        return $handler->interpret($root_entity, $command->domain->payload);
     }
 }

@@ -46,7 +46,7 @@ class Interpreter
         $events = $this->event_store->fetch($entity_id, $this->aggregate_id);
         
         foreach ($events as $event) {
-            $this->handle_event($root_entity, $event);
+            $root_entity = $this->handle_event($root_entity, $event);
         }
         
         return $root_entity;
@@ -60,7 +60,7 @@ class Interpreter
         }
 
         $handler = $this->event_hander_factory->ast($handler_ast);
-        $handler->interpret($root_entity, $event);
+        return $handler->modify($root_entity, $event);
     }
 }
 
