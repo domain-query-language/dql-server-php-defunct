@@ -9,7 +9,7 @@ class Interpreter
         $this->statements = $statements;
     }
         
-    public function interpret($root, $command)
+    public function handle($root, $command)
     {
         $events = [];
         foreach ($this->statements as $statement) {

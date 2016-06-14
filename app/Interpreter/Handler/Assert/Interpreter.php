@@ -1,7 +1,6 @@
-<?php namespace App\Interpreter\Assert;
+<?php namespace App\Interpreter\Handler\Assert;
 
-use App\Interpreter\InvariantException;
-use App\Interpreter\Invariant;
+use App\Interpreter\Handler\Invariant;
 
 class Interpreter
 {    
@@ -26,7 +25,7 @@ class Interpreter
         }
         
         if (!$result) {
-            throw new InvariantException("Failure");
+            throw new Invariant\Exception("Failure");
         }
     }
 }

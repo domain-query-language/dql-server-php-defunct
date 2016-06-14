@@ -1,4 +1,4 @@
-<?php namespace App\Interpreter\Invariant;
+<?php namespace App\Interpreter\Handler\Invariant;
 
 use App\Interpreter\Validation\Validator;
 use App\Interpreter\Query;

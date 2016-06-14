@@ -1,7 +1,7 @@
-<?php namespace App\Interpreter\Assert;
+<?php namespace App\Interpreter\Handler\Assert;
 
 use App\Interpreter\InvariantRepository;
-use App\Interpreter\Invariant;
+use App\Interpreter\Handler\Invariant;
 
 class Factory
 {    

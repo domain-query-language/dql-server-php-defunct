@@ -1,4 +1,4 @@
-<?php namespace App\Interpreter\Statement;
+<?php namespace App\Interpreter\Handler\Statement;
 
 use App\Interpreter\Context;
 

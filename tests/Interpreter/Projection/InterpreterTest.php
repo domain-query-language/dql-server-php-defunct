@@ -1,7 +1,7 @@
 <?php namespace Test\Interpreter\Projection;
 
 use App\Interpreter\Update;
-use App\Interpreter\Invariant;
+use App\Interpreter\Handler\Invariant;
 use Test\Interpreter\Projection\MockPDO;
 
 class InterpreterTest extends \Test\Interpreter\TestCase

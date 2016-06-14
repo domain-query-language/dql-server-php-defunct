@@ -1,6 +1,6 @@
 <?php namespace App\Interpreter\Handler;
 
-use App\Interpreter\Statement;
+use App\Interpreter\Handler\Statement;
 
 class Factory 
 {   

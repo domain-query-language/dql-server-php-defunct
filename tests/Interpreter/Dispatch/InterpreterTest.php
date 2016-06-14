@@ -2,7 +2,7 @@
 
 use App\Interpreter\Command;
 use App\Interpreter\Dispatch;
-use App\Interpreter\InvariantException;
+use App\Interpreter\Handler\Invariant;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
@@ -43,7 +43,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {        
         $this->dispatch_interpreter->interpret($this->command);
         
-        $this->setExpectedException(InvariantException::class);
+        $this->setExpectedException(Invariant\Exception::class);
         
         // This command has been run once, if the events are replayed successfully, 
         // then replaying it again will break it

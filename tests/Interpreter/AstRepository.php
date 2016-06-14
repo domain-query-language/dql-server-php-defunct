@@ -2,8 +2,9 @@
 
 use App\Interpreter\Validation;
 use App\Interpreter\Modification;
+use App\Interpreter\Handler;
 
-class AstRepository implements Validation\AstRepository, Modification\AstRepository
+class AstRepository implements Validation\AstRepository, Modification\AstRepository, Handler\AstRepository
 {
     private static $asts = [];
     
