@@ -1,6 +1,5 @@
 <?php namespace App\Interpreter\Aggregate;
 
-use App\Interpreter\EventHandlerRepository;
 use App\Interpreter\Modification;
 use Test\Interpreter\EventStore;
 use App\Interpreter\Validation;

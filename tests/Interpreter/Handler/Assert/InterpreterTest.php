@@ -1,6 +1,6 @@
-<?php namespace Test\Interpreter\Assert;
+<?php namespace Test\Interpreter\Handler\Handler\Assert;
 
-use App\Interpreter\Assert;
+use App\Interpreter\Handler\Assert;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
@@ -26,7 +26,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         $root = (object)['is_created'=>true];
         
-        $this->setExpectedException(\App\Interpreter\InvariantException::class);
+        $this->setExpectedException(\App\Interpreter\Handler\Invariant\Exception::class);
         
         $this->interpreter->interpret($root, null);
     }  

@@ -1,7 +1,6 @@
 <?php namespace Test\Interpreter\Modification;
 
 use App\Interpreter\Modification;
-use App\Interpreter\EventHandler;
 
 class ModifierTest extends \Test\Interpreter\TestCase
 {    

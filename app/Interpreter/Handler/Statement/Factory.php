@@ -1,7 +1,7 @@
-<?php namespace App\Interpreter\Statement;
+<?php namespace App\Interpreter\Handler\Statement;
 
-use App\Interpreter\Assert;
-use App\Interpreter\Apply;
+use App\Interpreter\Handler\Assert;
+use App\Interpreter\Handler\Apply;
 
 class Factory
 {    

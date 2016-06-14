@@ -16,9 +16,19 @@ class Factory
     
     public function ast($ast)
     {
-        if (!isset($ast->children)) {
+        if (isset($ast->check)) {
            return new SimpleInterpreter($this->check_factory->ast($ast->check));
         }
+        if (isset($ast->children)) {
+           return $this->make_composite($ast);
+        }
+        if (isset($ast->collection_of)) {
+           return $this->make_collection($ast);
+        }
+    } 
+    
+    private function make_composite($ast)
+    {
         $children = $ast->children;
         $interpreters = [];
         foreach ($children as $vo_id) {
@@ -27,6 +37,13 @@ class Factory
         }
         
         return new CompositeInterpreter($interpreters, array_keys((array)$children));
-    } 
+    }
+    
+    private function make_collection($ast)
+    {
+        $vo_ast = $this->ast_repo->fetch($ast->collection_of);
+        $value_object_interpreter = $this->ast($vo_ast);
+        return new CollectionInterpreter($value_object_interpreter);
+    }
 }
 

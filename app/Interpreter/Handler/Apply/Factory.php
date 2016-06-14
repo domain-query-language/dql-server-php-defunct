@@ -1,4 +1,4 @@
-<?php namespace App\Interpreter\Apply;
+<?php namespace App\Interpreter\Handler\Apply;
 
 use App\Interpreter\EventRepository;
 use App\Interpreter\Event;

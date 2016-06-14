@@ -11,7 +11,7 @@ class Interpreter
         $this->value_factory = $value_factory;
     }
         
-    public function interpret($rrot)
+    public function query($rrot)
     {
         $values = $this->value_factory->context($rrot);
         $this->statement->execute($values);

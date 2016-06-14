@@ -1,6 +1,6 @@
-<?php namespace Test\Interpreter\CommandHandler;
+<?php namespace Test\Interpreter\Handler\CommandHandler;
 
-use App\Interpreter\InvariantException;
+use App\Interpreter\Handler\Invariant;
 use App\Interpreter\Handler;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
@@ -34,17 +34,17 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_interpreter_fires_events()
     {
-        $events = $this->interpreter->interpret($this->root(), $this->command());    
+        $events = $this->interpreter->handle($this->root(), $this->command());    
         $this->assertEquals(1, count($events));  
     }
     
     public function test_interpreter_fails_on_invariants()
     {
-        $this->setExpectedException(InvariantException::class);
+        $this->setExpectedException(Invariant\Exception::class);
         
         $root = $this->root();
         $root->is_created = true;
       
-        $this->interpreter->interpret($root, $this->command());
+        $this->interpreter->handle($root, $this->command());
     }    
 }

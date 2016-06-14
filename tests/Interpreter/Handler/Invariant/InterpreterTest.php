@@ -1,6 +1,6 @@
-<?php namespace Test\Interpreter\Invariant;
+<?php namespace Test\Interpreter\Handler\Invariant;
 
-use App\Interpreter\Invariant;
+use App\Interpreter\Handler\Invariant;
 use Test\Interpreter\Projection\MockPDO;
 
 class InterpreterTest extends \Test\Interpreter\TestCase

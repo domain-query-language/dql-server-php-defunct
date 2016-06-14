@@ -1,6 +1,6 @@
 <?php namespace Test\Interpreter\Dispatch;
 
-use App\Interpreter\InvariantException;
+use App\Interpreter\Handler\Invariant;
 use Infrastructure\App\Interpreter\EventLockerDispatch;
 use App\EventStore\StreamID;
 
@@ -50,13 +50,13 @@ class EventLockerInterpreterTest extends \Test\Interpreter\TestCase
     public function test_unlocks_if_there_is_an_error()
     {
         $this->mock_dispatch_interpreter->method('interpret')
-                ->will($this->throwException(new InvariantException));
+                ->will($this->throwException(new Invariant\Exception));
         
         $this->mock_locker->expects($this->once())
                  ->method('unlock')
                  ->with($this->equalTo($this->stream_id));
         
-        $this->setExpectedException(InvariantException::class);
+        $this->setExpectedException(Invariant\Exception::class);
         
         $this->event_locker_dispatcher->interpret($this->command);
     }

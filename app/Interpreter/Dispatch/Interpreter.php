@@ -1,29 +1,25 @@
 <?php namespace App\Interpreter\Dispatch;
 
-use App\Interpreter\HandlerRepository;
-use App\Interpreter\AggregateRepository;
 use App\Interpreter\Handler;
+use App\Interpreter\AggregateRepository;
 use App\Interpreter\Aggregate;
 use Test\Interpreter\EventStore;
 
 class Interpreter
 {
-    private $handler_repo;
-    private $handler_factory;
+    private $handler;
     private $aggregate_repo;
     private $aggregate_factory;
     private $event_store;
     
-    public function __construct(
-        HandlerRepository $handler_repo, 
-        Handler\Factory $handler_factory,
+    public function __construct( 
+        Handler\Handler $handler,
         AggregateRepository $aggregate_repo,
         Aggregate\Factory $aggregate_factory,
         EventStore $event_store
     )
     {
-        $this->handler_repo = $handler_repo;
-        $this->handler_factory = $handler_factory;
+        $this->handler = $handler;
         $this->aggregate_repo = $aggregate_repo;
         $this->aggregate_factory = $aggregate_factory;
         $this->event_store = $event_store;
@@ -52,10 +48,8 @@ class Interpreter
     
     private function handle_command($command, $root_entity)
     {
-        $handler_ast = $this->handler_repo->fetch_ast($command->schema->id);
-        
-        $handler = $this->handler_factory->ast($handler_ast);
-                    
-        return $handler->interpret($root_entity, $command->domain->payload);
+        $aggregate_id = $command->schema->id;
+        $payload = $command->domain->payload;
+        return $this->handler->handle($aggregate_id, $root_entity, $payload);
     }
 }
