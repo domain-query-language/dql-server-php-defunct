@@ -45,7 +45,7 @@ class EventLockerInterpreterTest extends \Test\Interpreter\TestCase
                  ->with($this->equalTo($this->stream_id));
         
         $this->event_locker_dispatcher->interpret($this->command);
-    }
+    } 
     
     public function test_unlocks_if_there_is_an_error()
     {
