@@ -15,19 +15,16 @@ class Interpreter
         $this->validator = $validator;
     }
     
-    public function interpret($value)
-    {
-        $aggregate_id = $value->get_property(['root', 'id']);
-        $payload = $value->has_property('command') ? $value->get_property('command') : [];
-        
+    public function interpret($root, $command)
+    {  
         $result = (object)[
             "schema"=> (object)[
                 'id'=>$this->event_id,
                 'aggregate_id'=>$this->aggregate_id
             ],
             "domain"=> (object)[
-                "aggregate_id"=>$aggregate_id,
-                'payload'=>$this->validator->validate($this->event_id, $payload)
+                "aggregate_id"=>$root->id,
+                'payload'=>$this->validator->validate($this->event_id, $command)
             ]
         ]; 
         

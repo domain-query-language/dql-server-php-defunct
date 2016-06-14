@@ -1,6 +1,6 @@
 <?php namespace App\Interpreter\EventHandler;
 
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter
 {   
     private $statements;
     
@@ -9,11 +9,8 @@ class Interpreter implements \App\Interpreter\Interpreter
         $this->statements = $statements;
     }
     
-    public function interpret(\App\Interpreter\Context $context)
-    {
-        $root = $context->get_property('root');
-        $event = $context->get_property('event');
-        
+    public function interpret($root, $event)
+    {        
         foreach ($this->statements as $statement) {
             $property = $statement->property;
             $root->$property = $this->get_value($statement->value, $event);

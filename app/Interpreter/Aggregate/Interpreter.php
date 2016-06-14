@@ -58,13 +58,9 @@ class Interpreter
         if (!$handler_ast) {
             return;
         }
-        $handler_context = new \App\Interpreter\Context((object)[
-            'root' => $root_entity,
-            'event' => $event
-        ]);
 
         $handler = $this->event_hander_factory->ast($handler_ast);
-        $handler->interpret($handler_context);
+        $handler->interpret($root_entity, $event);
     }
 }
 
