@@ -1,13 +1,11 @@
 <?php namespace App\Interpreter\Modification;
 
-use App\Interpreter\EventHandler;
-
 class Modifier 
 {
     private $repo;
     private $modifier_factory;
     
-    public function __construct(AstRepository $repo, EventHandler\Factory $modifier_factory)
+    public function __construct(AstRepository $repo, Factory $modifier_factory)
     {
         $this->repo = $repo;
         $this->modifier_factory = $modifier_factory;

@@ -6,7 +6,7 @@ use App\Interpreter\EventHandler;
 class ModifierTest extends \Test\Interpreter\TestCase
 {    
     private $modifier_repo;
-    private $handler_factory;
+    private $modifier_factory;
     private $modifier;
     private $modifier_id = '24216a60-fa74-4b80-bfd2-edcfc764db5e';
     
@@ -16,11 +16,11 @@ class ModifierTest extends \Test\Interpreter\TestCase
         $this->modifier_repo = 
                 $this->getMockBuilder(Modification\AstRepository::class)->getMock();
         
-        $handler_factory = EventHandler\Factory::class;
-        $this->handler_factory = $this->getMockBuilder($handler_factory)
+        $modifier_factory_class = Modification\Factory::class;
+        $this->modifier_factory = $this->getMockBuilder($modifier_factory_class)
             ->disableOriginalConstructor()->getMock();
 
-        $this->modifier = new Modification\Modifier($this->modifier_repo, $this->handler_factory);
+        $this->modifier = new Modification\Modifier($this->modifier_repo, $this->modifier_factory);
     }
     
     public function test_modifier_stores_modifier_schema()
@@ -41,7 +41,7 @@ class ModifierTest extends \Test\Interpreter\TestCase
         
         $ast = $this->ast_repo->event_handler();
         
-        $modifier_class = EventHandler\Interpreter::class;
+        $modifier_class = Modification\Interpreter::class;
         $mock_modifier= $this->getMockBuilder($modifier_class)
             ->disableOriginalConstructor()->getMock();
         
@@ -55,7 +55,7 @@ class ModifierTest extends \Test\Interpreter\TestCase
             ->with($this->modifier_id)
             ->willReturn($ast);
         
-        $this->handler_factory->expects($this->once())
+        $this->modifier_factory->expects($this->once())
             ->method('ast')
             ->with($ast)
             ->willReturn($mock_modifier);
