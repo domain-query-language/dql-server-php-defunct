@@ -4,8 +4,8 @@ use App\Interpreter\Aggregate;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
-    private $context;
     private $event_store;
+    private $aggregate;
     
     public function setUp()
     {
@@ -17,14 +17,14 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
         $factory = $this->app->make(Aggregate\Factory::class);
         
-        $this->interpreter = $factory->ast($ast);
+        $this->aggregate = $factory->ast($ast);
         
         $this->aggregate_id = "2ea22141-89f4-4216-88f6-81a67cb20d20";
     }
         
     public function test_builds_root_entity()
     {
-        $entity = $this->interpreter->build_root($this->aggregate_id);
+        $entity = $this->aggregate->build_root($this->aggregate_id);
         
         $expected = (object)[
             'id' => '2ea22141-89f4-4216-88f6-81a67cb20d20',
@@ -49,7 +49,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
         $this->event_store->store([$event]);
         
-        $entity = $this->interpreter->build_root($this->aggregate_id);
+        $entity = $this->aggregate->build_root($this->aggregate_id);
         
         $expected = (object)[
             'id' => '2ea22141-89f4-4216-88f6-81a67cb20d20',

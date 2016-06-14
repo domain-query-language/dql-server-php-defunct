@@ -1,7 +1,7 @@
 <?php namespace App\Interpreter\Aggregate;
 
 use App\Interpreter\EventHandlerRepository;
-use App\Interpreter\EventHandler;
+use App\Interpreter\Modification;
 use Test\Interpreter\EventStore;
 use App\Interpreter\Validation;
 
@@ -9,18 +9,16 @@ class Interpreter
 {    
     private $aggregate_id;
     private $defaults;
+        private $root_entity_id;
     private $validator;
-    private $root_entity_id;
+    private $modifier;
     private $event_store;
-    private $event_handler_repo;
-    private $event_hander_factory;
     
     public function __construct(
         $ast, 
         Validation\Validator $validator,
-        EventStore $event_store,
-        EventHandlerRepository $event_handler_repo,
-        EventHandler\Factory $event_handler_factory
+        Modification\Modifier $modifier,
+        EventStore $event_store
     )
     {
         $this->aggregate_id = $ast->id;
@@ -30,14 +28,11 @@ class Interpreter
         $this->validator = $validator;
         $this->event_store = $event_store;
         
-        $this->event_handler_repo = $event_handler_repo;
-        $this->event_hander_factory = $event_handler_factory;
+        $this->modifier = $modifier;
     }
     
-    public function build_root($aggregate_id)
-    { 
-        $entity_id = $aggregate_id;
-        
+    public function build_root($entity_id)
+    {        
         $entity_defaults = clone $this->defaults;
         $entity_defaults->id = $entity_id;
         
@@ -46,7 +41,8 @@ class Interpreter
         $events = $this->event_store->fetch($entity_id, $this->aggregate_id);
         
         foreach ($events as $event) {
-            $this->handle_event($root_entity, $event);
+            $id = $event->schema->id;
+            $root_entity = $this->modifier->modify($id, $root_entity, $event);
         }
         
         return $root_entity;
@@ -60,7 +56,7 @@ class Interpreter
         }
 
         $handler = $this->event_hander_factory->ast($handler_ast);
-        $handler->interpret($root_entity, $event);
+        return $handler->modify($root_entity, $event);
     }
 }
 

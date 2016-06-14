@@ -1,6 +1,9 @@
 <?php namespace Test\Interpreter;
 
-class AstRepository implements \App\Interpreter\Validation\AstRepository
+use App\Interpreter\Validation;
+use App\Interpreter\Modification;
+
+class AstRepository implements Validation\AstRepository, Modification\AstRepository
 {
     private static $asts = [];
     
