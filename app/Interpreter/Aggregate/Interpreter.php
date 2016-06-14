@@ -1,12 +1,11 @@
 <?php namespace App\Interpreter\Aggregate;
 
-use App\Interpreter\Context;
 use App\Interpreter\EventHandlerRepository;
 use App\Interpreter\EventHandler;
 use Test\Interpreter\EventStore;
 use App\Interpreter\Validation;
 
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter
 {    
     private $aggregate_id;
     private $defaults;
@@ -35,9 +34,9 @@ class Interpreter implements \App\Interpreter\Interpreter
         $this->event_hander_factory = $event_handler_factory;
     }
     
-    public function interpret(Context $context)
+    public function build_root($aggregate_id)
     { 
-        $entity_id = $context->get_property('aggregate_id');
+        $entity_id = $aggregate_id;
         
         $entity_defaults = clone $this->defaults;
         $entity_defaults->id = $entity_id;
@@ -59,7 +58,7 @@ class Interpreter implements \App\Interpreter\Interpreter
         if (!$handler_ast) {
             return;
         }
-        $handler_context = new Context((object)[
+        $handler_context = new \App\Interpreter\Context((object)[
             'root' => $root_entity,
             'event' => $event
         ]);

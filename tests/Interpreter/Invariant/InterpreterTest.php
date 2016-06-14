@@ -4,6 +4,10 @@ use App\Interpreter\Invariant;
 use App\Interpreter\Context;
 use Test\Interpreter\Projection\MockPDO;
 
+/**
+ * Remove reliance on context
+ *  - Remove context from internals of parent assert
+ */
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
     protected $invariant;

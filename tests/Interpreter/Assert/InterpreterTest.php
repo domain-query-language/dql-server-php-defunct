@@ -17,17 +17,17 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_pass()
     {        
-        $data = (object)['is_created'=>false];
+        $root = (object)['is_created'=>false];
         
-        $this->interpreter->interpret($data);
+        $this->interpreter->interpret($root, null);
     }
     
     public function test_fail()
     {
-        $data = (object)['is_created'=>true];
+        $root = (object)['is_created'=>true];
         
         $this->setExpectedException(\App\Interpreter\InvariantException::class);
         
-        $this->interpreter->interpret($data);
+        $this->interpreter->interpret($root, null);
     }  
 }

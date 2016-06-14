@@ -30,7 +30,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
         $root = (object)['id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378"];
        
-        $this->assertEquals($expected, $this->interpreter->apply($root, []));
+        $this->assertEquals($expected, $this->interpreter->interpret($root, []));
     }
     
     public function test_updates_context()
@@ -44,7 +44,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         ];
         $command = (object)['shopper_id'=>'81ae684c-8f7a-4e31-8948-bedf4935b3ce'];
                
-        $interperter->apply($root, $command);
+        $interperter->interpret($root, $command);
         
         $this->assertTrue($root->is_created);
     }

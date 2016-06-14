@@ -17,7 +17,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     public function test_build_empty_event()
     {
         $data = [
-            'aggreggate_id' => "ff3a666b-4288-4ecd-86d7-7f511a2fd378"
+            'aggregate_id' => "ff3a666b-4288-4ecd-86d7-7f511a2fd378"
         ];
         
         $interpreter = $this->factory->ast($this->ast_repo->event_empty());
@@ -37,10 +37,10 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         $this->assertEquals($expected, $event);
     }
         
-    public function test_build_event_with_chldren()
+    public function test_build_event_with_children()
     {
         $data = [
-            'aggreggate_id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378",
+            'aggregate_id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378",
             'payload'=>['shopper_id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6']
         ];
         $event = $this->interpreter->interpret($data);

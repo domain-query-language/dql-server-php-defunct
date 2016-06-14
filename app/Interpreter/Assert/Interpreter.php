@@ -20,9 +20,9 @@ class Interpreter
         $this->comparator = $comparator;
     }
     
-    public function interpret($data)
+    public function interpret($root, $command)
     {
-        $context = new \App\Interpreter\Context($data);
+        $context = new \App\Interpreter\Context($root);
         $arguments_context = $this->arguments->interpret($context);
         
         $result = $this->invariant->interpret($arguments_context);

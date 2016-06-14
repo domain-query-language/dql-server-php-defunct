@@ -1,7 +1,6 @@
 <?php namespace App\Interpreter\Event;
 
 use App\Interpreter\Validation;
-use App\Interpreter\Context;
 
 class Interpreter
 {
@@ -16,7 +15,7 @@ class Interpreter
         $this->validator = $validator;
     }
     
-    public function interpret(Context $value)
+    public function interpret($value)
     {
         $aggregate_id = $value->get_property(['root', 'id']);
         $payload = $value->has_property('command') ? $value->get_property('command') : [];

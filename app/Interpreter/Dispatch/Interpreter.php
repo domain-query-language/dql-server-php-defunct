@@ -3,11 +3,10 @@
 use App\Interpreter\HandlerRepository;
 use App\Interpreter\AggregateRepository;
 use App\Interpreter\Handler;
-use App\Interpreter\Context;
 use App\Interpreter\Aggregate;
 use Test\Interpreter\EventStore;
 
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter
 {
     private $handler_repo;
     private $handler_factory;
@@ -30,27 +29,22 @@ class Interpreter implements \App\Interpreter\Interpreter
         $this->event_store = $event_store;
     }
         
-    public function interpret(Context $context)
+    public function interpret($command)
     {
-        $aggregate_id = $context->get_property(['schema', 'aggregate_id']);
+        $aggregate_id = $command->schema->aggregate_id;
         
         $aggreate_ast = $this->aggregate_repo->fetch_ast($aggregate_id);
         $aggregate_interpreter = $this->aggregate_factory->ast($aggreate_ast);
-                
-        $aggregate_context = new Context($context->get_property('domain'));
         
-        $root = $aggregate_interpreter->interpret($aggregate_context);
+        $root_entity = $aggregate_interpreter->build_root($command->domain->aggregate_id);
         
-        $handler_context = new Context((object)[
-            'command' => $context->get_property(['domain', 'payload']),
-            'root' => $root
-        ]);
+        $command_payload = $command->domain->payload;
         
-        $handler_ast = $this->handler_repo->fetch_ast($context->get_property(['schema', 'id']));
+        $handler_ast = $this->handler_repo->fetch_ast($command->schema->id);
         
         $handler = $this->handler_factory->ast($handler_ast);
                     
-        $events = $handler->interpret($handler_context);
+        $events = $handler->interpret($root_entity, $command_payload);
         $this->event_store->store($events);
         
         return $events;

@@ -15,7 +15,7 @@ class Interpreter
         $this->event_handler_interpreter = $event_handler_interpreter;
     }
     
-    public function apply($root, $command)
+    public function interpret($root, $command)
     {       
         $context = new Context(['root'=>$root, 'command'=>$command]);
         
