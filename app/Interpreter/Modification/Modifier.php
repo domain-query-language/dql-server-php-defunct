@@ -21,7 +21,7 @@ class Modifier
     public function modify($id, $mutable, $datasource)
     {
         $ast = $this->repo->fetch($id);
-        
+
         $modifier = $this->modifier_factory->ast($ast);
         
         return $modifier->modify($mutable, $datasource);

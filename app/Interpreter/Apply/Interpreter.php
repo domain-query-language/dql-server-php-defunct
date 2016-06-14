@@ -1,23 +1,24 @@
 <?php namespace App\Interpreter\Apply;
 
+use App\Interpreter\Modification;
+
 class Interpreter
 {    
     private $event_interpreter;
-    private $event_handler_interpreter;
+    private $event_id;
+    private $modification;
     
-    public function __construct($event_interpreter, $event_handler_interpreter)
+    public function __construct($event_interpreter, $event_id, Modification\Modifier $modification)
     {
         $this->event_interpreter = $event_interpreter;
-        $this->event_handler_interpreter = $event_handler_interpreter;
+        $this->event_id = $event_id;
+        $this->modification = $modification;
     }
     
     public function interpret($root, $command)
     {       
         $event = $this->event_interpreter->interpret($root, $command);
-        
-        if ($this->event_handler_interpreter) {
-            $this->event_handler_interpreter->modify($root, $event);
-        }
+        $this->modification->modify($this->event_id, $root, $command);
         return $event;
     }
 }
