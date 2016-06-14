@@ -3,7 +3,7 @@
 use App\Interpreter\Context;
 use App\Interpreter\Validation\Validator;
 
-class Interpreter implements \App\Interpreter\Interpreter
+class Interpreter
 {    
     private $query;
     private $validator;
@@ -16,10 +16,10 @@ class Interpreter implements \App\Interpreter\Interpreter
         $this->ast = $ast;
     }
     
-    public function interpret(Context $context)
+    public function interpret($root)
     { 
-        $context = $this->query->interpret($context);
-        return $this->validator->check($this->ast->id, $context->data);
+        $data = $this->query->interpret($root);
+        return $this->validator->check($this->ast->id, $data);
     }
 }
 

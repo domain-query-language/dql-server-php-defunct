@@ -22,10 +22,7 @@ class Interpreter
     
     public function interpret($root, $command)
     {
-        $context = new \App\Interpreter\Context($root);
-        $arguments_context = $this->arguments->interpret($context);
-        
-        $result = $this->invariant->interpret($arguments_context);
+        $result = $this->invariant->interpret($root);
 
         if ($this->comparator == 'not') {
             $result = !$result;

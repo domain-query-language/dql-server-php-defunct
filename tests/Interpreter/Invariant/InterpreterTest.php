@@ -1,13 +1,8 @@
 <?php namespace Test\Interpreter\Invariant;
 
 use App\Interpreter\Invariant;
-use App\Interpreter\Context;
 use Test\Interpreter\Projection\MockPDO;
 
-/**
- * Remove reliance on context
- *  - Remove context from internals of parent assert
- */
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
     protected $invariant;
@@ -23,17 +18,15 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_passing_invariant()
     {
-        $context = new Context();
-        $context = $context->set_property('is_created', true);
+        $root = (object)['is_created'=> true];
         
-        $this->assertTrue($this->invariant->interpret($context));
+        $this->assertTrue($this->invariant->interpret($root));
     }
     
     public function test_failing_invariant()
     {
-        $context = new Context();
-        $context = $context->set_property('is_created', false);
+        $root = (object)['is_created'=> false];
         
-        $this->assertFalse($this->invariant->interpret($context));
+        $this->assertFalse($this->invariant->interpret($root));
     }
 }

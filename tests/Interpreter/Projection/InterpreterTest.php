@@ -1,6 +1,5 @@
 <?php namespace Test\Interpreter\Projection;
 
-use App\Interpreter\Context;
 use App\Interpreter\Update;
 use App\Interpreter\Invariant;
 use Test\Interpreter\Projection\MockPDO;
@@ -12,11 +11,10 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->context = new Context([
+        $this->context = (object)[
             'shopper_id' => '5d37e24a-f833-45f3-90b1-3ac70fd05ac4',
             'is_created' => true
-        ]);
-        $this->context->set_property('shopper_id', '5d37e24a-f833-45f3-90b1-3ac70fd05ac4');
+        ];
 
         $this->app->bind(\PDO::class, MockPDO::class);
     }
@@ -51,9 +49,9 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_query_returns_false_for_different_shopper_id()
     {
-        $query_context = $this->context->set_property('shopper_id', 'c6955003-814c-4f55-b907-006d7563579b');
+        $this->context->shopper_id = 'c6955003-814c-4f55-b907-006d7563579b';
         
-        $result = $this->query_interpreter()->interpret($query_context);
+        $result = $this->query_interpreter()->interpret($this->context);
         $this->assertFalse($result);
     }  
 }
