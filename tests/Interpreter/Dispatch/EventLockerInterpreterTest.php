@@ -1,6 +1,5 @@
 <?php namespace Test\Interpreter\Dispatch;
 
-use App\Interpreter\Context;
 use App\Interpreter\InvariantException;
 use Infrastructure\App\Interpreter\EventLockerDispatch;
 use App\EventStore\StreamID;

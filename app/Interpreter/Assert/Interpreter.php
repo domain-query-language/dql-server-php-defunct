@@ -2,7 +2,6 @@
 
 use App\Interpreter\InvariantException;
 use App\Interpreter\Invariant;
-use App\Interpreter\Arguments;
 
 class Interpreter
 {    
@@ -12,11 +11,9 @@ class Interpreter
     
     public function __construct(
         Invariant\Interpreter $invariant, 
-        Arguments\Interpreter $arguments, 
         $comparator)
     {
         $this->invariant = $invariant;
-        $this->arguments = $arguments;
         $this->comparator = $comparator;
     }
     
