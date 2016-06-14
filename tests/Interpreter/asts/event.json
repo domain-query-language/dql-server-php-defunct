@@ -4,6 +4,15 @@
   "name": "created",
   "children": {
     "shopper_id": "a6a70ade-d3be-42ba-bf6d-c29d055e862e"
-  }
+  },
+  "statements": [
+    {
+      "type": "set",
+      "property": "is_created",
+      "value": {
+        "literal": true
+      }
+    }
+  ]
 }
 
