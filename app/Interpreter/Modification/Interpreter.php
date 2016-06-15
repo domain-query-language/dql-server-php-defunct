@@ -13,10 +13,15 @@ class Interpreter
     {        
         foreach ($this->statements as $statement) {
             $property = $statement->property;
+            $value = $this->get_value($statement->value, $event);
             if ($statement->type == 'set') {
-                $root->$property = $this->get_value($statement->value, $event);
+                $root->$property = $value;
             } else if ($statement->type == 'add') {
-                $root->$property[] = $this->get_value($statement->value, $event);
+                $root->$property[] = $value;
+            } else if ($statement->type == 'remove') {
+                $root->$property = array_filter($root->$property, function($element) use ($value){
+                    return !($element->id == $value);
+                });
             }
         }
         return $root;
