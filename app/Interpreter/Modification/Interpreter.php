@@ -27,11 +27,14 @@ class Interpreter
     
     private function remove_from_list($list, $value)
     {
-        return array_filter($list, function($element) use ($value){
+        $list = array_filter($list, function($element) use ($value){
             if (isset($element->id)) {
                 return !($element->id == $value);
+            } else {
+                return !($element == $value);
             }
         });
+        return array_values($list);
     }
     
     private function get_value($ast, $event)

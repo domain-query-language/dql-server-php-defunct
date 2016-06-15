@@ -18,6 +18,22 @@ class EventHandlerTest extends \Test\Interpreter\TestCase
         $this->assertEquals($expected, $actual);
     }
     
+    public function test_removes_valueobject_from_array_by_value()
+    {
+        $ast = $this->ast_repo->event_handler_remove_from_collection();
+        $interpreter = new Interpreter($ast->statements);
+        
+        $value1 = (object)['min'=>'min1', 'max'=>'max'];
+        $value2 = (object)['min'=>'min2', 'max'=>'max'];
+        $root = (object)['list'=>[$value1, $value2]];
+        
+        $event = (object)['key'=>$value1];
+        
+        $expected = (object)['list'=>[$value2]];
+        $actual = $interpreter->modify($root, $event);
+        $this->assertEquals($expected, $actual);
+    }
+    
     public function test_removes_entity_from_array_by_id()
     {
         $ast = $this->ast_repo->event_handler_remove_from_collection();
@@ -28,7 +44,7 @@ class EventHandlerTest extends \Test\Interpreter\TestCase
         $root = (object)['list'=>[$entity]];
         
         $entity->data = false;
-        $event = (object)['entity_id'=>$id];
+        $event = (object)['key'=>$id];
         
         $expected = (object)['list'=>[]];
         $actual = $interpreter->modify($root, $event);

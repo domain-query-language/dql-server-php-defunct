@@ -6,7 +6,7 @@
       "type": "remove",
       "property": "list",
       "value": {
-        "property": ["entity_id"]
+        "property": ["key"]
       }
     }
   ]
