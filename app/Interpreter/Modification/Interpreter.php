@@ -19,12 +19,19 @@ class Interpreter
             } else if ($statement->type == 'add') {
                 $root->$property[] = $value;
             } else if ($statement->type == 'remove') {
-                $root->$property = array_filter($root->$property, function($element) use ($value){
-                    return !($element->id == $value);
-                });
+                $root->$property = $this->remove_from_list($root->$property, $value);
             }
         }
         return $root;
+    }
+    
+    private function remove_from_list($list, $value)
+    {
+        return array_filter($list, function($element) use ($value){
+            if (isset($element->id)) {
+                return !($element->id == $value);
+            }
+        });
     }
     
     private function get_value($ast, $event)
