@@ -13,7 +13,11 @@ class Interpreter
     {        
         foreach ($this->statements as $statement) {
             $property = $statement->property;
-            $root->$property = $this->get_value($statement->value, $event);
+            if ($statement->type == 'set') {
+                $root->$property = $this->get_value($statement->value, $event);
+            } else if ($statement->type == 'add') {
+                $root->$property[] = $this->get_value($statement->value, $event);
+            }
         }
         return $root;
     }
@@ -22,6 +26,9 @@ class Interpreter
     {
         if (isset($ast->literal)) {
             return $ast->literal;
+        } else if (isset($ast->property)) {
+            $key = $ast->property[0];
+            return $event->$key;
         }
     }
 }

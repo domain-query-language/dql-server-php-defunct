@@ -1,0 +1,13 @@
+{
+  "id": "f2a36cbc-5a0b-4a03-881c-ceee156f5f00",
+  "aggregate_id": "5e867d81-9e3f-4a33-9150-6f4b373ba74f",
+  "statements": [
+    {
+      "type": "add",
+      "property": "list",
+      "value": {
+        "property": ["value"]
+      }
+    }
+  ]
+}
