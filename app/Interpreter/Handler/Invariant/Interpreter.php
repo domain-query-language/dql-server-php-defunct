@@ -16,10 +16,10 @@ class Interpreter
         $this->ast = $ast;
     }
     
-    public function interpret($root)
+    public function interpret($root, $command)
     { 
-        $data = $this->querier->query($this->ast->id, $root);
-        return $this->validator->check($this->ast->id, $data);
+        $data = $this->querier->query($this->ast->id, $root, $command);
+        return $this->validator->check($this->ast->id, $data, $command);
     }
 }
 
