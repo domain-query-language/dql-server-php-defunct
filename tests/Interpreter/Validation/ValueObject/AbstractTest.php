@@ -4,6 +4,7 @@ use App\Interpreter\Validation\ValueObject;
 
 abstract class AbstractTest extends \Test\Interpreter\TestCase
 {
+    protected $factory;
     protected $interpreter;
     
     abstract protected function ast();
@@ -11,7 +12,7 @@ abstract class AbstractTest extends \Test\Interpreter\TestCase
     public function setUp()
     {
         parent::setUp();
-        $factory = $this->app->make(ValueObject\Factory::class);
-        $this->interpreter = $factory->ast($this->ast());
+        $this->factory = $this->app->make(ValueObject\Factory::class);
+        $this->interpreter = $this->factory->ast($this->ast());
     }
 }

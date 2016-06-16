@@ -17,9 +17,9 @@ class SimpleInterpreter
         return $value;
     }
     
-    public function check($value)
+    public function check($value, $arguments=[])
     {
-        return $this->check->check($value);
+        return $this->check->check($value, $arguments);
     }
 }
 

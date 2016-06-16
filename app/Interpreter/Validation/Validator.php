@@ -32,12 +32,15 @@ class Validator
         return $validator->validate($value);
     }
     
-    public function check($id, $value)
+    public function check($id, $value, $arguments=null)
     {
         $ast = $this->repo->fetch($id);
         
         $validator = $this->vo_factory->ast($ast);
         
+        if ($arguments) {
+            return $validator->check($value, $arguments);
+        }
         return $validator->check($value);
     }
 }
