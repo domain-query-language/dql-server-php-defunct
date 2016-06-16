@@ -6,9 +6,10 @@
       "value_left": {
         "property": ["value"]
       },
-      "comparator": ">",
+      "comparator": "is",
       "value_right": {
-        "literal": 0
+        "validator": "boolType",
+        "arguments": []
       }
     }]
   }
