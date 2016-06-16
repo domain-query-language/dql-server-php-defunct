@@ -6,19 +6,23 @@
   },
   "query": null,
   "check": {
-    "condition": [{
-      "field": "shopper_id",
-      "comparator": "=",
-      "value": {
-        "property": ["shopper_id"]
-      }
-    },
-    {
-      "field": "is_created",
-      "comparator": "=",
-      "value": {
-        "property": ["is_created"]
-      }
+    "condition": [{      
+        "value_left": {
+          "property": ["shopper_id"]
+        },
+        "comparator": "=",
+        "value_right": {
+          "property": ["shopper_id"]
+        }
+      },
+      {
+        "value_left": {
+          "property": ["is_created"]
+        },
+        "comparator": "=",
+        "value_right": {
+          "property": ["is_created"]
+        }
     }]
   }
 }

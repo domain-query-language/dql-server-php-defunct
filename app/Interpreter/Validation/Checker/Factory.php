@@ -22,10 +22,10 @@ class Factory
         $condition = $ast->condition;
         $interpreters = [];
         foreach ($condition as $condition) {
-            if (isset($condition->comparator)) {
-                $interpreters[] = $this->compare_factory->ast($condition);
-            } else {
+            if ($condition->comparator == "is") {
                 $interpreters[] = $this->validator_factory->ast($condition);
+            } else {
+                $interpreters[] = $this->compare_factory->ast($condition);
             }
         }
         return new Interpreter($interpreters);

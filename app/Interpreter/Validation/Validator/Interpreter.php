@@ -1,24 +1,25 @@
 <?php namespace App\Interpreter\Validation\Validator;
 
+use Respect\Validation\Validator as v;
+
 class Interpreter
 {
     private $validator;
     private $values;
     
-    public function __construct($validator, $values)
-    {
-        $this->validator = $validator;
-        $this->values = $values;
+    public function __construct($validator_name, $arguments)
+    {      
+        $v = v::create();
+        
+        $this->validator = call_user_func_array(
+            [$v, $validator_name],
+            $arguments
+        );
     }
     
     public function check($value)
     {
-        if ($this->validator == "regex"){
-            return (preg_match($this->values[0], $value) === 1);
-        }
-        if ($this->validator == "boolType"){
-            return is_bool($value);
-        }
+        return $this->validator->validate($value);
     }
 }
 

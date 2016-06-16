@@ -28,9 +28,11 @@
   },
   "check": {
     "condition": [{
-      "field": "cart_count",
+      "value_left": {
+        "property": ["cart_count"]
+      },
       "comparator": ">",
-      "value": {
+      "value_right": {
         "literal": 0
       }
     }]
