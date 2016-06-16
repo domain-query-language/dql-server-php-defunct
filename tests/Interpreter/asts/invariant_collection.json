@@ -7,9 +7,11 @@
   "query": null,
   "check": {
     "condition": [{
-      "field": "list",
+      "value_left": {
+        "property": ["list"]
+      },
       "comparator": "exists_in",
-      "value": {
+      "value_right": {
         "property": ["entity_id"]
       }
     }]

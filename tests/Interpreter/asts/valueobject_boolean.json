@@ -3,9 +3,13 @@
   "name": "boolean",
   "check": {
     "condition": [{
-      "field": "value",
-      "validator": "boolType",
-      "values": [] 
+      "value_left": {
+        "property": ["value"]
+      },
+      "comparator": ">",
+      "value_right": {
+        "literal": 0
+      }
     }]
   }
 }

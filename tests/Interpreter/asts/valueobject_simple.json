@@ -3,9 +3,11 @@
   "name": "quantity",
   "check": {
     "condition": [{
-      "field": "value",
+      "value_left": {
+        "property": ["value"]
+      },
       "comparator": ">",
-      "value": {
+      "value_right": {
         "literal": 0
       }
     }]

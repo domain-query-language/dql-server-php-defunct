@@ -5,11 +5,13 @@
   "query": null,
   "check": {
     "condition": [{
-        "field": "is_created",
+        "value_left": {
+          "property": ["is_created"]
+        },
         "comparator": "=",
-        "value": {
+        "value_right": {
           "literal": true
         }
-      }]
+    }]
   }
 }
