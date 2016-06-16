@@ -32,7 +32,7 @@ class CollectionTest extends AbstractTest
         $this->assertTrue($this->interpreter->check([1, 2]));
         $this->assertFalse($this->interpreter->check([1, -2]));
     }
-    
+        
     public function test_accepts_empty_arrays()
     {
         $expected = [];
@@ -42,10 +42,15 @@ class CollectionTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
     
-    public function test_exists_in_for_valueobjects()
+    private function make_invariant_collection_interpreter()
     {
         $ast = $this->ast_repo->invariant_collection();
-        $interpreter = $this->factory->ast($ast);
+        return $this->factory->ast($ast);
+    }
+    
+    public function test_exists_in_for_valueobjects()
+    {
+        $interpreter = $this->make_invariant_collection_interpreter();
         
         $list = (object)['list'=>[1, 2]];
         
@@ -55,8 +60,7 @@ class CollectionTest extends AbstractTest
     
     public function test_fails_on_empty_list()
     {
-        $ast = $this->ast_repo->invariant_collection();
-        $interpreter = $this->factory->ast($ast);
+        $interpreter = $this->make_invariant_collection_interpreter();
         
         $list = (object)['list'=>[]];
         
@@ -65,8 +69,7 @@ class CollectionTest extends AbstractTest
     
     public function test_exists_in_for_entity()
     {
-        $ast = $this->ast_repo->invariant_collection();
-        $interpreter = $this->factory->ast($ast);
+        $interpreter = $this->make_invariant_collection_interpreter();
         
         $list = (object)['list'=>[
             (object)['id'=>'ab3b3205-a52c-47bc-b9dd-00902035c080'],

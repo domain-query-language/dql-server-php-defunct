@@ -29,7 +29,6 @@ class CheckTest extends \Test\Interpreter\TestCase
         
         $value = (object)['is_created'=>false];
         
-        $this->assertFalse($interpreter->check($value));
-        
+        $this->assertFalse($interpreter->check($value));  
     }
 }
