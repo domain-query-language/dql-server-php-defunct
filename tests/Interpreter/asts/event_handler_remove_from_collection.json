@@ -1,0 +1,13 @@
+{
+  "id": "cb1c2452-8a3c-4457-9be1-635d2b9e32de",
+  "aggregate_id": "5e867d81-9e3f-4a33-9150-6f4b373ba74f",
+  "statements": [
+    {
+      "type": "remove_from",
+      "property": "list",
+      "value": {
+        "property": ["key"]
+      }
+    }
+  ]
+}
