@@ -6,49 +6,46 @@ class Interpreter
     private $comparator;
     private $value;
     
-    public function __construct($field, $comparator, $value)
+    public function __construct($left, $comparator, $right)
     {
-        $this->field = $field;
+        $this->left = $left;
         $this->comparator = $comparator;
-        $this->value = $value;
+        $this->right = $right;
     }
       
     public function check($input, $arguments=null)
     {
-        $value = $this->get_value($input);
-        $compare_to_value = $this->get_compare_to_value($arguments);
+        $left_value = $this->get_value($this->left, $input);
+        $right_value = $this->get_value($this->right, $arguments);
+        
         if ($this->comparator == "="){
-            return $value == $compare_to_value;
+            return $left_value == $right_value;
         }
         if ($this->comparator == "!="){
-            return $value != $compare_to_value;
+            return $left_value != $right_value;
         }
         if ($this->comparator == ">"){
-            return $value > $compare_to_value;
+            return $left_value > $right_value;
         }
         if ($this->comparator == "exists_in"){    
-            return $this->is_in_list($value, $compare_to_value);
+            //return $this->is_in_list($value, $compare_to_value);
         }
 
         throw new Exception("Unknown comparator $this->comparator");
     }
     
-    private function get_value($value)
+    private function get_value($ast, $input)
     {
-        if ($this->field != 'value') {
-            $field = $this->field;
-            return $value->$field;
+        if (isset($ast->literal)) {
+            return $ast->literal;
         }
-        return $value;
-    }
-    
-    private function get_compare_to_value($arguments)
-    {
-        if (isset($this->value->literal)) {
-            return $this->value->literal;
+        
+        $property = $ast->property[0];
+        if ($property != 'value') {
+            return $input->$property;
         }
-        $property = $this->value->property[0];
-        return $arguments->$property;
+        
+        return $input;
     }
     
     private function is_in_list($list, $value) 
