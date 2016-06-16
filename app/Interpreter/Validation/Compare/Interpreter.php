@@ -28,7 +28,7 @@ class Interpreter
             return $left_value > $right_value;
         }
         if ($this->comparator == "exists_in"){    
-            //return $this->is_in_list($value, $compare_to_value);
+            return $this->is_in_list($left_value, $right_value);
         }
 
         throw new Exception("Unknown comparator $this->comparator");
