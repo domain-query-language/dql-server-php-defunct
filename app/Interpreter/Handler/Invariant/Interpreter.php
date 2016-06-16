@@ -16,7 +16,7 @@ class Interpreter
         $this->ast = $ast;
     }
     
-    public function interpret($root, $command)
+    public function interpret($root, $command=null)
     { 
         $data = $this->querier->query($this->ast->id, $root, $command);
         return $this->validator->check($this->ast->id, $data, $command);
