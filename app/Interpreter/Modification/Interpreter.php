@@ -16,9 +16,9 @@ class Interpreter
             $value = $this->get_value($statement->value, $event);
             if ($statement->type == 'set') {
                 $root->$property = $value;
-            } else if ($statement->type == 'add') {
+            } else if ($statement->type == 'add_to') {
                 $root->$property[] = $value;
-            } else if ($statement->type == 'remove') {
+            } else if ($statement->type == 'remove_from') {
                 $root->$property = $this->remove_from_list($root->$property, $value);
             }
         }
