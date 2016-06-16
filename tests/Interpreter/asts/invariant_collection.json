@@ -1,0 +1,17 @@
+{
+  "id": "e69f16b1-ba38-4983-a838-1c75fab11490",
+  "aggregate_id": "597e7469-4b2f-4cb9-b85f-12f9abd54403",
+  "parameters": {
+    "entity_id": "4ea61742-409a-48b6-9563-2587c681f838"
+  },
+  "query": null,
+  "check": {
+    "condition": [{
+      "field": "list",
+      "comparator": "exists_in",
+      "value": {
+        "property": ["entity_id"]
+      }
+    }]
+  }
+}

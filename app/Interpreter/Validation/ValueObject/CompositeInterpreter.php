@@ -33,7 +33,7 @@ class CompositeInterpreter
                 return false;
             }
             $sub_value = $object->$key;
-            if ($this->interpreters[$index]->validate($sub_value)) {
+            if ($this->interpreters[$index]->check($sub_value)) {
                 return false;
             }
         }

@@ -9,10 +9,10 @@ class Interpreter
         $this->interpreters = $interpreters;
     }
     
-    public function check($value)
+    public function check($value, $arguments=null)
     { 
-        foreach ($this->interpreters as $interprter) {
-            if (!$interprter->check($value)) {
+        foreach ($this->interpreters as $interpreter) {
+            if (!$interpreter->check($value, $arguments)) {
                 return false;
             }
         }
