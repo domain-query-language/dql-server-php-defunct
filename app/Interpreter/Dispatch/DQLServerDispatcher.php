@@ -1,27 +1,26 @@
 <?php namespace App\Interpreter\Dispatch;
 
-use App\Interpreter\Command\Interpreter;
+use App\Interpreter\Command\Factory;
 use App\DQLServer\Dispatcher;
 use App\DQLServer\Command;
 
 class DQLServerDispatcher implements Dispatcher
 {
-    private $command_transformer;
+    private $command_factory;
     private $dispatcher;
     
     public function __construct( 
         EventLockerDispatcher $dispatcher,
-        Interpreter $command_transformer
+        Factory $command_factory
     )
     {
-        $this->command_transformer = $command_transformer;
+        $this->command_factory = $command_factory;
         $this->dispatcher = $dispatcher;
     }
     
     public function dispatch(Command $dql_command)
     {
-        $command = $this->command_transformer->transform($dql_command);
-        
+        $command = $this->command_factory->dql_command($dql_command);
         return $this->dispatcher->dispatch($command);
     }
 }

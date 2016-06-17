@@ -17,7 +17,7 @@ class DQLServerDispatcherTest extends \Test\Interpreter\TestCase
         $this->mock_event_locker = $this->getMockBuilder(Dispatch\EventLockerDispatcher::class)
             ->disableOriginalConstructor()->getMock();
         
-        $this->mock_transformer = $this->getMockBuilder(\App\Interpreter\Command\Interpreter::class)
+        $this->mock_transformer = $this->getMockBuilder(\App\Interpreter\Command\Factory::class)
             ->disableOriginalConstructor()->getMock();
         
         $this->dispatcher = new Dispatch\DQLServerDispatcher(
@@ -33,14 +33,20 @@ class DQLServerDispatcherTest extends \Test\Interpreter\TestCase
         
         $this->command = new Command($command_id, $aggregate_id, $payload);
     }
-            
-    public function test_transforms_event()
-    {
+           
+    public function test_transforms_and_forwards_command()
+    {      
+        $transformed_command = 'command';
         
-    }
-    
-    public function test_passes_through_to_dispatcher()
-    {        
+        $this->mock_transformer->expects($this->once())
+                 ->method('dql_command')
+                 ->with($this->equalTo($this->command))
+                ->willReturn($transformed_command);
         
+        $this->mock_event_locker->expects($this->once())
+                 ->method('dispatch')
+                 ->with($this->equalTo($transformed_command));
+        
+        $this->dispatcher->dispatch($this->command);
     } 
 }

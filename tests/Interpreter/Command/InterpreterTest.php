@@ -1,16 +1,16 @@
 <?php namespace Test\Interpreter\Validation\Command;
 
-use App\Interpreter\Command\Interpreter;
+use App\Interpreter\Command\Factory;
 use App\DQLServer\Command;
 
-class InterpreterTest extends \Test\Interpreter\TestCase
+class FactoryTest extends \Test\Interpreter\TestCase
 {
-    private $interpreter;
+    private $factory;
 
     public function setUp()
     {
         parent::setUp();
-        $this->interpreter = $this->app->make(Interpreter::class);
+        $this->factory = $this->app->make(Factory::class);
     }
         
     public function test_build()
@@ -20,9 +20,10 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         $payload = (object)[
             'shopper_id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6'
         ];
+        
         $command = new Command($command_id, $aggregate_id, $payload);
         
-        $command_dto = $this->interpreter->transform($command);
+        $actual = $this->factory->dql_command($command);
         
         $expected = (object)[
             "schema"=> (object)[
@@ -35,6 +36,6 @@ class InterpreterTest extends \Test\Interpreter\TestCase
             ]
         ];
         
-        $this->assertEquals($expected, $command_dto);
+        $this->assertEquals($expected, $actual);
     }
 }
