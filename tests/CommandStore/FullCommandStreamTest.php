@@ -4,11 +4,11 @@ use App\CommandStore\FullCommandStream;
 
 class FullCommandStreamTest extends \Test\TestCase
 {
-    private $command_repository;
+    private $repository;
     
     public function setUp()
     {
-        $this->command_repository = new CommandRepository();
+        $this->repository = new CommandRepository();
     }
     
     public function test_iterates_through_list()
@@ -18,8 +18,8 @@ class FullCommandStreamTest extends \Test\TestCase
 
     private function assert_row_count($expected_count)
     {
-        $this->command_repository->set_row_count($expected_count);
-        $command_stream = new FullCommandStream($this->event_repository);
+        $this->repository->set_row_count($expected_count);
+        $command_stream = new FullCommandStream($this->repository);
         
         $count = 0;
         foreach ($command_stream as $command) {

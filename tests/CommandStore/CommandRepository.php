@@ -17,7 +17,7 @@ class CommandRepository implements \App\CommandStore\CommandRepository
         return array_slice($this->rows, $offset, $limit);
     }
 
-    public function store(array $events)
+    public function store(array $commands)
     {
         
     }

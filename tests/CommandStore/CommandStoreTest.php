@@ -1,8 +1,8 @@
 <?php namespace Test\CommandStore;
 
-use App\EventStore\CommandStore;
-use App\EventStore\CommandRepository;
-use App\EventStore\ComandStreamFactory;
+use App\CommandStore\CommandStore;
+use App\CommandStore\CommandRepository;
+use App\CommandStore\CommandStreamFactory;
 
 class CommandStoreTest extends \Test\TestCase 
 {
@@ -14,7 +14,7 @@ class CommandStoreTest extends \Test\TestCase
     {
         $this->stub_command_repo = $this->getMockBuilder(CommandRepository::class)
                 ->disableOriginalConstructor()->getMock();
-        $this->stub_command_stream_factory = $this->getMockBuilder(ComandStreamFactory::class)
+        $this->stub_command_stream_factory = $this->getMockBuilder(CommandStreamFactory::class)
                 ->disableOriginalConstructor()->getMock();
         $this->command_store = new CommandStore($this->stub_command_repo, $this->stub_command_stream_factory);
     }

@@ -1,17 +1,16 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEventLogTable extends Migration
+class CreateCommandLogTable extends Migration
 {
     public function up()
     {
         $statement = "
-            CREATE TABLE `event_log` (
-            `event_id` TEXT NOT NULL,
+            CREATE TABLE `command_log` (
+            `command_id` TEXT NOT NULL,
             `aggregate_id` TEXT NOT NULL,
-            `schema_event_id` TEXT NOT NULL,
+            `schema_command_id` TEXT NOT NULL,
             `schema_aggregate_id` TEXT NOT NULL,
             `occured_at` datetime NOT NULL,
             `order` int unsigned AUTO_INCREMENT,
@@ -24,6 +23,6 @@ class CreateEventLogTable extends Migration
 
     public function down()
     {
-        Schema::drop("event_log");
+        Schema::drop("command_log");
     }
 }
