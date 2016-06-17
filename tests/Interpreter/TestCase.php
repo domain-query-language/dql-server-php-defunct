@@ -14,6 +14,7 @@ class TestCase extends \Test\TestCase
         $this->app->bind(\App\Interpreter\Modification\AstRepository::class, AstRepository::class);
         $this->app->bind(\App\Interpreter\Handler\AstRepository::class, AstRepository::class);
         $this->app->bind(\App\Interpreter\Query\AstRepository::class, AstRepository::class);
+        $this->app->bind(\App\Interpreter\Command\AstRepository::class, AstRepository::class);
         
         $this->app->bind(\App\Interpreter\InvariantRepository::class, InvariantRepository::class);
         $this->app->bind(\App\Interpreter\EventRepository::class, EventRepository::class);
@@ -22,6 +23,8 @@ class TestCase extends \Test\TestCase
         $this->app->bind(\App\Interpreter\HandlerRepository::class, HandlerRepository::class);
         $this->app->bind(\App\Interpreter\EntityRepository::class, EntityRepository::class);
         $this->app->bind(\App\Interpreter\AggregateRepository::class, AggregateRepository::class);
-        $this->app->singleton(\Infrastructure\App\EventStore\EventStore::class, EventStore::class);
+        
+        $this->app->bind(\App\Interpreter\EventStore::class, EventStore::class);
+        $this->app->bind(\App\Interpreter\CommandStore::class, CommandStore::class);
     }
 }

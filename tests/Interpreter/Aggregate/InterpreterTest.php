@@ -11,7 +11,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         
-        $this->event_store = $this->app->make(\Infrastructure\App\EventStore\EventStore::class);
+        $this->event_store = $this->app->make(\App\Interpreter\EventStore::class);
         
         $ast = $this->ast_repo->aggregate();
         
