@@ -3,9 +3,9 @@
 use App\Interpreter\Handler;
 use App\Interpreter\AggregateRepository;
 use App\Interpreter\Aggregate;
-use Test\Interpreter\EventStore;
+use App\Interpreter\EventStore;
 
-class Interpreter
+class Dispatcher
 {
     private $handler;
     private $aggregate_repo;
@@ -25,7 +25,7 @@ class Interpreter
         $this->event_store = $event_store;
     }
         
-    public function interpret($command)
+    public function dispatch($command)
     {
         $root_entity = $this->build_root_entity($command);
                 

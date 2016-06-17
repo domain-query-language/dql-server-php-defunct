@@ -1,10 +1,10 @@
 <?php namespace Test\Interpreter\Dispatch;
 
 use App\Interpreter\Handler\Invariant;
-use Infrastructure\App\Interpreter\EventLockerDispatch;
+use App\Interpreter\Dispatch\EventLockerDispatcher;
 use App\EventStore\StreamID;
 
-class EventLockerInterpreterTest extends \Test\Interpreter\TestCase
+class EventLockerDispatcherTest extends \Test\Interpreter\TestCase
 {
     private $mock_dispatch_interpreter;
     private $mock_locker;
@@ -16,12 +16,12 @@ class EventLockerInterpreterTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         
-        $this->mock_dispatch_interpreter = $this->getMockBuilder(\App\Interpreter\Dispatch\Interpreter::class)
+        $this->mock_dispatch_interpreter = $this->getMockBuilder(\App\Interpreter\Dispatch\Dispatcher::class)
             ->disableOriginalConstructor()->getMock();
         $this->mock_locker = $this->getMockBuilder(\App\EventStore\EventStreamLocker::class)
             ->disableOriginalConstructor()->getMock();
         
-        $this->event_locker_dispatcher = new EventLockerDispatch(
+        $this->event_locker_dispatcher = new EventLockerDispatcher(
             $this->mock_locker,
             $this->mock_dispatch_interpreter
         );
@@ -44,12 +44,12 @@ class EventLockerInterpreterTest extends \Test\Interpreter\TestCase
                  ->method('unlock')
                  ->with($this->equalTo($this->stream_id));
         
-        $this->event_locker_dispatcher->interpret($this->command);
+        $this->event_locker_dispatcher->dispatch($this->command);
     } 
     
     public function test_unlocks_if_there_is_an_error()
     {
-        $this->mock_dispatch_interpreter->method('interpret')
+        $this->mock_dispatch_interpreter->method('dispatch')
                 ->will($this->throwException(new Invariant\Exception));
         
         $this->mock_locker->expects($this->once())
@@ -58,6 +58,6 @@ class EventLockerInterpreterTest extends \Test\Interpreter\TestCase
         
         $this->setExpectedException(Invariant\Exception::class);
         
-        $this->event_locker_dispatcher->interpret($this->command);
+        $this->event_locker_dispatcher->dispatch($this->command);
     }
 }

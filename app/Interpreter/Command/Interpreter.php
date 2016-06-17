@@ -1,33 +1,36 @@
 <?php namespace App\Interpreter\Command;
 
 use App\Interpreter\Validation;
+use App\DQLServer\Command;
 
 class Interpreter
 {
-    private $command_id;
-    private $aggregate_id;
     private $validator;
+    private $ast_repo;
     
-    public function __construct($command_id, $aggregate_id, Validation\Validator $validator)
+    public function __construct(
+        Validation\Validator $validator,
+        AstRepository $ast_repo
+    )
     {
-        $this->command_id = $command_id;
-        $this->aggregate_id = $aggregate_id;
         $this->validator = $validator;
+        $this->ast_repo = $ast_repo;
     }
     
-    public function interpret($value)
+    public function transform(Command $command)
     {
-        $aggregate_id = $value->id;
-        $payload = isset($value->payload) ? $value->payload: [];
+        $payload = isset($command->payload) ? $command->payload: [];
+        
+        $ast = $this->ast_repo->fetch($command->command_id);
         
         $result = (object)[
             "schema"=> (object)[
-                'id'=>$this->command_id,
-                'aggregate_id'=>$this->aggregate_id
+                'id'=>$command->command_id,
+                'aggregate_id'=>$ast->aggregate_id
             ],
             "domain"=> (object)[
-                "aggregate_id"=> $aggregate_id,
-                'payload'=>$this->validator->validate($this->command_id, $payload)
+                "aggregate_id"=> $command->aggregate_id,
+                'payload'=>$this->validator->validate($command->command_id, $payload)
             ]
         ]; 
         return $result;
