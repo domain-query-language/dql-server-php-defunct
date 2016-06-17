@@ -1,5 +1,7 @@
 <?php namespace App\DQLServer;
 
+use DateTime;
+
 class Command 
 {
     public $command_id;
@@ -12,6 +14,11 @@ class Command
         $this->command_id = $command_id;
         $this->aggregate_id = $aggregate_id;
         $this->payload = $payload;
-        $this->timestamp = $timestamp ?: date("Y-m-d H:i:s").".".microtime();
+        
+        $t = microtime(true);
+        $micro = sprintf("%06d",($t - floor($t)) * 1000000);
+        $d = new DateTime( date('Y-m-d H:i:s.'.$micro, $t) );
+        
+        $this->timestamp = $timestamp ?: $d->format("Y-m-d H:i:s.u");
     }
 }

@@ -21,7 +21,7 @@ class CommandBuilderTest extends \Test\TestCase
         
         $this->command_builder = new CommandBuilder($stub_id_generator, $stub_datetime_generator);
         $this->command_builder->set_payload((object)['value'=>true])
-            ->set_schema_event_id("14c3896d-092e-4370-bf72-2093facc9792")
+            ->set_schema_command_id("14c3896d-092e-4370-bf72-2093facc9792")
             ->set_schema_aggregate_id("b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f");
         
         $this->command = $this->command_builder->build();
@@ -45,7 +45,7 @@ class CommandBuilderTest extends \Test\TestCase
     public function test_populates_schema()
     {
         $expected = new Schema();
-        $expected->event_id = "14c3896d-092e-4370-bf72-2093facc9792";
+        $expected->command_id = "14c3896d-092e-4370-bf72-2093facc9792";
         $expected->aggregate_id = "b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f";
       
         $this->assertEquals($expected, $this->command->schema);
@@ -72,10 +72,10 @@ class CommandBuilderTest extends \Test\TestCase
     public function test_can_set_id()
     {
         $id = 'a7285082-a50c-4593-8b13-06a0fd75ba71';
-        $this->command_builder->set_event_id($id);
+        $this->command_builder->set_command_id($id);
         
         $command = $this->command_builder->build();
-        $this->assertEquals($id, $command->event_id);
+        $this->assertEquals($id, $command->command_id);
     }
     
     public function test_can_set_occurred_at()

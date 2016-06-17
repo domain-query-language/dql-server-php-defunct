@@ -1,14 +1,14 @@
 <?php namespace Test\EventStore\PDO;
 
-use Infrastructure\App\EventStore\PDO\EventRepository;
-use Test\EventStore\AbstractEventRepositoryTest;
+use Infrastructure\App\CommandStore\PDO\CommandRepository;
+use Test\CommandStore\AbstractCommandRepositoryTest;
 
-class EventRepositoryTest extends AbstractEventRepositoryTest
+class CommandRepositoryTest extends AbstractCommandRepositoryTest
 {    
     protected function build_event_repository()
     {
         $this->artisan('migrate');
-        return new EventRepository(self::$pdo, $this->event_builder);
+        return new CommandRepository(self::$pdo, $this->event_builder);
     }
     
     public function tearDown()
