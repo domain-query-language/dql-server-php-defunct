@@ -13,7 +13,7 @@ class CreateEventLogTable extends Migration
             `aggregate_id` TEXT NOT NULL,
             `schema_event_id` TEXT NOT NULL,
             `schema_aggregate_id` TEXT NOT NULL,
-            `occured_at` datetime NOT NULL,
+            `occured_at` TEXT NOT NULL,
             `order` int unsigned AUTO_INCREMENT,
             `payload` mediumtext NOT NULL,
             PRIMARY KEY (`order`)
