@@ -8,6 +8,7 @@ class DispatcherTest extends \Test\Interpreter\TestCase
     private $command;
     private $dispatcher;
     private $event_store;
+    private $command_store;
 
     public function setUp()
     {
@@ -15,6 +16,8 @@ class DispatcherTest extends \Test\Interpreter\TestCase
                 
         $this->event_store = $this->app->make(\App\Interpreter\EventStore::class);
         $this->event_store->clear();
+        
+        $this->command_store = $this->app->make(\App\Interpreter\CommandStore::class);
         
         $this->dispatcher = $this->app->make(Dispatch\Dispatcher::class);
                 
@@ -30,7 +33,7 @@ class DispatcherTest extends \Test\Interpreter\TestCase
         ];
     }
             
-    public function test_events_are_sent_to_event_store()
+    public function test_events_stores_events_on_success()
     {
         $events = $this->dispatcher->dispatch($this->command);
         
@@ -48,8 +51,8 @@ class DispatcherTest extends \Test\Interpreter\TestCase
         $this->dispatcher->dispatch($this->command);
     } 
     
-    public function test_dispatcher_validates_command()
+    public function test_dispatcher_stores_command_on_success()
     {
-        
+        $this->assertEquals([$this->command], $this->command_store->fetch_all());
     }
 }

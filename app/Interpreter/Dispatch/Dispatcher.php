@@ -4,6 +4,7 @@ use App\Interpreter\Handler;
 use App\Interpreter\AggregateRepository;
 use App\Interpreter\Aggregate;
 use App\Interpreter\EventStore;
+use App\Interpreter\CommandStore;
 
 class Dispatcher
 {
@@ -11,18 +12,21 @@ class Dispatcher
     private $aggregate_repo;
     private $aggregate_factory;
     private $event_store;
+    private $command_store;
     
     public function __construct( 
         Handler\Handler $handler,
         AggregateRepository $aggregate_repo,
         Aggregate\Factory $aggregate_factory,
-        EventStore $event_store
+        EventStore $event_store,
+        CommandStore $command_store
     )
     {
         $this->handler = $handler;
         $this->aggregate_repo = $aggregate_repo;
         $this->aggregate_factory = $aggregate_factory;
         $this->event_store = $event_store;
+        $this->command_store = $command_store;
     }
         
     public function dispatch($command)
@@ -32,6 +36,7 @@ class Dispatcher
         $events = $this->handle_command($command, $root_entity);
         
         $this->event_store->store($events);
+        $this->command_store->store([$command]);
         
         return $events;
     }

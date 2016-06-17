@@ -13,9 +13,4 @@ class CommandStore implements \App\Interpreter\CommandStore
     {
         self::$commands = $commands;
     }
-    
-    public function clear()
-    {
-        self::$commands = [];
-    }
 }
