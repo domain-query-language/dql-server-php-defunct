@@ -39,6 +39,7 @@ abstract class AbstractEventRepositoryTest extends DBTestCase
     {
         $this->event_builder->set_event_id($event_id)
             ->set_aggregate_id($aggregate_id)
+            ->set_command_id("88f2ecaa-81dd-467f-851d-cdd214f3f3bb")
             ->set_schema_event_id("14c3896d-092e-4370-bf72-2093facc9792")
             ->set_schema_aggregate_id("b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f")
             ->set_occured_at("2014-10-10 12:12:12")

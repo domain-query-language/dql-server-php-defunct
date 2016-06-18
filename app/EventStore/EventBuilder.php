@@ -19,6 +19,7 @@ class EventBuilder
         $this->event = new Event(); 
         $this->event->event_id = null;
         $this->event->aggregate_id = null;
+        $this->event->command_id = null;
         $this->occured_at = null;
         $this->payload = null;
         $this->event->schema = new Schema();
@@ -33,6 +34,12 @@ class EventBuilder
     public function set_aggregate_id($id)
     {
         $this->event->aggregate_id = $id;
+        return $this;
+    }
+    
+    public function set_command_id($id)
+    {
+        $this->event->command_id = $id;
         return $this;
     }
     

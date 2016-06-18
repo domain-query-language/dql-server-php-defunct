@@ -79,6 +79,7 @@ class EventRepository implements \App\EventStore\EventRepository
             ->set_schema_event_id($event_row->schema_event_id)
             ->set_schema_aggregate_id($event_row->schema_aggregate_id)
             ->set_aggregate_id($event_row->aggregate_id)
+            ->set_command_id($event_row->command_id)
             ->set_payload(json_decode($event_row->payload));
             
         return $this->event_builder->build();
@@ -91,13 +92,13 @@ class EventRepository implements \App\EventStore\EventRepository
         }
         $insert = "
             INSERT INTO event_log
-                (event_id, aggregate_id, schema_event_id, schema_aggregate_id, occured_at, payload)
+                (event_id, command_id, aggregate_id, schema_event_id, schema_aggregate_id, occured_at, payload)
             VALUES";
         
         $values = [];
         $data = [];
         foreach ($events as $event) {
-            $values[] = "(?, ?, ?, ?, ?, ?)";
+            $values[] = "(?, ?, ?, ?, ?, ?, ?)";
             $data = array_merge($data, $this->tranform_event_to_row($event));
         }
            
@@ -110,6 +111,7 @@ class EventRepository implements \App\EventStore\EventRepository
     {
         return [
             $event->event_id,
+            $event->command_id,
             $event->aggregate_id,
             $event->schema->event_id,
             $event->schema->aggregate_id,

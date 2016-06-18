@@ -10,6 +10,7 @@ class CreateEventLogTable extends Migration
         $statement = "
             CREATE TABLE `event_log` (
             `event_id` TEXT NOT NULL,
+            `command_id` TEXT NOT NULL,
             `aggregate_id` TEXT NOT NULL,
             `schema_event_id` TEXT NOT NULL,
             `schema_aggregate_id` TEXT NOT NULL,
