@@ -55,9 +55,16 @@ class Dispatcher
     {
         $aggregate_id = $command->schema->id;
         $payload = $command->domain->payload;
+        $events = $this->handler->handle($aggregate_id, $root_entity, $payload);
+        
+        return $this->decorate_events_with_command_id($events, $command);
+    }
+    
+    private function decorate_events_with_command_id($events, $command)
+    {
         return array_map(function($event) use ($command){
             $event->domain->command_id = $command->domain->id;
             return $event;
-        }, $this->handler->handle($aggregate_id, $root_entity, $payload));
+        }, $events);
     }
 }
