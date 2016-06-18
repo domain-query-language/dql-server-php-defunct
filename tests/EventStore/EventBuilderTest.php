@@ -21,7 +21,8 @@ class EventBuilderTest extends \Test\TestCase
         
         $this->event_builder = new EventBuilder($stub_id_generator, $stub_datetime_generator);
         $this->event_builder->set_aggregate_id("a955d32b-0130-463f-b3ef-23adec9af469")
-            ->set_payload((object)['value'=>true])
+            ->set_payload((object)['value'=>true])     
+            ->set_command_id("88f2ecaa-81dd-467f-851d-cdd214f3f3bb")
             ->set_schema_event_id("14c3896d-092e-4370-bf72-2093facc9792")
             ->set_schema_aggregate_id("b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f");
         
@@ -56,9 +57,11 @@ class EventBuilderTest extends \Test\TestCase
     {
         $aggregate_id = 'a955d32b-0130-463f-b3ef-23adec9af469';
         $payload = (object)['value'=>true];
+        $command_id = "88f2ecaa-81dd-467f-851d-cdd214f3f3bb";
         
         $this->assertEquals($aggregate_id, $this->event->aggregate_id);
         $this->assertEquals($payload, $this->event->payload);
+        $this->assertEquals($command_id, $this->event->command_id);
     }
     
     public function test_resets_after_build()

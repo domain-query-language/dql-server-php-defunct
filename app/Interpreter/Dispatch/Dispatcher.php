@@ -55,6 +55,9 @@ class Dispatcher
     {
         $aggregate_id = $command->schema->id;
         $payload = $command->domain->payload;
-        return $this->handler->handle($aggregate_id, $root_entity, $payload);
+        return array_map(function($event) use ($command){
+            $event->domain->command_id = $command->domain->id;
+            return $event;
+        }, $this->handler->handle($aggregate_id, $root_entity, $payload));
     }
 }

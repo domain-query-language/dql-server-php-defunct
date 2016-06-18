@@ -33,6 +33,7 @@ class EventStoreTest extends TestCase
                 'aggregate_id'=>'01f99d4f-4cc7-4125-96fd-11f7dcbe8f9a'
             ],
             "domain"=> (object)[
+                "command_id" => "88f2ecaa-81dd-467f-851d-cdd214f3f3bb",
                 "aggregate_id"=> "ff3a666b-4288-4ecd-86d7-7f511a2fd378",
                 'payload'=> (object)['data'=>true]
             ]
@@ -42,11 +43,12 @@ class EventStoreTest extends TestCase
     public function test_translates_event_before_storing_it()
     {
         $event = $this->interpreter_event;
-        $this->event_builder->set_aggregate_id($event->domain->aggregate_id)
-                    ->set_schema_event_id($event->schema->id)
-                    ->set_schema_aggregate_id($event->schema->aggregate_id)
-                    ->set_payload($event->domain->payload);
-        
+        $this->event_builder->set_aggregate_id($event->domain->aggregate_id)       
+                ->set_command_id($event->domain->command_id)
+                ->set_schema_event_id($event->schema->id)
+                ->set_schema_aggregate_id($event->schema->aggregate_id)
+                ->set_payload($event->domain->payload);
+
         $transformed_event = $this->event_builder->build();
         
         $this->infrastructure_event_store->expects($this->once())

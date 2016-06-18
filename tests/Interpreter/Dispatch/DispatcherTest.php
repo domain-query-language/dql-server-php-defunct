@@ -9,6 +9,7 @@ class DispatcherTest extends \Test\Interpreter\TestCase
     private $dispatcher;
     private $event_store;
     private $command_store;
+    private $command_id;
 
     public function setUp()
     {
@@ -21,14 +22,17 @@ class DispatcherTest extends \Test\Interpreter\TestCase
         
         $this->dispatcher = $this->app->make(Dispatch\Dispatcher::class);
                 
+        $this->command_id = "88f2ecaa-81dd-467f-851d-cdd214f3f3bb";
+        
         $this->command = (object)[
-            "schema"=> (object)[
-                'id'=>'2af65a9c-5a1d-46d0-b2be-5a102da14cab',
-                'aggregate_id'=>'01f99d4f-4cc7-4125-96fd-11f7dcbe8f9a'
+            "schema" => (object)[
+                'id' => '2af65a9c-5a1d-46d0-b2be-5a102da14cab',
+                'aggregate_id' => '01f99d4f-4cc7-4125-96fd-11f7dcbe8f9a'
             ],
-            "domain"=> (object)[
-                "aggregate_id"=> "2ea22141-89f4-4216-88f6-81a67cb20d20",
-                'payload'=>(object)['shopper_id'=>'7a53bbd2-8919-4bdf-a43c-c330b2f304e6']
+            "domain" => (object)[
+                'id' => $this->command_id,
+                "aggregate_id" => "2ea22141-89f4-4216-88f6-81a67cb20d20",
+                'payload' => (object)['shopper_id'=>'7a53bbd2-8919-4bdf-a43c-c330b2f304e6']
             ]
         ];
     }
@@ -38,6 +42,15 @@ class DispatcherTest extends \Test\Interpreter\TestCase
         $events = $this->dispatcher->dispatch($this->command);
         
         $this->assertEquals($events, $this->event_store->fetch('', ''));
+    }
+    
+    public function test_events_are_decorated_with_aggregate_id()
+    {
+        $events = $this->dispatcher->dispatch($this->command);
+        
+        foreach ($events as $event) {
+            $this->assertEquals($this->command_id, $event->domain->command_id);
+        }
     }
     
     public function test_that_events_are_loaded_from_the_stream_and_replayed_to_build_state()
