@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class MakeEventStreamLockTable extends Migration
+class CreateEventStreamLockTable extends Migration
 {
     /**
      * Run the migrations.
