@@ -34,7 +34,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_update_sets_the_value()
     {
-        $this->update_interpreter()->update($this->root);
+        $this->update()->update($this->root);
         
         $result = $this->invariant()->check($this->root);
         $this->assertTrue($result);
