@@ -11,9 +11,9 @@ class Interpreter
         $this->value_factory = $value_factory;
     }
         
-    public function query($rrot)
+    public function query($root)
     {
-        $values = $this->value_factory->context($rrot);
+        $values = $this->value_factory->context($root);
         $this->statement->execute($values);
         $rows = $this->statement->fetchAll(\PDO::FETCH_OBJ);
         
