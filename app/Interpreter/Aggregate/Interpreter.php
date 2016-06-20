@@ -1,7 +1,7 @@
 <?php namespace App\Interpreter\Aggregate;
 
 use App\Interpreter\Modification;
-use Test\Interpreter\EventStore;
+use App\Interpreter\EventStore;
 use App\Interpreter\Validation;
 
 class Interpreter

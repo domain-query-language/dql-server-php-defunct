@@ -1,4 +1,4 @@
-<?php namespace Test\Interpreter;
+<?php namespace Test\Interpreter\Fake;
 
 class CommandStore implements \App\Interpreter\CommandStore
 {

@@ -24,7 +24,7 @@ class TestCase extends \Test\TestCase
         $this->app->bind(\App\Interpreter\EntityRepository::class, EntityRepository::class);
         $this->app->bind(\App\Interpreter\AggregateRepository::class, AggregateRepository::class);
         
-        $this->app->bind(\App\Interpreter\EventStore::class, EventStore::class);
-        $this->app->bind(\App\Interpreter\CommandStore::class, CommandStore::class);
+        $this->app->bind(\App\Interpreter\EventStore::class, Fake\EventStore::class);
+        $this->app->bind(\App\Interpreter\CommandStore::class, Fake\CommandStore::class);
     }
 }
