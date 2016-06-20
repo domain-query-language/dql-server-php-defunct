@@ -3,7 +3,7 @@
 use Infrastructure\App\Interpreter;
 use App\EventStore;
 
-class EventStoreTest extends TestCase
+class EventStoreAdapterTest extends TestCase
 {
     private $mock_event_store;
     private $event_builder;

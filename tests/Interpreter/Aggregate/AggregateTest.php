@@ -2,7 +2,7 @@
 
 use App\Interpreter\Aggregate;
 
-class InterpreterTest extends \Test\Interpreter\TestCase
+class AggregateTest extends \Test\Interpreter\TestCase
 {
     private $event_store;
     private $aggregate;
@@ -12,19 +12,16 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         parent::setUp();
         
         $this->event_store = $this->app->make(\App\Interpreter\EventStore::class);
-        
-        $ast = $this->ast_repo->aggregate();
-        
-        $factory = $this->app->make(Aggregate\Factory::class);
-        
-        $this->aggregate = $factory->ast($ast);
-        
-        $this->aggregate_id = "2ea22141-89f4-4216-88f6-81a67cb20d20";
+                
+        $this->aggregate = $this->app->make(Aggregate\Aggregate::class);
+   
+        $this->id = "e5cbb69e-4581-4095-b77c-2e9eb1c8af17";
+        $this->entity_id = "2ea22141-89f4-4216-88f6-81a67cb20d20";
     }
         
     public function test_builds_root_entity()
     {
-        $entity = $this->aggregate->build_root($this->aggregate_id);
+        $entity = $this->aggregate->build_root($this->id, $this->entity_id);
         
         $expected = (object)[
             'id' => '2ea22141-89f4-4216-88f6-81a67cb20d20',
@@ -49,7 +46,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
         $this->event_store->store([$event]);
         
-        $entity = $this->aggregate->build_root($this->aggregate_id);
+        $entity = $this->aggregate->build_root($this->id, $this->entity_id);
         
         $expected = (object)[
             'id' => '2ea22141-89f4-4216-88f6-81a67cb20d20',
