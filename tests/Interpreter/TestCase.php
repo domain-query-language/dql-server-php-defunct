@@ -1,5 +1,7 @@
 <?php namespace Test\Interpreter;
 
+use Test\Interpreter\Fake\AstRepository;
+
 class TestCase extends \Test\TestCase
 {
     protected $ast_repo;

@@ -4,7 +4,7 @@ class ValueObjectRepository implements \App\Interpreter\ValueObjectRepository
 {
     private $ast_repo;
     
-    public function __construct(\Test\Interpreter\AstRepository $ast_repo)
+    public function __construct(\Test\Interpreter\Fake\AstRepository $ast_repo)
     {
         $this->ast_repo = $ast_repo;
     }

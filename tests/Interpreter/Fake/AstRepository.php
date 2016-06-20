@@ -1,4 +1,4 @@
-<?php namespace Test\Interpreter;
+<?php namespace Test\Interpreter\Fake;
 
 use App\Interpreter\Validation;
 use App\Interpreter\Modification;

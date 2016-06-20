@@ -4,7 +4,7 @@ class EntityRepository implements \App\Interpreter\Validation\AstRepository
 {
     private $ast_repository;
     
-    public function __construct(\Test\Interpreter\AstRepository $ast_repository)
+    public function __construct(\Test\Interpreter\Fake\AstRepository $ast_repository)
     {
         $this->ast_repository = $ast_repository;
     }
