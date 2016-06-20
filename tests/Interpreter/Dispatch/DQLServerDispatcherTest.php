@@ -14,9 +14,8 @@ class DQLServerDispatcherTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         
-        $this->mock_event_locker = $this->prophesize(Dispatch\EventLockerDispatcher::class);
-        
-        $this->mock_transformer = $this->prophesize(\App\Interpreter\Command\Factory::class);
+        $this->mock_event_locker = $this->mock(Dispatch\EventLockerDispatcher::class);
+        $this->mock_transformer = $this->mock(\App\Interpreter\Command\Factory::class);
         
         $this->dispatcher = new Dispatch\DQLServerDispatcher(
             $this->mock_event_locker->reveal(),

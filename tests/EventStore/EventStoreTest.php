@@ -14,8 +14,8 @@ class EventStoreTest extends \Test\TestCase
     
     public function setUp()
     {
-        $this->stub_event_repo = $this->prophesize(EventRepository::class);
-        $this->stub_event_factory = $this->prophesize(EventStreamFactory::class);
+        $this->stub_event_repo = $this->mock(EventRepository::class);
+        $this->stub_event_factory = $this->stub(EventStreamFactory::class);
         $this->event_store = new EventStore(
             $this->stub_event_repo->reveal(), 
             $this->stub_event_factory->reveal()
@@ -33,7 +33,7 @@ class EventStoreTest extends \Test\TestCase
     
     public function test_returns_stream()
     {   
-        $aggregate_id = $this->prophesize(StreamID::class)->reveal();
+        $aggregate_id = $this->dummy(StreamID::class);
         
         $stream = new AggregateEventStream($this->stub_event_repo->reveal(), $aggregate_id);
         $this->stub_event_factory->aggregate_id($aggregate_id)

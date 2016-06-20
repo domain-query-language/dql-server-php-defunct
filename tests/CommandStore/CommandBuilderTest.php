@@ -12,7 +12,7 @@ class CommandBuilderTest extends \Test\TestCase
     
     public function setUp()
     {
-        $stub_id_generator = $this->prophesize(IDGenerator::class);
+        $stub_id_generator = $this->stub(IDGenerator::class);
         $stub_id_generator->generate()->willReturn("87484542-4a35-417e-8e95-5713b8f55c8e");
         
         $this->command_builder = new CommandBuilder($stub_id_generator->reveal());

@@ -13,10 +13,10 @@ class EventBuilderTest extends \Test\TestCase
     
     public function setUp()
     {
-        $stub_id_generator = $this->prophesize(IDGenerator::class);
+        $stub_id_generator = $this->stub(IDGenerator::class);
         $stub_id_generator->generate()->willReturn("87484542-4a35-417e-8e95-5713b8f55c8e");
         
-        $stub_datetime_generator = $this->prophesize(DateTimeGenerator::class);
+        $stub_datetime_generator = $this->stub(DateTimeGenerator::class);
         $stub_datetime_generator->generate()->willReturn('2014-10-10 12:12:12');
         
         $this->event_builder = new EventBuilder(
@@ -93,5 +93,4 @@ class EventBuilderTest extends \Test\TestCase
         $event = $this->event_builder->build();
         $this->assertEquals($datetime, $event->occured_at);
     }
-    
 }

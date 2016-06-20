@@ -15,7 +15,7 @@ abstract class AbstractEventStreamLockerTest extends DBTestCase
     {
         parent::setUp();
         
-        $this->stub_datetime_generator = $this->prophesize(DateTimeGenerator::class);
+        $this->stub_datetime_generator = $this->stub(DateTimeGenerator::class);
         $this->stub_datetime_generator->generate()->willReturn('2014-10-10 00:00:00.000');
         
         $this->locker = $this->make_locker($this->stub_datetime_generator->reveal());
@@ -63,12 +63,12 @@ abstract class AbstractEventStreamLockerTest extends DBTestCase
     
     public function test_locks_unlock_after_500ms()
     {
-        $stub_datetime_generator = $this->prophesize(DateTimeGenerator::class);
+        $stub_datetime_generator = $this->stub(DateTimeGenerator::class);
         
         $timestamps = ['2014-10-10 00:00:00.000', '2014-10-10 00:00:00.500'];
         $stub_datetime_generator->generate()
             ->will(function() use (&$timestamps){
-                return each($timestamps)['value'];;
+                return each($timestamps)['value'];
             });
         
         $locker = $this->make_locker($stub_datetime_generator->reveal());
@@ -82,7 +82,7 @@ abstract class AbstractEventStreamLockerTest extends DBTestCase
     {
         $this->setExpectedException(EventStreamLockerException::class);
         
-        $stub_datetime_generator = $this->prophesize(DateTimeGenerator::class);
+        $stub_datetime_generator = $this->stub(DateTimeGenerator::class);
         
         $timestamps = ['2014-10-10 00:00:00.000', '2014-10-10 00:00:00.499'];
         $stub_datetime_generator->generate()

@@ -6,7 +6,7 @@ use App\EventStore\StreamID;
 
 class EventLockerDispatcherTest extends \Test\Interpreter\TestCase
 {
-    private $mock_dispatch_interpreter;
+    private $stub_dispatch_interpreter;
     private $mock_locker;
     private $event_locker_dispatcher;
     private $command;
@@ -16,12 +16,12 @@ class EventLockerDispatcherTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         
-        $this->mock_dispatch_interpreter = $this->prophesize(\App\Interpreter\Dispatch\Dispatcher::class);
-        $this->mock_locker = $this->prophesize(\App\EventStore\EventStreamLocker::class);
+        $this->stub_dispatch_interpreter = $this->stub(\App\Interpreter\Dispatch\Dispatcher::class);
+        $this->mock_locker = $this->mock(\App\EventStore\EventStreamLocker::class);
         
         $this->event_locker_dispatcher = new EventLockerDispatcher(
             $this->mock_locker->reveal(),
-            $this->mock_dispatch_interpreter->reveal()
+            $this->stub_dispatch_interpreter->reveal()
         );
              
         $this->command = (object)[
@@ -48,7 +48,7 @@ class EventLockerDispatcherTest extends \Test\Interpreter\TestCase
         $this->mock_locker->lock($this->stream_id)
             ->shouldBeCalled();
         
-        $this->mock_dispatch_interpreter->dispatch($this->command)
+        $this->stub_dispatch_interpreter->dispatch($this->command)
             ->willThrow(new Invariant\Exception);
         
         $this->mock_locker->unlock($this->stream_id)

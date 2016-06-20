@@ -12,8 +12,8 @@ class CommandStoreTest extends \Test\TestCase
     
     public function setUp()
     {
-        $this->stub_command_repo = $this->prophesize(CommandRepository::class);
-        $this->stub_command_stream_factory = $this->prophesize(CommandStreamFactory::class);
+        $this->stub_command_repo = $this->mock(CommandRepository::class);
+        $this->stub_command_stream_factory = $this->stub(CommandStreamFactory::class);
         $this->command_store = new CommandStore(
             $this->stub_command_repo->reveal(), 
             $this->stub_command_stream_factory->reveal()

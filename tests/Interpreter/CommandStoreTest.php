@@ -13,9 +13,9 @@ class CommandStoreTest extends TestCase
     {
         parent::setUp();
         
-        $this->infrastructure_store = $this->prophesize( \App\CommandStore\CommandStore::class);
+        $this->infrastructure_store = $this->mock( \App\CommandStore\CommandStore::class);
         
-        $stub_id_generator = $this->prophesize(\App\CommandStore\IDGenerator::class);
+        $stub_id_generator = $this->stub(\App\CommandStore\IDGenerator::class);
         $stub_id_generator->generate()->willReturn("87484542-4a35-417e-8e95-5713b8f55c8e");
         
         $this->builder = new \App\CommandStore\CommandBuilder($stub_id_generator->reveal());
