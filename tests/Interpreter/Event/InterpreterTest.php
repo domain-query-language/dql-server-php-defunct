@@ -11,7 +11,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         $this->factory = $this->app->make(Event\Factory::class);
-        $this->interpreter = $this->factory->ast($this->ast_repo->event());
+        $this->interpreter = $this->factory->ast($this->fake_ast_repo->event());
     }
     
     public function test_build_empty_event()
@@ -20,7 +20,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
             'id' => "ff3a666b-4288-4ecd-86d7-7f511a2fd378"
         ];
         
-        $interpreter = $this->factory->ast($this->ast_repo->event_empty());
+        $interpreter = $this->factory->ast($this->fake_ast_repo->event_empty());
         $event = $interpreter->interpret($root, null);
         
         $expected = (object)[

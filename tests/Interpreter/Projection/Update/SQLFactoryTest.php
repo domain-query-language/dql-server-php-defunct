@@ -6,7 +6,7 @@ class SQLFactoryTest extends \Test\Interpreter\TestCase
 {   
     public function test_convert_handler_ast_into_sql()
     {
-        $ast = $this->ast_repo->event_handler();
+        $ast = $this->fake_ast_repo->event_handler();
         
         $factory = new SQLFactory();
         

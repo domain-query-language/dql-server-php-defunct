@@ -7,7 +7,7 @@ class CompositeTest extends AbstractTest
 {
     protected function ast()
     {
-        return $this->ast_repo->valueobject_composite();
+        return $this->fake_ast_repo->valueobject_composite();
     }
     
     public function test_build()

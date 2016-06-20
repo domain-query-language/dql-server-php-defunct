@@ -11,7 +11,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         $this->apply_factory = $this->app->make(Apply\Factory::class);
-        $ast = $this->ast_repo->apply();
+        $ast = $this->fake_ast_repo->apply();
         $this->interpreter = $this->apply_factory->ast($ast);     
     }
     
@@ -35,7 +35,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_updates_context()
     {
-        $ast = $this->ast_repo->apply_arguments();
+        $ast = $this->fake_ast_repo->apply_arguments();
         $interperter = $this->apply_factory->ast($ast);
         
         $root = (object)[

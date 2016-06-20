@@ -11,7 +11,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         $this->apply_factory = $this->app->make(Assert\Factory::class);
-        $ast = $this->ast_repo->assert();
+        $ast = $this->fake_ast_repo->assert();
         $this->interpreter = $this->apply_factory->ast($ast);     
     }
     

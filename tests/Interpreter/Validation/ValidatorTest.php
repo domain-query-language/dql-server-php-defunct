@@ -23,7 +23,7 @@ class ValidatorTest extends \Test\Interpreter\TestCase
     
     public function test_validator_stores_validators()
     {
-        $ast = $this->ast_repo->valueobject_boolean();
+        $ast = $this->fake_ast_repo->valueobject_boolean();
         $this->validator_repo->store($ast)->shouldBeCalled();
         
         $this->validator->create($ast);

@@ -6,7 +6,7 @@ class CollectionTest extends AbstractTest
 {
     protected function ast()
     {
-        return $this->ast_repo->valueobject_collection();
+        return $this->fake_ast_repo->valueobject_collection();
     }
     
     public function test_build()
@@ -44,7 +44,7 @@ class CollectionTest extends AbstractTest
     
     private function make_invariant_collection_interpreter()
     {
-        $ast = $this->ast_repo->invariant_collection();
+        $ast = $this->fake_ast_repo->invariant_collection();
         return $this->factory->ast($ast);
     }
     

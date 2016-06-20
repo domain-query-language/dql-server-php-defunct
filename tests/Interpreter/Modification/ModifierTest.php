@@ -25,7 +25,7 @@ class ModifierTest extends \Test\Interpreter\TestCase
     
     public function test_modifier_stores_modifier_schema()
     {
-        $ast = $this->ast_repo->event_handler();
+        $ast = $this->fake_ast_repo->event_handler();
         
         $this->mock_ast_repo->store($ast)->shouldBeCalled();
         
@@ -38,7 +38,7 @@ class ModifierTest extends \Test\Interpreter\TestCase
         $event = 'event';
         $expected = 'modifier_root';
         
-        $ast = $this->ast_repo->event_handler();
+        $ast = $this->fake_ast_repo->event_handler();
         
         $modifier_class = Modification\Interpreter::class;
         $stub_modifier= $this->stub($modifier_class);

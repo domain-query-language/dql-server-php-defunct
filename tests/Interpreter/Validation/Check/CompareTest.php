@@ -10,7 +10,7 @@ class CompareTest extends \Test\Interpreter\TestCase
     public function setUp()
     {
         parent::setUp();
-        $ast = $this->ast_repo->valueobject_simple();
+        $ast = $this->fake_ast_repo->valueobject_simple();
         $this->factory = $this->app->make(Compare\Factory::class);
         $this->interpreter = $this->factory->ast($ast->check->condition[0]);
     }
@@ -27,7 +27,7 @@ class CompareTest extends \Test\Interpreter\TestCase
     
     public function test_handles_properties()
     {
-        $ast = $this->ast_repo->invariant();
+        $ast = $this->fake_ast_repo->invariant();
         $this->factory = $this->app->make(Compare\Factory::class);
         $this->interpreter = $this->factory->ast($ast->check->condition[0]);
         

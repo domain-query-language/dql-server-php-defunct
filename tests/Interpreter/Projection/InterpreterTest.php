@@ -27,7 +27,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     private function query_interpreter()
     {
-        $ast = $this->ast_repo->invariant_projection();
+        $ast = $this->fake_ast_repo->invariant_projection();
         $invariant_factory = $this->app->make(Invariant\Factory::class);
         return $invariant_factory->ast($ast);
     }
@@ -42,7 +42,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     private function update_interpreter()
     {
-        $ast = $this->ast_repo->event_handler();
+        $ast = $this->fake_ast_repo->event_handler();
         $update_factory = $this->app->make(Update\Factory::class);
         return $update_factory->ast($ast);
     }
