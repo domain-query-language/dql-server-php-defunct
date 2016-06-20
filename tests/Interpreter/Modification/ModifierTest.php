@@ -1,33 +1,33 @@
 <?php namespace Test\Interpreter\Modification;
 
 use App\Interpreter\Modification;
+use App\Interpreter\AstRepository;
 
 class ModifierTest extends \Test\Interpreter\TestCase
 {    
-    private $modifier_repo;
-    private $modifier_factory;
+    private $mock_ast_repo;
+    private $mock_factory;
     private $modifier;
     private $modifier_id = '24216a60-fa74-4b80-bfd2-edcfc764db5e';
     
     public function setUp()
     {
         parent::setUp();
-        $this->modifier_repo = 
-                $this->getMockBuilder(Modification\AstRepository::class)->getMock();
+        $this->mock_ast_repo = $this->prophesize(AstRepository::class);
         
-        $modifier_factory_class = Modification\Factory::class;
-        $this->modifier_factory = $this->getMockBuilder($modifier_factory_class)
-            ->disableOriginalConstructor()->getMock();
+        $this->mock_factory = $this->prophesize(Modification\Factory::class);
 
-        $this->modifier = new Modification\Modifier($this->modifier_repo, $this->modifier_factory);
+        $this->modifier = new Modification\Modifier(
+            $this->mock_ast_repo->reveal(), 
+            $this->mock_factory->reveal()
+        );
     }
     
     public function test_modifier_stores_modifier_schema()
     {
-        $ast = $this->ast_repo->event_handler();
-        $this->modifier_repo->expects($this->once())
-            ->method('store')
-            ->with($ast);
+        $ast = $this->fake_ast_repo->event_handler();
+        
+        $this->mock_ast_repo->store($ast)->shouldBeCalled();
         
         $this->modifier->create($ast);
     }
@@ -38,26 +38,18 @@ class ModifierTest extends \Test\Interpreter\TestCase
         $event = 'event';
         $expected = 'modifier_root';
         
-        $ast = $this->ast_repo->event_handler();
+        $ast = $this->fake_ast_repo->event_handler();
         
         $modifier_class = Modification\Interpreter::class;
-        $mock_modifier= $this->getMockBuilder($modifier_class)
-            ->disableOriginalConstructor()->getMock();
+        $stub_modifier= $this->stub($modifier_class);
         
-        $mock_modifier->expects($this->once())
-            ->method('modify')
-            ->with($root, $event)
-            ->willReturn($expected);
+        $stub_modifier->modify($root, $event)->willReturn($expected);
         
-        $this->modifier_repo->expects($this->once())
-            ->method('fetch')
-            ->with($this->modifier_id)
+        $this->mock_ast_repo->fetch($this->modifier_id)->shouldBeCalled()
             ->willReturn($ast);
         
-        $this->modifier_factory->expects($this->once())
-            ->method('ast')
-            ->with($ast)
-            ->willReturn($mock_modifier);
+        $this->mock_factory->ast($ast)->shouldBeCalled()
+            ->willReturn($stub_modifier);
         
         $actual_modification = $this->modifier->modify($this->modifier_id, $root, $event);
         

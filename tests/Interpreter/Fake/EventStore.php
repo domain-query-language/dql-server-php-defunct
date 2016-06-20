@@ -1,4 +1,4 @@
-<?php namespace Test\Interpreter;
+<?php namespace Test\Interpreter\Fake;
 
 class EventStore implements \App\Interpreter\EventStore
 {

@@ -6,7 +6,7 @@ class BooleanTest extends AbstractTest
 {
     protected function ast()
     {
-        return $this->ast_repo->valueobject_boolean();
+        return $this->fake_ast_repo->valueobject_boolean();
     }
     
     public function test_build()

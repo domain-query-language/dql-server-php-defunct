@@ -1,5 +1,7 @@
 <?php namespace App\Interpreter\Validation;
 
+use App\Interpreter\AstRepository;
+
 class InMemoryAstRepository implements AstRepository
 {
     private $asts = array();

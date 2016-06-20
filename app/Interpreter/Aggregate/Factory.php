@@ -2,7 +2,7 @@
 
 use App\Interpreter\Validation;
 use App\Interpreter\Modification;
-use Test\Interpreter\EventStore;
+use App\Interpreter\EventStore;
 
 class Factory
 {    

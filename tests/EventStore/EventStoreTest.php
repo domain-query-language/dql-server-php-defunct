@@ -14,31 +14,29 @@ class EventStoreTest extends \Test\TestCase
     
     public function setUp()
     {
-        $this->stub_event_repo = $this->getMockBuilder(EventRepository::class)
-                ->disableOriginalConstructor()->getMock();
-        $this->stub_event_factory = $this->getMockBuilder(EventStreamFactory::class)
-                ->disableOriginalConstructor()->getMock();
-        $this->event_store = new EventStore($this->stub_event_repo, $this->stub_event_factory);
+        $this->stub_event_repo = $this->mock(EventRepository::class);
+        $this->stub_event_factory = $this->stub(EventStreamFactory::class);
+        $this->event_store = new EventStore(
+            $this->stub_event_repo->reveal(), 
+            $this->stub_event_factory->reveal()
+        );
     }
 
     public function test_takes_in_data()
     {
         $data = ['data'];
         
-        $this->stub_event_repo->expects($this->once())
-                 ->method('store')
-                 ->with($this->equalTo($data));
+        $this->stub_event_repo->store($data)->shouldBeCalled();
 
         $this->event_store->store($data);
     }
     
     public function test_returns_stream()
     {   
-        $aggregate_id = $this->getMockBuilder(StreamID::class)
-                ->disableOriginalConstructor()->getMock();
+        $aggregate_id = $this->dummy(StreamID::class);
         
-        $stream = new AggregateEventStream($this->stub_event_repo, $aggregate_id);
-        $this->stub_event_factory->method('aggregate_id')
+        $stream = new AggregateEventStream($this->stub_event_repo->reveal(), $aggregate_id);
+        $this->stub_event_factory->aggregate_id($aggregate_id)
              ->willReturn($stream);
         
         $this->assertEquals($stream, $this->event_store->fetch($aggregate_id));
@@ -47,7 +45,7 @@ class EventStoreTest extends \Test\TestCase
     public function test_can_fetch_full_stream()
     {
         $stream = 'stream';
-        $this->stub_event_factory->method('all')
+        $this->stub_event_factory->all()
              ->willReturn($stream);
         
         $this->assertEquals($stream, $this->event_store->all());

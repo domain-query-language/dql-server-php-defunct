@@ -6,7 +6,7 @@ class SQLFactoryTest extends \Test\Interpreter\TestCase
 {
     public function test_convert_invariant_ast_into_sql()
     {
-        $ast = $this->ast_repo->invariant_projection();
+        $ast = $this->fake_ast_repo->invariant_projection();
         
         $factory = new SQLFactory();
         

@@ -22,12 +22,12 @@ class DispatcherTest extends \Test\Interpreter\TestCase
         
         $this->dispatcher = $this->app->make(Dispatch\Dispatcher::class);
                 
-        $this->command_id = "88f2ecaa-81dd-467f-851d-cdd214f3f3bb";
+        $this->command_id = "2af65a9c-5a1d-46d0-b2be-5a102da14cab";
         
         $this->command = (object)[
             "schema" => (object)[
                 'id' => '2af65a9c-5a1d-46d0-b2be-5a102da14cab',
-                'aggregate_id' => '01f99d4f-4cc7-4125-96fd-11f7dcbe8f9a'
+                'aggregate_id' => 'e5cbb69e-4581-4095-b77c-2e9eb1c8af17'
             ],
             "domain" => (object)[
                 'id' => $this->command_id,

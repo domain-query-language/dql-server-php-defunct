@@ -9,7 +9,7 @@ class ValidatorTest extends \Test\Interpreter\TestCase
     public function setUp()
     {
         parent::setUp();
-        $ast = $this->ast_repo->valueobject_validator();
+        $ast = $this->fake_ast_repo->valueobject_validator();
         
         $factory = $this->app->make(Validator\Factory::class);
         $this->interpreter = $factory->ast($ast->check->condition[0]);

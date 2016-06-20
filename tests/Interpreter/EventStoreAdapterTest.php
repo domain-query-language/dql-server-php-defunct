@@ -3,9 +3,9 @@
 use Infrastructure\App\Interpreter;
 use App\EventStore;
 
-class EventStoreTest extends TestCase
+class EventStoreAdapterTest extends TestCase
 {
-    private $infrastructure_event_store;
+    private $mock_event_store;
     private $event_builder;
     private $event_store;
     private $interpreter_event;
@@ -14,12 +14,12 @@ class EventStoreTest extends TestCase
     {
         parent::setUp();
         
-        $this->infrastructure_event_store = $this->prophesize(EventStore\EventStore::class);
+        $this->mock_event_store = $this->mock(EventStore\EventStore::class);
         
-        $stub_id_generator = $this->prophesize(EventStore\IDGenerator::class);
+        $stub_id_generator = $this->stub(EventStore\IDGenerator::class);
         $stub_id_generator->generate()->willReturn("87484542-4a35-417e-8e95-5713b8f55c8e");
         
-        $stub_datetime_generator = $this->prophesize(EventStore\DateTimeGenerator::class);
+        $stub_datetime_generator = $this->stub(EventStore\DateTimeGenerator::class);
         $stub_datetime_generator->generate()->willReturn('2014-10-10 12:12:12');
         
         $this->event_builder = new EventStore\EventBuilder(
@@ -28,7 +28,7 @@ class EventStoreTest extends TestCase
         );
         
         $this->event_store = new Interpreter\EventStore(
-            $this->infrastructure_event_store->reveal(), 
+            $this->mock_event_store->reveal(), 
             $this->event_builder
         );
         
@@ -49,15 +49,14 @@ class EventStoreTest extends TestCase
     {
         $event = $this->interpreter_event;
         $this->event_builder->set_aggregate_id($event->domain->aggregate_id)       
-                ->set_command_id($event->domain->command_id)
-                ->set_schema_event_id($event->schema->id)
-                ->set_schema_aggregate_id($event->schema->aggregate_id)
-                ->set_payload($event->domain->payload);
+            ->set_command_id($event->domain->command_id)
+            ->set_schema_event_id($event->schema->id)
+            ->set_schema_aggregate_id($event->schema->aggregate_id)
+            ->set_payload($event->domain->payload);
 
         $transformed_event = $this->event_builder->build();
         
-        $this->infrastructure_event_store
-            ->store([$transformed_event])
+        $this->mock_event_store->store([$transformed_event])
             ->shouldBeCalled();
         
         $this->event_store->store([$this->interpreter_event]);
@@ -71,10 +70,9 @@ class EventStoreTest extends TestCase
         
         $stream_id = new EventStore\StreamID($schema_aggregate_id, $domain_aggregate_id);
         
-        $this->infrastructure_event_store
-                ->fetch($stream_id)
-                ->willReturn($stream)
-                ->shouldBeCalled();                
+        $this->mock_event_store->fetch($stream_id)
+            ->willReturn($stream)
+            ->shouldBeCalled();                
         
         $this->assertEquals(
             $stream,

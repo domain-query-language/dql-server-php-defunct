@@ -15,7 +15,7 @@ class Interpreter
         $this->validator = $validator;
     }
     
-    public function interpret($root, $command)
+    public function make_event($root, $command)
     {  
         $result = (object)[
             "schema"=> (object)[

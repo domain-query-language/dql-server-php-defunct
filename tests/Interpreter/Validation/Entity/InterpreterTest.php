@@ -8,12 +8,12 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         $factory = $this->app->make(Entity\Factory::class);
-        $this->interpreter = $factory->ast($this->ast_repo->entity());
+        $this->interpreter = $factory->ast($this->fake_ast_repo->entity());
     }
     
     public function test_ast_must_have_id_field()
     {
-        $ast = $this->ast_repo->entity();
+        $ast = $this->fake_ast_repo->entity();
         unset($ast->children->id);
         $factory = $this->app->make(Entity\Factory::class);
         

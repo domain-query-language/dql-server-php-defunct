@@ -1,6 +1,7 @@
 <?php namespace Test\Interpreter\Validation;
 
 use App\Interpreter\Validation;
+use App\Interpreter\AstRepository;
 
 class ValidatorTest extends \Test\Interpreter\TestCase
 {    
@@ -11,22 +12,19 @@ class ValidatorTest extends \Test\Interpreter\TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->validator_repo = 
-                $this->getMockBuilder(Validation\AstRepository::class)->getMock();
-        
-        $vo_factory_class = Validation\ValueObject\Factory::class;
-        $this->vo_factory = $this->getMockBuilder($vo_factory_class)
-            ->disableOriginalConstructor()->getMock();
+        $this->validator_repo = $this->mock(AstRepository::class);
+        $this->vo_factory = $this->mock(Validation\ValueObject\Factory::class);
 
-        $this->validator = new Validation\Validator($this->validator_repo, $this->vo_factory);
+        $this->validator = new Validation\Validator(
+            $this->validator_repo->reveal(), 
+            $this->vo_factory->reveal()
+        );
     }
     
     public function test_validator_stores_validators()
     {
-        $ast = $this->ast_repo->valueobject_boolean();
-        $this->validator_repo->expects($this->once())
-            ->method('store')
-            ->with($ast);
+        $ast = $this->fake_ast_repo->valueobject_boolean();
+        $this->validator_repo->store($ast)->shouldBeCalled();
         
         $this->validator->create($ast);
     }
@@ -50,53 +48,37 @@ class ValidatorTest extends \Test\Interpreter\TestCase
         
         $ast = 'asdf';
 
-        $simple_vo_class = Validation\ValueObject\SimpleInterpreter::class;
-        $mock_validator = $this->getMockBuilder($simple_vo_class)
-            ->disableOriginalConstructor()->getMock();
+        $mock_validator = $this->mock(Validation\ValueObject\SimpleInterpreter::class);
+
+        $mock_validator->validate($expected)
+            ->shouldBeCalled()->willReturn($expected);
         
-        $mock_validator->expects($this->once())
-            ->method('validate')
-            ->with($expected)
-            ->willReturn($expected);
-        
-        $this->vo_factory->expects($this->once())
-            ->method('ast')
-            ->with($ast)
-            ->willReturn($mock_validator);
+        $this->vo_factory->ast($ast)
+            ->shouldBeCalled()->willReturn($mock_validator->reveal());
     
-        $this->validator_repo->expects($this->once())
-            ->method('fetch')
-            ->with($id)
-            ->willReturn($ast);
+        $this->validator_repo->fetch($id)
+            ->shouldBeCalled()->willReturn($ast);
 
         $actual = $this->validator->validate($id, $expected);
         
         $this->assertEquals($expected, $actual);
     }
     
-    
     private function setup_dependencies($id, $ast, $mock_validator)
     {
-        $this->vo_factory->expects($this->once())
-            ->method('ast')
-            ->with($ast)
-            ->willReturn($mock_validator);
+        $this->vo_factory->ast($ast)
+            ->shouldBeCalled()->willReturn($mock_validator->reveal());
     
-        $this->validator_repo->expects($this->once())
-            ->method('fetch')
-            ->with($id)
-            ->willReturn($ast);
+        $this->validator_repo->fetch($id)
+            ->shouldBeCalled()->willReturn($ast);
     }
     
     private function mock_check($expected)
     {
-        $simple_vo_class = Validation\ValueObject\SimpleInterpreter::class;
-        $mock_validator = $this->getMockBuilder($simple_vo_class)
-            ->disableOriginalConstructor()->getMock();
+        $mock_validator = $this->mock(Validation\ValueObject\SimpleInterpreter::class);
         
-        $mock_validator->expects($this->once())
-            ->method('check')
-            ->with($expected)
+        $mock_validator->check($expected)
+            ->shouldBeCalled()
             ->willReturn(true);
         
         return $mock_validator;
@@ -116,14 +98,10 @@ class ValidatorTest extends \Test\Interpreter\TestCase
     
     private function mock_check_with_arguments($expected, $arguments)
     {
-        $simple_vo_class = Validation\ValueObject\SimpleInterpreter::class;
-        $mock_validator = $this->getMockBuilder($simple_vo_class)
-            ->disableOriginalConstructor()->getMock();
+        $mock_validator = $this->mock(Validation\ValueObject\SimpleInterpreter::class);
         
-        $mock_validator->expects($this->once())
-            ->method('check')
-            ->with($expected, $arguments)
-            ->willReturn(true);
+        $mock_validator->check($expected, $arguments)
+            ->shouldBeCalled()->willReturn(true);
         
         return $mock_validator;
     }

@@ -17,7 +17,7 @@ abstract class AbstractAstRepositoryTest extends \Test\Interpreter\TestCase
     
     public function test_can_store_and_fetch_ast()
     {
-        $ast = $this->ast_repo->valueobject_simple();
+        $ast = $this->fake_ast_repo->valueobject_simple();
         
         $this->repository->store($ast);
         $actual = $this->repository->fetch($ast->id);

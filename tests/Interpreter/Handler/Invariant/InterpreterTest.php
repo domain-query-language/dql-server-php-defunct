@@ -10,8 +10,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     public function setUp()
     {
         parent::setUp();
-        $ast = $this->ast_repo->invariant();
-        $this->app->bind(\PDO::class, MockPDO::class);
+        $ast = $this->fake_ast_repo->invariant();
         $invariant_factory = $this->app->make(Invariant\Factory::class);
         $this->invariant = $invariant_factory->ast($ast);
     }
@@ -20,13 +19,13 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         $root = (object)['is_created'=> true];
         
-        $this->assertTrue($this->invariant->interpret($root));
+        $this->assertTrue($this->invariant->check($root));
     }
     
     public function test_failing_invariant()
     {
         $root = (object)['is_created'=> false];
         
-        $this->assertFalse($this->invariant->interpret($root));
+        $this->assertFalse($this->invariant->check($root));
     }
 }

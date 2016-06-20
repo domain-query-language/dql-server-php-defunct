@@ -12,20 +12,20 @@ class CommandStoreTest extends \Test\TestCase
     
     public function setUp()
     {
-        $this->stub_command_repo = $this->getMockBuilder(CommandRepository::class)
-                ->disableOriginalConstructor()->getMock();
-        $this->stub_command_stream_factory = $this->getMockBuilder(CommandStreamFactory::class)
-                ->disableOriginalConstructor()->getMock();
-        $this->command_store = new CommandStore($this->stub_command_repo, $this->stub_command_stream_factory);
+        $this->stub_command_repo = $this->mock(CommandRepository::class);
+        $this->stub_command_stream_factory = $this->stub(CommandStreamFactory::class);
+        $this->command_store = new CommandStore(
+            $this->stub_command_repo->reveal(), 
+            $this->stub_command_stream_factory->reveal()
+        );
     }
 
     public function test_takes_in_data()
     {
         $data = ['data'];
         
-        $this->stub_command_repo->expects($this->once())
-                 ->method('store')
-                 ->with($this->equalTo($data));
+        $this->stub_command_repo->store($data)
+            ->shouldBeCalled();
 
         $this->command_store->store($data);
     }
@@ -33,7 +33,7 @@ class CommandStoreTest extends \Test\TestCase
     public function test_can_fetch_full_stream()
     {
         $stream = 'stream';
-        $this->stub_command_stream_factory->method('all')
+        $this->stub_command_stream_factory->all()
              ->willReturn($stream);
         
         $this->assertEquals($stream, $this->command_store->all());

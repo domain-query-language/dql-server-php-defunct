@@ -1,14 +1,14 @@
 <?php namespace App\Interpreter\Aggregate;
 
 use App\Interpreter\Modification;
-use Test\Interpreter\EventStore;
+use App\Interpreter\EventStore;
 use App\Interpreter\Validation;
 
 class Interpreter
 {    
     private $aggregate_id;
     private $defaults;
-        private $root_entity_id;
+    private $root_entity_id;
     private $validator;
     private $modifier;
     private $event_store;
@@ -45,17 +45,6 @@ class Interpreter
         }
         
         return $root_entity;
-    }
-    
-    private function handle_event($root_entity, $event)
-    {
-        $handler_ast = $this->event_handler_repo->fetch_ast($event->schema->id);
-        if (!$handler_ast) {
-            return;
-        }
-
-        $handler = $this->event_hander_factory->ast($handler_ast);
-        return $handler->modify($root_entity, $event);
     }
 }
 

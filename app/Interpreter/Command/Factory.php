@@ -1,5 +1,6 @@
 <?php namespace App\Interpreter\Command;
 
+use App\Interpreter\AstRepository;
 use App\Interpreter\Validation;
 use App\DQLServer\Command;
 

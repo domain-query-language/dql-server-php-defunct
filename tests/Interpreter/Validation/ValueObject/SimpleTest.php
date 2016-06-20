@@ -6,7 +6,7 @@ class SimpleTest extends AbstractTest
 {
     protected function ast()
     {
-        return $this->ast_repo->valueobject_simple();
+        return $this->fake_ast_repo->valueobject_simple();
     }
     
     public function test_build()

@@ -6,7 +6,7 @@ class CheckTest extends \Test\Interpreter\TestCase
 {   
     public function test_check_factory_handles_compare_ast()
     {
-        $ast = $this->ast_repo->valueobject_simple();
+        $ast = $this->fake_ast_repo->valueobject_simple();
         $factory = $this->app->make(Checker\Factory::class);
         
         $this->assertInstanceOf(Checker\Interpreter::class, $factory->ast($ast->check));
@@ -14,7 +14,7 @@ class CheckTest extends \Test\Interpreter\TestCase
     
     public function test_check_factory_handles_validator_ast()
     {
-        $ast = $this->ast_repo->valueobject_validator();
+        $ast = $this->fake_ast_repo->valueobject_validator();
         $factory = $this->app->make(Checker\Factory::class);
         
         $this->assertInstanceOf(Checker\Interpreter::class, $factory->ast($ast->check));
@@ -22,7 +22,7 @@ class CheckTest extends \Test\Interpreter\TestCase
     
     public function test_check_handles_invariant_checks()
     {
-        $ast = $this->ast_repo->invariant();
+        $ast = $this->fake_ast_repo->invariant();
         $factory = $this->app->make(Checker\Factory::class);
         
         $interpreter = $factory->ast($ast->check);

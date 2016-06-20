@@ -17,7 +17,7 @@ class Interpreter
     
     public function interpret($root, $command)
     {       
-        $event = $this->event_interpreter->interpret($root, $command);
+        $event = $this->event_interpreter->make_event($root, $command);
         $this->modification->modify($this->event_id, $root, $command);
         return $event;
     }

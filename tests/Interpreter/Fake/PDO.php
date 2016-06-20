@@ -1,6 +1,6 @@
-<?php namespace Test\Interpreter\Projection;
+<?php namespace Test\Interpreter\Fake;
 
-class MockPDO extends \PDO
+class PDO extends \PDO
 {
     public function __construct ()
     {
@@ -8,6 +8,6 @@ class MockPDO extends \PDO
     
     public function prepare($statement, $options = NULL)
     {
-        return new MockPDOStatement();
+        return new PDOStatement();
     }
 }

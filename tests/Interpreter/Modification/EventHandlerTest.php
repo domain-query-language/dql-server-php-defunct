@@ -6,7 +6,7 @@ class EventHandlerTest extends \Test\Interpreter\TestCase
 {
     public function test_adds_to_array()
     {
-        $ast = $this->ast_repo->event_handler_add_to_collection();
+        $ast = $this->fake_ast_repo->event_handler_add_to_collection();
         $interpreter = new Interpreter($ast->statements);
         
         $root = (object)['list'=>[]];
@@ -20,7 +20,7 @@ class EventHandlerTest extends \Test\Interpreter\TestCase
     
     public function test_removes_valueobject_from_array_by_value()
     {
-        $ast = $this->ast_repo->event_handler_remove_from_collection();
+        $ast = $this->fake_ast_repo->event_handler_remove_from_collection();
         $interpreter = new Interpreter($ast->statements);
         
         $value1 = (object)['min'=>'min1', 'max'=>'max'];
@@ -36,7 +36,7 @@ class EventHandlerTest extends \Test\Interpreter\TestCase
     
     public function test_removes_entity_from_array_by_id()
     {
-        $ast = $this->ast_repo->event_handler_remove_from_collection();
+        $ast = $this->fake_ast_repo->event_handler_remove_from_collection();
         $interpreter = new Interpreter($ast->statements);
         
         $id = '722a4a3f-96be-4ed3-b662-043cf8f8d4df';

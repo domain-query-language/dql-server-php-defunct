@@ -58,4 +58,20 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
         $this->afterApplicationCreatedCallbacks = [];
         $this->beforeApplicationDestroyedCallbacks = [];
     }
+    
+    //Let's make the intent of our tests clearer
+    protected function dummy(string $classOrInterface)
+    {
+        return $this->prophesize($classOrInterface)->reveal();
+    }
+    
+    protected function stub(string $classOrInterface)
+    {
+        return $this->prophesize($classOrInterface);
+    }
+     
+    protected function mock(string $classOrInterface)
+    {
+        return $this->prophesize($classOrInterface);
+    }
 }

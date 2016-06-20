@@ -2,9 +2,9 @@
 
 use Infrastructure\App\Interpreter\CommandStore;
 
-class CommandStoreTest extends TestCase
+class CommandStoreAdapterTest extends TestCase
 {
-    private $infrastructure_store;
+    private $mock_store;
     private $builder;
     private $store;
     private $command;
@@ -13,15 +13,14 @@ class CommandStoreTest extends TestCase
     {
         parent::setUp();
         
-        $this->infrastructure_store = $this->getMockBuilder( \App\CommandStore\CommandStore::class)
-            ->disableOriginalConstructor()->getMock();
+        $this->mock_store = $this->mock(\App\CommandStore\CommandStore::class);
         
-        $stub_id_generator = $this->getMockBuilder(\App\CommandStore\IDGenerator::class)->getMock();
-        $stub_id_generator->method('generate')->willReturn("87484542-4a35-417e-8e95-5713b8f55c8e");
+        $stub_id_generator = $this->stub(\App\CommandStore\IDGenerator::class);
+        $stub_id_generator->generate()->willReturn("87484542-4a35-417e-8e95-5713b8f55c8e");
         
-        $this->builder = new \App\CommandStore\CommandBuilder($stub_id_generator);
+        $this->builder = new \App\CommandStore\CommandBuilder($stub_id_generator->reveal());
         
-        $this->store = new CommandStore($this->infrastructure_store, $this->builder);
+        $this->store = new CommandStore($this->mock_store->reveal(), $this->builder);
         
         $this->command = (object)[
             "schema"=> (object)[
@@ -39,15 +38,13 @@ class CommandStoreTest extends TestCase
     {
         $command = $this->command;
         $this->builder->set_aggregate_id($command->domain->aggregate_id)
-                    ->set_schema_command_id($command->schema->id)
-                    ->set_schema_aggregate_id($command->schema->aggregate_id)
-                    ->set_payload($command->domain->payload);
+            ->set_schema_command_id($command->schema->id)
+            ->set_schema_aggregate_id($command->schema->aggregate_id)
+            ->set_payload($command->domain->payload);
         
         $transformed = $this->builder->build();
         
-        $this->infrastructure_store->expects($this->once())
-                 ->method('store')
-                 ->with($this->equalTo([$transformed]));
+        $this->mock_store->store([$transformed])->shouldBeCalled();
         
         $this->store->store([$this->command]);
     }
@@ -56,9 +53,7 @@ class CommandStoreTest extends TestCase
     {   
         $stream = ['command'];
         
-        $this->infrastructure_store->expects($this->once())
-                 ->method('all')
-                ->willReturn($stream);
+        $this->mock_store->all()->shouldBeCalled()->willReturn($stream);
         
         $this->assertEquals(
             $stream,

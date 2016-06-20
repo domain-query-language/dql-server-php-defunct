@@ -1,5 +1,7 @@
 <?php namespace App\Interpreter\Modification;
 
+use App\Interpreter\AstRepository;
+
 class Modifier 
 {
     private $repo;
