@@ -12,10 +12,10 @@ class CommandBuilderTest extends \Test\TestCase
     
     public function setUp()
     {
-        $stub_id_generator = $this->getMockBuilder(IDGenerator::class)->getMock();
-        $stub_id_generator->method('generate')->willReturn("87484542-4a35-417e-8e95-5713b8f55c8e");
+        $stub_id_generator = $this->prophesize(IDGenerator::class);
+        $stub_id_generator->generate()->willReturn("87484542-4a35-417e-8e95-5713b8f55c8e");
         
-        $this->command_builder = new CommandBuilder($stub_id_generator);
+        $this->command_builder = new CommandBuilder($stub_id_generator->reveal());
         $this->command_builder->set_aggregate_id("a955d32b-0130-463f-b3ef-23adec9af469")
             ->set_payload((object)['value'=>true])
             ->set_schema_command_id("14c3896d-092e-4370-bf72-2093facc9792")

@@ -13,13 +13,16 @@ class EventBuilderTest extends \Test\TestCase
     
     public function setUp()
     {
-        $stub_id_generator = $this->getMockBuilder(IDGenerator::class)->getMock();
-        $stub_id_generator->method('generate')->willReturn("87484542-4a35-417e-8e95-5713b8f55c8e");
+        $stub_id_generator = $this->prophesize(IDGenerator::class);
+        $stub_id_generator->generate()->willReturn("87484542-4a35-417e-8e95-5713b8f55c8e");
         
-        $stub_datetime_generator = $this->getMockBuilder(DateTimeGenerator::class)->getMock();
-        $stub_datetime_generator->method('generate')->willReturn('2014-10-10 12:12:12');
+        $stub_datetime_generator = $this->prophesize(DateTimeGenerator::class);
+        $stub_datetime_generator->generate()->willReturn('2014-10-10 12:12:12');
         
-        $this->event_builder = new EventBuilder($stub_id_generator, $stub_datetime_generator);
+        $this->event_builder = new EventBuilder(
+            $stub_id_generator->reveal(), 
+            $stub_datetime_generator->reveal()
+        );
         $this->event_builder->set_aggregate_id("a955d32b-0130-463f-b3ef-23adec9af469")
             ->set_payload((object)['value'=>true])     
             ->set_command_id("88f2ecaa-81dd-467f-851d-cdd214f3f3bb")

@@ -16,14 +16,12 @@ class EventLockerDispatcherTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         
-        $this->mock_dispatch_interpreter = $this->getMockBuilder(\App\Interpreter\Dispatch\Dispatcher::class)
-            ->disableOriginalConstructor()->getMock();
-        $this->mock_locker = $this->getMockBuilder(\App\EventStore\EventStreamLocker::class)
-            ->disableOriginalConstructor()->getMock();
+        $this->mock_dispatch_interpreter = $this->prophesize(\App\Interpreter\Dispatch\Dispatcher::class);
+        $this->mock_locker = $this->prophesize(\App\EventStore\EventStreamLocker::class);
         
         $this->event_locker_dispatcher = new EventLockerDispatcher(
-            $this->mock_locker,
-            $this->mock_dispatch_interpreter
+            $this->mock_locker->reveal(),
+            $this->mock_dispatch_interpreter->reveal()
         );
              
         $this->command = (object)[
@@ -36,25 +34,25 @@ class EventLockerDispatcherTest extends \Test\Interpreter\TestCase
             
     public function test_calls_lock_and_unlock()
     {        
-        $this->mock_locker->expects($this->once())
-                 ->method('lock')
-                 ->with($this->equalTo($this->stream_id));
+        $this->mock_locker->lock($this->stream_id)
+            ->shouldBeCalled();
         
-        $this->mock_locker->expects($this->once())
-                 ->method('unlock')
-                 ->with($this->equalTo($this->stream_id));
+        $this->mock_locker->unlock($this->stream_id)
+            ->shouldBeCalled();
         
         $this->event_locker_dispatcher->dispatch($this->command);
     } 
     
     public function test_unlocks_if_there_is_an_error()
     {
-        $this->mock_dispatch_interpreter->method('dispatch')
-                ->will($this->throwException(new Invariant\Exception));
+        $this->mock_locker->lock($this->stream_id)
+            ->shouldBeCalled();
         
-        $this->mock_locker->expects($this->once())
-                 ->method('unlock')
-                 ->with($this->equalTo($this->stream_id));
+        $this->mock_dispatch_interpreter->dispatch($this->command)
+            ->willThrow(new Invariant\Exception);
+        
+        $this->mock_locker->unlock($this->stream_id)
+            ->shouldBeCalled();
         
         $this->setExpectedException(Invariant\Exception::class);
         

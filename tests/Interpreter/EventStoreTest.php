@@ -49,15 +49,14 @@ class EventStoreTest extends TestCase
     {
         $event = $this->interpreter_event;
         $this->event_builder->set_aggregate_id($event->domain->aggregate_id)       
-                ->set_command_id($event->domain->command_id)
-                ->set_schema_event_id($event->schema->id)
-                ->set_schema_aggregate_id($event->schema->aggregate_id)
-                ->set_payload($event->domain->payload);
+            ->set_command_id($event->domain->command_id)
+            ->set_schema_event_id($event->schema->id)
+            ->set_schema_aggregate_id($event->schema->aggregate_id)
+            ->set_payload($event->domain->payload);
 
         $transformed_event = $this->event_builder->build();
         
-        $this->infrastructure_event_store
-            ->store([$transformed_event])
+        $this->infrastructure_event_store->store([$transformed_event])
             ->shouldBeCalled();
         
         $this->event_store->store([$this->interpreter_event]);
@@ -71,10 +70,9 @@ class EventStoreTest extends TestCase
         
         $stream_id = new EventStore\StreamID($schema_aggregate_id, $domain_aggregate_id);
         
-        $this->infrastructure_event_store
-                ->fetch($stream_id)
-                ->willReturn($stream)
-                ->shouldBeCalled();                
+        $this->infrastructure_event_store->fetch($stream_id)
+            ->willReturn($stream)
+            ->shouldBeCalled();                
         
         $this->assertEquals(
             $stream,

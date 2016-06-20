@@ -15,10 +15,10 @@ abstract class AbstractEventStreamLockerTest extends DBTestCase
     {
         parent::setUp();
         
-        $this->stub_datetime_generator = $this->getMockBuilder(DateTimeGenerator::class)->getMock();
-        $this->stub_datetime_generator->method('generate')->willReturn('2014-10-10 00:00:00.000');
+        $this->stub_datetime_generator = $this->prophesize(DateTimeGenerator::class);
+        $this->stub_datetime_generator->generate()->willReturn('2014-10-10 00:00:00.000');
         
-        $this->locker = $this->make_locker($this->stub_datetime_generator);
+        $this->locker = $this->make_locker($this->stub_datetime_generator->reveal());
         
         $this->stream_id = new StreamID(
             "b5c4aca8-95c7-4b2b-8674-ef7c0e3fd16f",
@@ -63,14 +63,15 @@ abstract class AbstractEventStreamLockerTest extends DBTestCase
     
     public function test_locks_unlock_after_500ms()
     {
-        $stub_datetime_generator = $this->getMockBuilder(DateTimeGenerator::class)->getMock();
-        $stub_datetime_generator->method('generate')
-            ->will($this->onConsecutiveCalls(
-                '2014-10-10 00:00:00.000', 
-                '2014-10-10 00:00:00.500'
-            ));
+        $stub_datetime_generator = $this->prophesize(DateTimeGenerator::class);
         
-        $locker = $this->make_locker($stub_datetime_generator);
+        $timestamps = ['2014-10-10 00:00:00.000', '2014-10-10 00:00:00.500'];
+        $stub_datetime_generator->generate()
+            ->will(function() use (&$timestamps){
+                return each($timestamps)['value'];;
+            });
+        
+        $locker = $this->make_locker($stub_datetime_generator->reveal());
         
         $locker->lock($this->stream_id);
         
@@ -81,14 +82,15 @@ abstract class AbstractEventStreamLockerTest extends DBTestCase
     {
         $this->setExpectedException(EventStreamLockerException::class);
         
-        $stub_datetime_generator = $this->getMockBuilder(DateTimeGenerator::class)->getMock();
-        $stub_datetime_generator->method('generate')
-            ->will($this->onConsecutiveCalls(
-                '2014-10-10 00:00:00.000', 
-                '2014-10-10 00:00:00.499'
-            ));
+        $stub_datetime_generator = $this->prophesize(DateTimeGenerator::class);
         
-        $locker = $this->make_locker($stub_datetime_generator);
+        $timestamps = ['2014-10-10 00:00:00.000', '2014-10-10 00:00:00.499'];
+        $stub_datetime_generator->generate()
+            ->will(function() use (&$timestamps){
+                return each($timestamps)['value'];
+            });
+        
+        $locker = $this->make_locker($stub_datetime_generator->reveal());
         
         $locker->lock($this->stream_id);
         

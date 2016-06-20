@@ -14,15 +14,13 @@ class DQLServerDispatcherTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         
-        $this->mock_event_locker = $this->getMockBuilder(Dispatch\EventLockerDispatcher::class)
-            ->disableOriginalConstructor()->getMock();
+        $this->mock_event_locker = $this->prophesize(Dispatch\EventLockerDispatcher::class);
         
-        $this->mock_transformer = $this->getMockBuilder(\App\Interpreter\Command\Factory::class)
-            ->disableOriginalConstructor()->getMock();
+        $this->mock_transformer = $this->prophesize(\App\Interpreter\Command\Factory::class);
         
         $this->dispatcher = new Dispatch\DQLServerDispatcher(
-            $this->mock_event_locker,
-            $this->mock_transformer
+            $this->mock_event_locker->reveal(),
+            $this->mock_transformer->reveal()
         );
         
         $command_id = "2af65a9c-5a1d-46d0-b2be-5a102da14cab";
@@ -38,14 +36,12 @@ class DQLServerDispatcherTest extends \Test\Interpreter\TestCase
     {      
         $transformed_command = 'command';
         
-        $this->mock_transformer->expects($this->once())
-                 ->method('dql_command')
-                 ->with($this->equalTo($this->command))
-                ->willReturn($transformed_command);
+        $this->mock_transformer->dql_command($this->command)
+            ->shouldBeCalled()
+            ->willReturn($transformed_command);
         
-        $this->mock_event_locker->expects($this->once())
-                 ->method('dispatch')
-                 ->with($this->equalTo($transformed_command));
+        $this->mock_event_locker->dispatch($transformed_command)
+            ->shouldBeCalled();
         
         $this->dispatcher->dispatch($this->command);
     } 
