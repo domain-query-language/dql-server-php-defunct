@@ -8,9 +8,7 @@ class Interpreter
     private $arguments;
     private $comparator;
     
-    public function __construct(
-        Invariant\Interpreter $invariant, 
-        $comparator)
+    public function __construct(Invariant\Interpreter $invariant, $comparator)
     {
         $this->invariant = $invariant;
         $this->comparator = $comparator;
