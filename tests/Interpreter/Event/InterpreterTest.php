@@ -16,12 +16,10 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_build_empty_event()
     {
-        $root = (object)[
-            'id' => "ff3a666b-4288-4ecd-86d7-7f511a2fd378"
-        ];
+        $root = (object)['id' => "ff3a666b-4288-4ecd-86d7-7f511a2fd378"];
         
         $interpreter = $this->factory->ast($this->fake_ast_repo->event_empty());
-        $event = $interpreter->interpret($root, null);
+        $event = $interpreter->make_event($root, null);
         
         $expected = (object)[
             "schema"=> (object)[
@@ -39,11 +37,10 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         
     public function test_build_event_with_children()
     {
-        $root = (object)[
-            'id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378"
-        ];
+        $root = (object)['id'=>"ff3a666b-4288-4ecd-86d7-7f511a2fd378"];
         $command = (object)['shopper_id' => '7a53bbd2-8919-4bdf-a43c-c330b2f304e6'];
-        $event = $this->interpreter->interpret($root, $command);
+        
+        $event = $this->interpreter->make_event($root, $command);
         
         $expected = (object)[
             "schema"=> (object)[
