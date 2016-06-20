@@ -2,7 +2,6 @@
 
 use App\Interpreter\Update;
 use App\Interpreter\Handler\Invariant;
-use Test\Interpreter\Projection\MockPDO;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
@@ -15,8 +14,6 @@ class InterpreterTest extends \Test\Interpreter\TestCase
             'shopper_id' => '5d37e24a-f833-45f3-90b1-3ac70fd05ac4',
             'is_created' => true
         ];
-
-        $this->app->bind(\PDO::class, MockPDO::class);
     }
     
     public function test_query_returns_false_initially()

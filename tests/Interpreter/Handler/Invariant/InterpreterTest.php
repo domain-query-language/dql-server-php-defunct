@@ -11,7 +11,6 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         $ast = $this->fake_ast_repo->invariant();
-        $this->app->bind(\PDO::class, MockPDO::class);
         $invariant_factory = $this->app->make(Invariant\Factory::class);
         $this->invariant = $invariant_factory->ast($ast);
     }

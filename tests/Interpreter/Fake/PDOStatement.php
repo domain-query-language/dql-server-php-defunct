@@ -1,6 +1,6 @@
-<?php namespace Test\Interpreter\Projection;
+<?php namespace Test\Interpreter\Fake;
 
-class MockPDOStatement extends \PDOStatement
+class PDOStatement extends \PDOStatement
 {
     private static $seen_ids = [];
     private $rows = [];
