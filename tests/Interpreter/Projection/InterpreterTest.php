@@ -21,11 +21,11 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_query_returns_false_initially()
     {
-        $result = $this->invariant_interpreter()->check($this->root);
+        $result = $this->invariant()->check($this->root);
         $this->assertFalse($result);
     }
     
-    private function invariant_interpreter()
+    private function invariant()
     {
         $ast = $this->fake_ast_repo->invariant_projection();
         $invariant_factory = $this->app->make(Invariant\Factory::class);
@@ -36,11 +36,11 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         $this->update_interpreter()->update($this->root);
         
-        $result = $this->invariant_interpreter()->check($this->root);
+        $result = $this->invariant()->check($this->root);
         $this->assertTrue($result);
     }
     
-    private function update_interpreter()
+    private function update()
     {
         $ast = $this->fake_ast_repo->event_handler();
         $update_factory = $this->app->make(Update\Factory::class);
@@ -51,7 +51,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         $this->root->shopper_id = 'c6955003-814c-4f55-b907-006d7563579b';
         
-        $result = $this->invariant_interpreter()->check($this->root);
+        $result = $this->invariant()->check($this->root);
         $this->assertFalse($result);
     }  
 }
