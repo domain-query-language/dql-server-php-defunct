@@ -1,7 +1,6 @@
 <?php namespace App\Interpreter\Dispatch;
 
 use App\Interpreter\Handler;
-use App\Interpreter\AggregateRepository;
 use App\Interpreter\Aggregate;
 use App\Interpreter\EventStore;
 use App\Interpreter\CommandStore;
@@ -9,29 +8,27 @@ use App\Interpreter\CommandStore;
 class Dispatcher
 {
     private $handler;
-    private $aggregate_repo;
-    private $aggregate_factory;
+    private $aggregate;
     private $event_store;
     private $command_store;
     
     public function __construct( 
         Handler\Handler $handler,
-        AggregateRepository $aggregate_repo,
-        Aggregate\Factory $aggregate_factory,
+        Aggregate\Aggregate $aggregate,
         EventStore $event_store,
         CommandStore $command_store
     )
     {
         $this->handler = $handler;
-        $this->aggregate_repo = $aggregate_repo;
-        $this->aggregate_factory = $aggregate_factory;
+        $this->aggregate = $aggregate;
         $this->event_store = $event_store;
         $this->command_store = $command_store;
     }
         
     public function dispatch($command)
     {
-        $root_entity = $this->build_root_entity($command);
+        dd($command);
+        $root_entity = $this->aggregate->build_root($id, $entity_id);
                 
         $events = $this->handle_command($command, $root_entity);
         
