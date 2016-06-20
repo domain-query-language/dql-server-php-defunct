@@ -1,17 +1,6 @@
 <?php namespace Test\Interpreter\Fake;
 
-use App\Interpreter\Validation;
-use App\Interpreter\Modification;
-use App\Interpreter\Handler;
-use App\Interpreter\Query;
-use App\Interpreter\Command;
-
-class AstRepository implements 
-        Validation\AstRepository, 
-        Modification\AstRepository, 
-        Handler\AstRepository, 
-        Query\AstRepository,
-        Command\AstRepository
+class AstRepository implements \App\Interpreter\AstRepository
 {
     private static $asts = [];
     

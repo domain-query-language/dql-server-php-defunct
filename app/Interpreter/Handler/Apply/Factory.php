@@ -1,6 +1,6 @@
 <?php namespace App\Interpreter\Handler\Apply;
 
-use App\Interpreter\Modification\AstRepository;
+use App\Interpreter\AstRepository;
 use App\Interpreter\Event;
 use App\Interpreter\Modification;
 

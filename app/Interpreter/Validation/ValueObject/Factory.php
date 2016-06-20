@@ -1,7 +1,7 @@
 <?php namespace App\Interpreter\Validation\ValueObject;
 
 use App\Interpreter\Validation\Checker;
-use App\Interpreter\Validation\AstRepository;
+use App\Interpreter\AstRepository;
 
 class Factory 
 {    

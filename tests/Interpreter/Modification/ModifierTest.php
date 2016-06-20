@@ -1,6 +1,7 @@
 <?php namespace Test\Interpreter\Modification;
 
 use App\Interpreter\Modification;
+use App\Interpreter\AstRepository;
 
 class ModifierTest extends \Test\Interpreter\TestCase
 {    
@@ -12,7 +13,7 @@ class ModifierTest extends \Test\Interpreter\TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->mock_ast_repo = $this->prophesize(Modification\AstRepository::class);
+        $this->mock_ast_repo = $this->prophesize(AstRepository::class);
         
         $this->mock_factory = $this->prophesize(Modification\Factory::class);
 

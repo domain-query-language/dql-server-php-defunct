@@ -1,6 +1,7 @@
 <?php namespace Test\Interpreter\Validation;
 
 use App\Interpreter\Validation;
+use App\Interpreter\AstRepository;
 
 class ValidatorTest extends \Test\Interpreter\TestCase
 {    
@@ -12,7 +13,7 @@ class ValidatorTest extends \Test\Interpreter\TestCase
     {
         parent::setUp();
         $this->validator_repo = 
-                $this->getMockBuilder(Validation\AstRepository::class)->getMock();
+                $this->getMockBuilder(AstRepository::class)->getMock();
         
         $vo_factory_class = Validation\ValueObject\Factory::class;
         $this->vo_factory = $this->getMockBuilder($vo_factory_class)

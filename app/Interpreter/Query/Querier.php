@@ -1,5 +1,7 @@
 <?php namespace App\Interpreter\Query;
 
+use App\Interpreter\AstRepository;
+
 class Querier 
 {
     private $repo;

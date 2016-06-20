@@ -1,6 +1,6 @@
 <?php namespace App\Interpreter\Handler\Assert;
 
-use App\Interpreter\Modification\AstRepository;
+use App\Interpreter\AstRepository;
 use App\Interpreter\Handler\Invariant;
 
 class Factory

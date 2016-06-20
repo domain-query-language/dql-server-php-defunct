@@ -1,4 +1,4 @@
-<?php namespace App\Interpreter\Validation;
+<?php namespace App\Interpreter;
 
 interface AstRepository 
 {

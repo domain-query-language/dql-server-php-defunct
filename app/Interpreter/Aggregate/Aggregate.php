@@ -1,6 +1,6 @@
 <?php namespace App\Interpreter\Aggregate;
 
-use App\Interpreter\Modification\AstRepository;
+use App\Interpreter\AstRepository;
 
 class Aggregate
 {    
