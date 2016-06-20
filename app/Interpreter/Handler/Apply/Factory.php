@@ -1,6 +1,6 @@
 <?php namespace App\Interpreter\Handler\Apply;
 
-use App\Interpreter\EventRepository;
+use App\Interpreter\Modification\AstRepository;
 use App\Interpreter\Event;
 use App\Interpreter\Modification;
 
@@ -11,7 +11,7 @@ class Factory
     private $modification;
     
     public function __construct(
-        EventRepository $event_repository, 
+        AstRepository $event_repository, 
         Event\Factory $event_factory,
         Modification\Modifier $modification
     )
@@ -23,7 +23,7 @@ class Factory
     
     public function ast($ast)
     {
-        $event_ast = $this->event_repository->fetch_ast($ast->event_id);
+        $event_ast = $this->event_repository->fetch($ast->event_id);
 
         $event_interpreter = $this->event_factory->ast($event_ast);
                 

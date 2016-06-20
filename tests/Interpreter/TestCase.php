@@ -19,12 +19,9 @@ class TestCase extends \Test\TestCase
         $this->app->bind(\App\Interpreter\Command\AstRepository::class, AstRepository::class);
         
         $this->app->bind(\App\Interpreter\InvariantRepository::class, InvariantRepository::class);
-        $this->app->bind(\App\Interpreter\EventRepository::class, EventRepository::class);
         $this->app->bind(\App\Interpreter\EventHandlerRepository::class, EventHandlerRepository::class);
         $this->app->bind(\App\Interpreter\ValueObjectRepository::class, ValueObjectRepository::class);
         $this->app->bind(\App\Interpreter\HandlerRepository::class, HandlerRepository::class);
-        $this->app->bind(\App\Interpreter\EntityRepository::class, EntityRepository::class);
-        $this->app->bind(\App\Interpreter\AggregateRepository::class, AggregateRepository::class);
         
         $this->app->bind(\App\Interpreter\EventStore::class, Fake\EventStore::class);
         $this->app->bind(\App\Interpreter\CommandStore::class, Fake\CommandStore::class);
