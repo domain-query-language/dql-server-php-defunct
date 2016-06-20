@@ -12,7 +12,7 @@ class InterpreterTest extends \Test\Interpreter\TestCase
         parent::setUp();
                                 
         $handler_factory = $this->app->make(Handler\Factory::class);
-        $ast = $this->fake_ast_repo->fetch("2af65a9c-5a1d-46d0-b2be-5a102da14cab");
+        $ast = $this->fake_ast_repo->command();
         $this->interpreter = $handler_factory->ast($ast);
     }
      
