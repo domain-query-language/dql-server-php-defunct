@@ -16,7 +16,7 @@ class Interpreter
     
     public function interpret($root, $command)
     {
-        $result = $this->invariant->interpret($root, $command);
+        $result = $this->invariant->check($root, $command);
 
         if ($this->comparator == 'not') {
             $result = !$result;

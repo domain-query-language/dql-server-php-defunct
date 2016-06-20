@@ -20,13 +20,13 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     {
         $root = (object)['is_created'=> true];
         
-        $this->assertTrue($this->invariant->interpret($root));
+        $this->assertTrue($this->invariant->check($root));
     }
     
     public function test_failing_invariant()
     {
         $root = (object)['is_created'=> false];
         
-        $this->assertFalse($this->invariant->interpret($root));
+        $this->assertFalse($this->invariant->check($root));
     }
 }

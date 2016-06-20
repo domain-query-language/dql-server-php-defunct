@@ -6,12 +6,12 @@ use Test\Interpreter\Projection\MockPDO;
 
 class InterpreterTest extends \Test\Interpreter\TestCase
 {
-    protected $context;
+    protected $root;
 
     public function setUp()
     {
         parent::setUp();
-        $this->context = (object)[
+        $this->root = (object)[
             'shopper_id' => '5d37e24a-f833-45f3-90b1-3ac70fd05ac4',
             'is_created' => true
         ];
@@ -21,11 +21,11 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_query_returns_false_initially()
     {
-        $result = $this->query_interpreter()->interpret($this->context);
+        $result = $this->invariant_interpreter()->check($this->root);
         $this->assertFalse($result);
     }
     
-    private function query_interpreter()
+    private function invariant_interpreter()
     {
         $ast = $this->fake_ast_repo->invariant_projection();
         $invariant_factory = $this->app->make(Invariant\Factory::class);
@@ -34,9 +34,9 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_update_sets_the_value()
     {
-        $this->update_interpreter()->update($this->context);
+        $this->update_interpreter()->update($this->root);
         
-        $result = $this->query_interpreter()->interpret($this->context);
+        $result = $this->invariant_interpreter()->check($this->root);
         $this->assertTrue($result);
     }
     
@@ -49,9 +49,9 @@ class InterpreterTest extends \Test\Interpreter\TestCase
     
     public function test_query_returns_false_for_different_shopper_id()
     {
-        $this->context->shopper_id = 'c6955003-814c-4f55-b907-006d7563579b';
+        $this->root->shopper_id = 'c6955003-814c-4f55-b907-006d7563579b';
         
-        $result = $this->query_interpreter()->interpret($this->context);
+        $result = $this->invariant_interpreter()->check($this->root);
         $this->assertFalse($result);
     }  
 }
