@@ -8,19 +8,19 @@ use App\Interpreter\CommandStore;
 class Dispatcher
 {
     private $handler;
-    private $aggregate;
+    private $aggregate_root_builder;
     private $event_store;
     private $command_store;
     
     public function __construct( 
         Handler\Handler $handler,
-        Aggregate\Aggregate $aggregate,
+        Aggregate\Aggregate $aggregate_root_builder,
         EventStore $event_store,
         CommandStore $command_store
     )
     {
         $this->handler = $handler;
-        $this->aggregate = $aggregate;
+        $this->aggregate_root_builder = $aggregate_root_builder;
         $this->event_store = $event_store;
         $this->command_store = $command_store;
     }
@@ -37,18 +37,29 @@ class Dispatcher
     
     private function handle_command($command)
     {
-        $aggregate_id = $command->schema->aggregate_id;
-        $entity_id = $command->domain->aggregate_id;
-        $root_entity = $this->aggregate->build_root($aggregate_id, $entity_id);
+        $root_entity = $this->build_root_adapter($command);
 
-        $command_id = $command->schema->id;
-        $payload = $command->domain->payload;
-        
-        $events = $this->handler->handle($command_id, $root_entity, $payload);
+        $events = $this->handle_command_adapter($command, $root_entity);
         
         return $this->decorate_events_with_command_id($events, $command);
     }
     
+    private function build_root_adapter($command)
+    {
+        $aggregate_id = $command->schema->aggregate_id;
+        $entity_id = $command->domain->aggregate_id;
+        
+        return $this->aggregate_root_builder->build_root($aggregate_id, $entity_id);
+    }
+    
+    private function handle_command_adapter($command, $root_entity)
+    {
+        $command_ast_id = $command->schema->id;
+        $payload = $command->domain->payload;
+        
+        return $this->handler->handle($command_ast_id, $root_entity, $payload);
+    }
+     
     private function decorate_events_with_command_id($events, $command)
     {
         return array_map(function($event) use ($command){
