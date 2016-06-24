@@ -1,0 +1,14 @@
+name: "quantity"
+id: "a6a70ade-d3be-42ba-bf6d-c29d055e862e"
+check: 
+ condition: 
+  - 
+   value_left: 
+    property: 
+     - "value"
+   comparator: "is"
+   value_right: 
+    validator: "between"
+    arguments: 
+     - 0
+     - 20

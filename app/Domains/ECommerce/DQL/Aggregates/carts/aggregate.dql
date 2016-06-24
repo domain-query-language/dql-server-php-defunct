@@ -1,0 +1,6 @@
+create aggregate 'carts';
+
+within aggregate 'carts':
+{
+  set root 'entity\cart' defaults (null, null, false, empty); 
+}

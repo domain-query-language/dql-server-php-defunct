@@ -1,0 +1,51 @@
+within aggregate 'carts':
+{
+	create command 'create' (shopper_id) as (identifier) handled by (
+		<{
+			assert invariant not 'created';
+
+			apply event 'created' (command.shopper_id);
+			apply event 'empty';
+		}>
+	);
+
+	create command 'add-product' (product) as (entity\product) handled by (
+		<{
+			assert invariant not 'checked-out';
+			assert invariant not 'is-full';
+			assert invariant not 'product-exists' (command.product.id);
+
+			apply event 'product-added' (command.product);
+
+			apply event 'full' when assert invariant 'is-full';
+		}>
+	);
+
+	create command 'change-product-quantity' (product_id, quantity) as (identifier, value\quantity) handled by (
+		<{
+			assert invariant not 'checked-out';
+			assert invariant 'product-exists' (command.product_id); 
+
+			apply event 'product-quantity-changed' (command.product_id, command.quantity); 
+		}>
+	);
+
+	create command 'remove-product' (product_id) as (identifier) handled by (
+		<{
+			assert invariant not 'checked-out';
+			assert invariant 'product-exists' (command.product_id);
+
+			apply event 'product-removed' (command.product_id);
+
+			apply event 'empty' when assert invariant 'is-empty';
+		}>
+	);
+
+	create command 'checkout' handled by (
+		<{
+			assert invariant not 'checked-out';
+
+			apply event 'checked-out';
+		}>
+	);
+};
