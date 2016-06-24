@@ -1,0 +1,37 @@
+within aggregate 'carts':
+{
+  create invariant 'created' satisfied by (
+		<:
+			from aggregate
+			check is_created == true
+		:>
+	);
+
+  create invariant 'checked-out' satisfied by (
+		<:
+			from aggregate
+			check is_checked_out == true
+		:>
+	);
+
+  create invariant 'is-empty' satisfied by (
+		<:
+			from aggregate
+			check products is count 0
+		:>
+	);
+
+  create invariant 'is-full' satisfied by (
+		<:
+			from aggregate
+			check products is count 20
+		:>
+	);
+
+  create invariant 'product-exists' (product_id) as (identifier) satisfied by (
+		<:
+			from aggregate
+			check product_id is in 'products'
+		:>
+	);
+};

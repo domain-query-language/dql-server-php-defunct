@@ -1,0 +1,11 @@
+name: "created"
+id: "3961fd8c-a054-41e1-a998-3fc9cfd8f0ad"
+aggregate_id: "01f99d4f-4cc7-4125-96fd-11f7dcbe8f9a"
+children: 
+  shopper_id: "a6a70ade-d3be-42ba-bf6d-c29d055e862e"
+statements: 
+  - 
+    type: "set"
+    property: "is_created"
+    value: 
+      literal: true

@@ -1,0 +1,22 @@
+within aggregate 'carts':
+{
+  create event 'created' (shopper_id) as (identifier) handled by (
+		<:
+			update aggregate
+				set 'is_created' = true
+				set 'shopper_id' = shopper_id
+		:>
+	);
+
+	create event 'checked-out' handled by (
+		<:
+			update aggregate
+				set 'is_checked_out' = true
+		:>
+	);
+
+  create event 'empty';
+
+  create event 'full';
+}
+

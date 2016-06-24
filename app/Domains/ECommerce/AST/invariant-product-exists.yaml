@@ -1,0 +1,12 @@
+id: "50a735d5-bad4-44c9-b840-b5208bbe0d1a"
+query: null
+check: 
+  condition: 
+    - 
+      value_left: 
+        property: 
+          - "list"
+      comparator: "exists_in"
+      value_right: 
+        property: 
+          - "entity_id"

@@ -1,14 +1,16 @@
 {
-  "id": "50a735d5-bad4-44c9-b840-b5208bbe0d1a",
+  "id": "e69f16b1-ba38-4983-a838-1c75fab11490",
+  "name": "is_empty",
   "query": null,
   "check": {
     "condition": [{
       "value_left": {
         "property": ["list"]
       },
-      "comparator": "exists_in",
+      "comparator": "is",
       "value_right": {
-        "property": ["entity_id"]
+        "validator": "count",
+        "arguments": [0]
       }
     }]
   }

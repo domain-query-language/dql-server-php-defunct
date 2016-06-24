@@ -5,7 +5,7 @@ use App\Interpreter\Handler\Invariant;
 
 class Factory
 {    
-    private $invariant_repository;
+    private $ast_repository;
     private $invariant_factory;
     
     public function __construct(

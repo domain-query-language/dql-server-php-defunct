@@ -1,0 +1,4 @@
+
+create entity 'product' (id, quantity) as (value\id, value\quantity);
+
+create entity 'cart' (id, shopper_id, is_created, products) as (value\id, value\id, value\products); 

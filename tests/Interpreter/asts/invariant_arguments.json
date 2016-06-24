@@ -1,9 +1,5 @@
 {
   "id": "21c75b22-63ab-469e-8535-e11cb551522b",
-  "aggregate_id": "597e7469-4b2f-4cb9-b85f-12f9abd54403",
-  "parameters": {
-    "is_created": "4ea61742-409a-48b6-9563-2587c681f838"
-  },
   "query": null,
   "check": {
     "condition": [{      

@@ -1,5 +1,6 @@
 {
   "id": "e5cbb69e-4581-4095-b77c-2e9eb1c8af17",
+  "name": "carts",
   "root": {
     "entity_id": "74facf4b-0a6e-4525-aecb-6c794129856d",
     "defaults": {
