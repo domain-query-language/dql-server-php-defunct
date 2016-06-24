@@ -23,7 +23,8 @@ class InterpreterApplyOnInvariantTest extends \Test\Interpreter\TestCase
         ];
        
         $event = $this->interpreter->interpret($root, []);
-        $this->assertNull($event);
+        $this->assertTrue(is_object($event));
+        
     }
     
     public function test_does_not_create_event_if_invariant_fails()
@@ -34,6 +35,6 @@ class InterpreterApplyOnInvariantTest extends \Test\Interpreter\TestCase
         ];
         
         $event = $this->interpreter->interpret($root, []);
-        $this->assertTrue(is_object($event));
+        $this->assertNull($event);
     }
 }
