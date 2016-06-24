@@ -1,1 +1,12 @@
-
+name: "checked-out"
+id: "432c52d6-5473-4b11-acd4-a316a790ca60"
+check: 
+ condition: 
+  - 
+   value_left: 
+    property: 
+     - 
+      "checked_out"
+   comparator: =
+   value_right: 
+    literal: true

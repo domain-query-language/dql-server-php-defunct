@@ -4,7 +4,7 @@ class Factory
 {    
     public function ast($ast)
     {   
-        return new Interpreter($ast->value_right->validator, $ast->value_right->arguments);
+        return new Interpreter($ast->value_left,  $ast->value_right);
     }
 }
 

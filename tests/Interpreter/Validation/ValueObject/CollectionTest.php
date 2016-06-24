@@ -82,4 +82,21 @@ class CollectionTest extends AbstractTest
         $false_args = (object)['entity_id'=>'6c33c3b3-f37f-446e-b4a0-b8d3664760f6'];
         $this->assertFalse($interpreter->check($list, $false_args)); 
     }
+    
+    private function make_invariant_collection_legnth_interpreter()
+    {
+        $ast = $this->fake_ast_repo->invariant_collection_length();
+        return $this->factory->ast($ast);
+    }
+    
+    public function test_length_of_collection()
+    {
+        $interpreter = $this->make_invariant_collection_legnth_interpreter();
+        $list = (object)['list'=>[]];
+        
+        $this->assertTrue($interpreter->check($list));
+        
+        $list->list[] = 1;
+        $this->assertFalse($interpreter->check($list));
+    }
 }
