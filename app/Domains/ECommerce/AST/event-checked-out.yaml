@@ -1,0 +1,10 @@
+name: "checked-out"
+id: "8f5be237-c0a9-484c-893d-0fdbfb7f3d51"
+aggregate_id: "01f99d4f-4cc7-4125-96fd-11f7dcbe8f9a"
+children: []
+statements: 
+  - 
+    type: "set"
+    property: "checked-out"
+    value: 
+      literal: true

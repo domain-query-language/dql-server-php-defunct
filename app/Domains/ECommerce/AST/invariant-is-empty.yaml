@@ -1,1 +1,14 @@
-
+id: "664b5e5c-137e-487c-a2f9-ce81baabbf12"
+name: "is_empty"
+query: null
+check: 
+  condition: 
+    - 
+      value_left: 
+        property: 
+          - "list"
+      comparator: "is"
+      value_right: 
+        validator: "count"
+        arguments: 
+          - 0

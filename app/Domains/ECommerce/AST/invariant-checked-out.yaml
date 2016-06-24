@@ -1,5 +1,6 @@
 name: "checked-out"
 id: "432c52d6-5473-4b11-acd4-a316a790ca60"
+query: null
 check: 
  condition: 
   - 

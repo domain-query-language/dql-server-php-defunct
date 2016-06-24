@@ -1,0 +1,44 @@
+id: "facad532-1038-438e-a957-01c0ca06b1bd"
+aggregate_id: "01f99d4f-4cc7-4125-96fd-11f7dcbe8f9a"
+name: "add-product"
+children: 
+  shopper_id: "a6a70ade-d3be-42ba-bf6d-c29d055e862e"
+statements: 
+  - 
+    assert: 
+      invariant_id: "432c52d6-5473-4b11-acd4-a316a790ca60"
+      comparator: "not"
+      arguments: []
+    apply: null
+  - 
+    assert: 
+      invariant_id: "57ea0d1c-da4c-46ac-88b2-92b47797456a"
+      comparator: "not"
+      arguments: []
+    apply: null
+  - 
+    assert: 
+      invariant_id: "50a735d5-bad4-44c9-b840-b5208bbe0d1a"
+      comparator: "not"
+      arguments:
+        - 
+          - "command"
+          - "product"
+          - "id"
+    apply: null
+  - 
+    assert: null
+    apply: 
+      event_id: "1adccad1-e0f6-4363-bb48-81e424e6ba57"
+      arguments: 
+        - 
+          - "command"
+          - "product"
+  - 
+    assert: null
+    apply: 
+      event_id: "1adccad1-e0f6-4363-bb48-81e424e6ba57"
+      arguments: 
+        - 
+          - "command"
+          - "product"

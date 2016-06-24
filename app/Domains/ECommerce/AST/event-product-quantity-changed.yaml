@@ -1,0 +1,7 @@
+name: "product-quantity-changed"
+id: "1adccad1-e0f6-4363-bb48-81e424e6ba57"
+aggregate_id: "01f99d4f-4cc7-4125-96fd-11f7dcbe8f9a"
+children: 
+  product_id: "4d3e4c03-c9f7-47df-abfa-bb0e20c4818e"
+  quantity: "a6a70ade-d3be-42ba-bf6d-c29d055e862e"
+statements: []
