@@ -17,14 +17,14 @@ within aggregate 'carts':
   create invariant 'is-empty' satisfied by (
 		<:
 			from aggregate
-			check products is empty
+			check products is count 0
 		:>
 	);
 
   create invariant 'is-full' satisfied by (
 		<:
 			from aggregate
-			check products is length 20
+			check products is count 20
 		:>
 	);
 

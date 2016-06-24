@@ -9,7 +9,7 @@
       },
       "comparator": "is",
       "value_right": {
-        "validator": "size",
+        "validator": "count",
         "arguments": [0]
       }
     }]

@@ -22,7 +22,7 @@ class Interpreter
     
     private function translate($validator)
     {
-        if ($validator->validator != 'size') {
+        if ($validator->validator != 'count') {
             return $validator;
         }
         $validator->validator = 'length';
